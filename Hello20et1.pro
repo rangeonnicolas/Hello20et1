@@ -8,6 +8,7 @@ OTHER_FILES += \
     xmlDossier.xml \
     Hello20et1.pro.user
 
+
 HEADERS += \
     CursusEditor.h \
     CursusSelector.h \
