@@ -1,4 +1,4 @@
-QT +=widgets xml
+QT +=widgets xml sql
 HEADERS += \
     UV.h \
     Cursus.h \
