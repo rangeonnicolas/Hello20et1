@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dossier>
+	<login>cllefebv</login>
+	<cursus>TC</cursus>
+	<cursus>Branche</cursus>
+	<cursus>GI</cursus>
+	<inscription>
+		<semestreI>P14</semestreI>
+		<resultatI>EC</resultatI>
+		<uvI>NF16</uvI>
+	</inscription>
+	<equivalence>
+		<portee>CS</portee>
+		<nb>6</nb>
+	</equivalence>
+	<solution>
+		<prevision>
+			<semestreP>P15</semestreP>
+			<uvP>NF26</uvP>
+		</prevision>
+	</solution>
+</dossier>
+	
