@@ -1,22 +1,19 @@
 #ifndef CURSUSEDITOR_H
 #define CURSUSEDITOR_H
 
-#include "dossier.h"
-#include "UV.h"
-
 #include <QTreeView>
 #include <QPushButton>
 #include <QLabel>
 #include <QListView>
 #include <QMessageBox>
 #include <QHBoxLayout>
-
+#include "Cursus.h"
 
 
 
 namespace GRAPHICALEDITORS{
 
-    using namespace question3;
+    using namespace CURSUS;
 
     class CURSUSEditor : public QWidget{
         Q_OBJECT
