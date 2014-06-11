@@ -81,15 +81,15 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QSpinBox" name="spinBox"/>
+       <widget class="QSpinBox" name="spinBox_nb"/>
       </item>
       <item row="2" column="1">
-       <widget class="QComboBox" name="comboBox_3"/>
+       <widget class="QComboBox" name="comboBox_portee"/>
       </item>
      </layout>
     </item>
     <item alignment="Qt::AlignHCenter">
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="pushButton_ajouter3">
       <property name="text">
        <string>Ajouter</string>
       </property>
@@ -203,14 +203,14 @@
       <item row="1" column="1">
        <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="0">
-         <widget class="QRadioButton" name="radioButton">
+         <widget class="QRadioButton" name="radioButton_printemps">
           <property name="text">
            <string>Printemps</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QRadioButton" name="radioButton_2">
+         <widget class="QRadioButton" name="radioButton_automne">
           <property name="text">
            <string>Automne</string>
           </property>
@@ -278,7 +278,7 @@
      </layout>
     </item>
     <item alignment="Qt::AlignHCenter">
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="pushButton_ajouterEtape2">
       <property name="text">
        <string>Ajouter</string>
       </property>
