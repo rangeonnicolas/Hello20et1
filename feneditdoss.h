@@ -25,8 +25,9 @@ private:
 
 public slots:
     //  void validerDossier(Dossier *doss, QList<Inscription>& listI, QList<Equivalence>& listE, QList<Cursus>& listC);
-        void ajouterEtape2(QList<Inscription>& listI);
-        void ajouterEtape3(QList<Equivalence>& listE);
+        void enregistrerLogin(QString log);
+        void ajouterEtape3(QList<Inscription>& listI);
+        void ajouterEtape4(QList<Equivalence>& listE);
        // void openCurs();
 private slots:
 

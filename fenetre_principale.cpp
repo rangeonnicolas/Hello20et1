@@ -2,6 +2,7 @@
 #include "feneditdoss.h"
 #include "CursusEditor.h"
 #include "dataBaseB.h"
+#include "choixuv.h"
 
 
 #include<QMenuBar>
@@ -52,7 +53,10 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent):QMainWindow(parent){
 
 
 //fonctions de la classe fenetrePrincipale
-void fenetrePrincipale::chargerUV(){};
+void fenetrePrincipale::chargerUV(){
+    choixUV* fenetre= new choixUV(this);
+    setCentralWidget(fenetre);
+};
 void fenetrePrincipale::chargerDossier(){};
 void fenetrePrincipale::creerDossier(){};
 void fenetrePrincipale::ajouterUV(){};

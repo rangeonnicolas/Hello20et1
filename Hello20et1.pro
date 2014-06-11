@@ -2,7 +2,8 @@ QT +=widgets xml sql
 
 
 FORMS += \
-    feneditdoss.ui
+    feneditdoss.ui \
+    choixuv.ui
 
 OTHER_FILES += \
     xmlDossier.xml \
@@ -16,7 +17,8 @@ HEADERS += \
     dossier.h \
     feneditdoss.h \
     fenetre_principale.h \
-    UV.h
+    UV.h \
+    choixuv.h
 
 SOURCES += \
     CursusEditor.cpp \
@@ -27,4 +29,5 @@ SOURCES += \
     feneditdoss.cpp \
     fenetre_principale.cpp \
     main.cpp \
-    UV.cpp
+    UV.cpp \
+    choixuv.cpp

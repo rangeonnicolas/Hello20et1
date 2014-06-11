@@ -241,13 +241,13 @@ void readRecursiveCursus(Cursus_Etudiant* parent){
 Inscription& XmlStreamReader::readInscription(Inscription& inscri){
 
     while(!(reader.tokenType() == QXmlStreamReader::EndElement && reader.name() == "inscription")){
-//reader.readNextStartElement();
+
         if(reader.tokenType() == QXmlStreamReader::StartElement) {
             if(reader.name()=="semestreI"){
                 reader.readNext();
                 Semestre sem;
                 inscri.setSemestre(readSemestre(sem));
-                //reader.readNextStartElement();
+
 
 
             }
@@ -292,13 +292,17 @@ Semestre& XmlStreamReader::readSemestre(Semestre& sem){
 
 
 UV* XmlStreamReader::readUv(){
-    //next
-    //creer pointeur sur uv
-    //creer uv (UVManager)
-    //recuperer code
-    //aller chercher titre,.. dans base de données
-    //retourner uv
-
+    /*A decommenter quand UVManager sera implémentée
+    QString code;
+    //lire le code dans fichier xml
+    code=reader.text().toString();
+    //le chercher dans UVManager
+    while(uvs[iterator]->code!=code){
+        iterator++;
+    }
+    //retourner le pointeur
+    return uvs[iterator];
+*/
 }
 
 Equivalence& XmlStreamReader::readEquivalence(Equivalence& equi){
