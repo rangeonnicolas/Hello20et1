@@ -24,8 +24,10 @@ private:
     Ui::fenEditDoss *ui;
 
 public slots:
-    void validerDossier();
-
+    //  void validerDossier(Dossier *doss, QList<Inscription>& listI, QList<Equivalence>& listE, QList<Cursus>& listC);
+        void ajouterEtape2(QList<Inscription>& listI);
+        void ajouterEtape3(QList<Equivalence>& listE);
+       // void openCurs();
 private slots:
 
 };

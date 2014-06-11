@@ -38,12 +38,14 @@ namespace question3 {
     enum Note {A, B, C, D, E, FX, F, RES, ABS, EC};
     Note StringToNote (const QString s);
 
+    //Categorie devient CreditType
+        /*
     enum Categorie {CS, TM, TSH, SP};
     Categorie StringToCategorie(const QString& s);
     QString CategorieToString(Categorie c);
     //ostream& operator<<(ostream& f, const Categorie& s);
     //istream& operator>>(istream& f, Categorie& cat);
-
+    */
 
     enum Saison { Automne, Printemps };
     //inline ostream& operator<<(ostream& f, const Saison& s) { if (s==Automne) f<<"A"; else f<<"P"; return f;}
@@ -70,7 +72,7 @@ namespace question3 {
         public:
             Inscription (const UV& u, const Semestre& s, Note res=EC):uv(&u), semestre(s), resultat(res){}
             Inscription (){}
-            Inscription (UV* uv, Note res):uv(uv),resultat(res){};
+            Inscription (UV* uv, Note res):uv(uv),resultat(res){}
             const UV& getUV()const {return *uv;}
             Semestre getSemestre() const{return semestre;}
             Note getResultat() const {return resultat;}
@@ -250,7 +252,7 @@ namespace question3 {
 
     class Dossier: public QWidget{
         QString login_etudiant;
-        QList<Cursus> cursus;
+        Cursus_Etudiant* cursus;
         QList<Inscription> inscr;
         QList<Equivalence> equivalences;
         QMap<unsigned int,QList<Prevision> > mapSolutions;
@@ -263,7 +265,7 @@ namespace question3 {
     public:
         void setFile(QString f){file=f;}
         void setLogin_etudiant(QString& l){login_etudiant=l;}
-        void setCursus(Cursus& cur){cursus.push_back(cur);}
+        void setCursus(Cursus_Etudiant* cur){cursus=cur;}
         void setInscr(Inscription& i){inscr.push_back(i);}
         void setEqui(Equivalence& e){equivalences.push_back(e);}
         void setMapSolutions(unsigned int& i, QList<Prevision>& lP){mapSolutions.insert(i,lP);}
@@ -288,13 +290,13 @@ namespace question3 {
     class XmlStreamReader
     {
     public:
-        XmlStreamReader(QFile* f);
+        XmlStreamReader(Dossier* doss);
 
-        bool readFile(Dossier* doss);
+        bool readFile(const QString& fileName);
 
     private:
-        void readDossier(Dossier *doss);
-        Cursus& readCursus(Cursus &cur);
+        void readDossier();
+        void readRecursiveCursus(Cursus_Etudiant*ce);
         Inscription& readInscription(Inscription &in);
         Semestre& readSemestre(Semestre& sem);
         UV* readUv();
@@ -304,7 +306,7 @@ namespace question3 {
         Prevision& readPrevision(Prevision& prev);
         void skipUnknownElement();
 
-        QFile* file;
+        Dossier* dossierAremplir;
         QXmlStreamReader reader;
     };
 

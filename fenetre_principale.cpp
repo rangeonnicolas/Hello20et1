@@ -1,6 +1,3 @@
-
-
-
 #include "fenetre_principale.h"
 #include "feneditdoss.h"
 #include "CursusEditor.h"
@@ -47,14 +44,14 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent):QMainWindow(parent){
     connect(SupprimerCursus, SIGNAL(triggered()),this,SLOT(supprCur()));
     connect(Ouvrir, SIGNAL(triggered()),this,SLOT(ouvrir()));
     connect(Nouveau, SIGNAL(triggered()),this,SLOT(nouveau()));
-}
+}//fin constructeur de fenetrePrincipale
 
 
 
 
 
 
-
+//fonctions de la classe fenetrePrincipale
 void fenetrePrincipale::chargerUV(){};
 void fenetrePrincipale::chargerDossier(){};
 void fenetrePrincipale::creerDossier(){};
@@ -80,12 +77,14 @@ void fenetrePrincipale::ouvrir(){
     {
         QString path="../Ressources/";
         Dossier& doss=Dossier::getInstance();
-        QMessageBox::warning(this,"chargement fichier xml", "getInstance fait");
+        //QMessageBox::warning(this,"chargement fichier xml", "getInstance fait");
         QString chemin = QFileDialog::getOpenFileName();
         doss.setFile(chemin);
-        QMessageBox::warning(this,"chargement fichier xml", "ouverture du fichier fait"+chemin);
-        doss.load(chemin,&doss);
-        QMessageBox::warning(this,"fonction load()", "fonction load() faite");
+        //QMessageBox::warning(this,"chargement fichier xml", "ouverture du fichier fait"+chemin);
+
+        //QMessageBox::warning(this,"fonction load()", "fonction load() faite");
+        XmlStreamReader reader(&doss);
+        reader.readFile(chemin);
         //ouverture de la fenetre d'edition de dossier
         fenEditDoss* fenetre= new fenEditDoss(&doss,this);
         setCentralWidget(fenetre);
