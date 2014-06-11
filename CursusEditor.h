@@ -18,7 +18,7 @@ namespace GRAPHICALEDITORS{
 
     using namespace question3;
 
-    class CURSUSEditor : public QWidget{
+    class CURSUSEditor : public QDialog{
         Q_OBJECT
         //QList<Cursus*> list;
 

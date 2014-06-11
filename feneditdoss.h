@@ -5,7 +5,9 @@
 #include <QtGui>
 #include <QtXml>
 #include <QWidget>
+
 #include "dossier.h"
+
 using namespace question3;
 
 namespace Ui {

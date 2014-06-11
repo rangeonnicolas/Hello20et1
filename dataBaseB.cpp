@@ -3,12 +3,7 @@
 
 #include "dataBaseB.h"
 
-Cursus* dataBaseB::getSavedAdministrationCursusTree() const{
-
-
-
-
-
+Cursus* dataBaseB::getSavedAdministrationCursusTree(){
 
     QList<UV*> luv ;
     QList<Inscription> nico ;
@@ -125,9 +120,9 @@ Cursus* dataBaseB::getSavedAdministrationCursusTree() const{
     //                  1.2.1.1.1 REGLES DE VALIDATION du "PROFIL INGENIEUR POUR ETUDIANT ENTRE DIRECTEMEENT EN BRANCHE"
     //                      1.2.1.1.1.1 REGLE DE VALIDATION "Avoir obtenu au moins 120 crédits"
 
-                            QList<const CreditType*> l11 ; l11 << ctm.getFromType("CS") << ctm.getFromType("TM") << ctm.getFromType("TSH") << ctm.getFromType("SP");
-                            QList<const Portee*>     l12 ; l12 << pm.getFromPortee("Tous_Cursus_Confondus");
-                            ValidationRule* vr1 = new XCreditsParmi(120,l11,l12,"Au - 120 créd. (TSH,CS,SP,TM) parmi UV de portée \"Tous_Cursus_Confondus\"");
+                            QList<const CreditType*>* l11= new QList<const CreditType*>; *l11 << ctm.getFromType("CS") << ctm.getFromType("TM") << ctm.getFromType("TSH") << ctm.getFromType("SP");
+                            QList<const Portee*>*     l12= new QList<const Portee*>    ; *l12 << pm.getFromPortee("Tous_Cursus_Confondus");
+                            ValidationRule* vr1 = new XCreditsParmi(120,*l11,*l12,"Au - 120 créd. (TSH,CS,SP,TM) parmi UV de portée \"Tous_Cursus_Confondus\"");
                             Profil_Inge_BR->addValidationRule(vr1);
 
     //                      1.2.1.1.1.2 REGLE DE VALIDATION "Avoir au moins 28 crédits TSH"
@@ -216,14 +211,7 @@ Cursus* dataBaseB::getSavedAdministrationCursusTree() const{
                                 ValidationRule* vr8 = new XCreditsParmi(30,l81,l82,"Au - 30 créd. (TM)     parmi UV de portée \"Toutes_Branches_Confondues\"");
                                 Profil_BRANCHEGEN->addValidationRule(vr8);
 
-    //                      1.2.1.2.1.2 SOUS-CURSUS du "CURSUS BRANCHE_GENERAL"
-    //                          1.2.1.2.1.2.1 CURSUS BRANCHE_GI
-
-                                Cursus* BRANCHE_GI = new Cursus("GI");
-                                BRANCHEGEN->addSousCursus( BRANCHE_GI);
-
-    //                              1.2.1.2.1.2.1.1 PROFILS du CURSUS BRANCHE_GI
-    //
+    //                      1.2.1.2.1.2 SOUS-CURSUS du "CURSUS BRANCHE_GENERAL
     //                          1.2.1.2.1.2.2 CURSUS BRANCHE_GP
 
                                 Cursus* BRANCHE_GP = new Cursus("GP");
@@ -243,6 +231,39 @@ Cursus* dataBaseB::getSavedAdministrationCursusTree() const{
 
                                 Cursus* BRANCHE_GM = new Cursus("GM");
                                 BRANCHEGEN->addSousCursus( BRANCHE_GM);
+    //                          1.2.1.2.1.2.1 CURSUS BRANCHE_GI
+
+                                Cursus* BRANCHE_GI = new Cursus("GI");
+                                BRANCHEGEN->addSousCursus( BRANCHE_GI);
+
+    //                              1.2.1.2.1.2.1.1 PROFILS du CURSUS BRANCHE_GI
+
+    //                              1.2.1.2.1.2.1.2 SousCursus du CURSUS BRANCHE_GI
+    //                                  1.2.1.2.1.2.1.2.1 FDD
+                                        Cursus* FIL_FDD = new Cursus("FDD");
+                                        BRANCHE_GI->addSousCursus( FIL_FDD);
+
+    //                                  1.2.1.2.1.2.1.2.2 ADEL
+                                        Cursus* FIL_ADEL = new Cursus("ADEL");
+                                        BRANCHE_GI->addSousCursus( FIL_ADEL);
+
+    //                                  1.2.1.2.1.2.1.2.3 ICSI
+                                        Cursus* FIL_ICSI = new Cursus("ICSI");
+                                        BRANCHE_GI->addSousCursus( FIL_ICSI);
+
+    //                                  1.2.1.2.1.2.1.2.4 MPI
+                                        Cursus* FIL_MPI = new Cursus("MPI");
+                                        BRANCHE_GI->addSousCursus( FIL_MPI);
+
+    //                                  1.2.1.2.1.2.1.2.5 SRI
+                                        Cursus* FIL_SRI = new Cursus("SRI");
+                                        BRANCHE_GI->addSousCursus( FIL_SRI);
+
+    //                                  1.2.1.2.1.2.1.2.6 STRIE
+                                        Cursus* FIL_STRIE = new Cursus("STRIE");
+                                        BRANCHE_GI->addSousCursus( FIL_STRIE);
+
+
     //
 
     //          1.2.2 CURSUS INGENIEUR POUR ETUDIANT ENTRE EN TRONC COMMUN

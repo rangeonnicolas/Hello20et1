@@ -10,7 +10,7 @@
 
 using namespace GRAPHICALEDITORS;
 
-CURSUSEditor::CURSUSEditor(Cursus* root ,QWidget *parent):QWidget(parent),rootCursus(root){
+CURSUSEditor::CURSUSEditor(Cursus* root ,QWidget *parent):QDialog(parent),rootCursus(root){
 
     this->setWindowTitle( QString("ADMINISTRATION : Edition des Cursus") );
 

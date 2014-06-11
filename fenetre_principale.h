@@ -8,13 +8,18 @@
 #include<QString>
 
 #include "dossier.h"
+#include "uvDataBaseConnect.h"
 
 
 
 class fenetrePrincipale :public QMainWindow{
     Q_OBJECT
+    question3::Cursus* rootCursus;//Arborescence de tous les cursus possibles éditable par l'administration (!il ne s'agit pas du cursus d'un étudiant en particulier!)
+    //TODO NICO: renomer le nom du namespace question3
+    QApplication* app;
+    DATABASE::UvDbConn* uvdb;
 public :
-explicit fenetrePrincipale(QWidget * parent = 0);
+explicit fenetrePrincipale(QWidget * parent = 0,QApplication* app = 0);
 signals:
 
 public slots:

@@ -117,7 +117,7 @@ CURSUSAdder::CURSUSAdder(Cursus* current ,Cursus_Etudiant* studentCursus,QWidget
         bool studentHasAlready=false;
         const char* name = list.at(i)->getName();
         for(int j = 0; j<studentCursus->getSOUSCursusList().length() ; j++){
-            std::cout<<"\nname="<<name<<" cursusQueLEtudiantADeja="<<studentCursus->getSOUSCursusList().at(j)->getName();
+            //std::cout<<"\nname="<<name<<" cursusQueLEtudiantADeja="<<studentCursus->getSOUSCursusList().at(j)->getName();
             if(!strcmp(studentCursus->getSOUSCursusList().at(j)->getName(),name)){
                 studentHasAlready=true;
             }
