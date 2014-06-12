@@ -435,7 +435,7 @@ void XCreditsParmi::copyIntoQtRuleView(QStandardItem * item)const{
 float XCreditsParmi::completion_percentage (QList<Inscription> *ti) const{
 
     unsigned int cpt=0;
-    QList<Credits*>* allCredits;
+    QList<Credits*>* allCredits=0;
 
     DATABASE::UnpersistentDataBaseA db1 = DATABASE::UnpersistentDataBaseA();//TODO NICO : supprimer cette ligne a la fin!!!
 

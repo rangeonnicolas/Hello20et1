@@ -11,7 +11,7 @@ namespace DATABASE{
 
     class UnpersistentDataBaseA: public InterfacePersistence{
     public:
-        QList<UV*>* getAllUVs() const{return 0;};
+        QList<UV*>* getAllUVs() const;
         void saveAllUV() const{};
         QList<CreditType*>* getAllCreditTypes() const{return 0;};
         void saveAllCreditTypes() const{};
