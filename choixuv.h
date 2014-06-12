@@ -15,7 +15,7 @@ class choixUV : public QDialog
 public:
     explicit choixUV(QWidget *parent = 0);
     ~choixUV();
-    void activerOK(QString str="");
+    void activerOK();
     void recupererUv();
     void valider();
 

@@ -18,19 +18,29 @@ class fenEditDoss : public QDialog
 {
     Q_OBJECT
 
-public:
-    explicit fenEditDoss(Dossier* doss, QWidget *parent = 0);
-    ~fenEditDoss();
+
 
 private:
     Ui::fenEditDoss *ui;
-
+    //variables locales permettant d'enregistrer les modifications (car si appuie sur annuler il ne faut pas que ce soit enregistré dans dossier)
+    Dossier* d;
+    QString login;
+    QList<Inscription> listInscription;
+    QList<Equivalence> listE;
+    QList<Cursus> listC;
+public:
+    explicit fenEditDoss(Dossier* doss, QWidget *parent = 0);
+    ~fenEditDoss();
+    void setLogin(QString log){login=log;}
+    void setInscription(Inscription i){listInscription.push_back(i);}
+    void setEqui(Equivalence e){listE.push_back(e);}
+    void setCursus();
 public slots:
-       void validerDossier(Dossier *doss, QList<Inscription>& listI, QList<Equivalence>& listE, QList<Cursus>& listC);
+       void validerDossier();
         void setOuverture();
-        void enregistrerLogin(QString log);
-        void ajouterEtape3(QList<Inscription>& listI);
-        void ajouterEtape4(QList<Equivalence>& listE);
+        void enregistrerLogin();
+        void ajouterEtape3();
+        void ajouterEtape4();
        // void openCurs();
 private slots:
 

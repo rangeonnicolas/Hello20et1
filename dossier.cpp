@@ -107,7 +107,6 @@ XmlStreamReader::XmlStreamReader(Dossier* doss){
 
 
 bool XmlStreamReader::readFile(const QString &fileName){
-
     QFile xml_doc(fileName);// On choisit le fichier contenant les informations XML.
     if(!xml_doc.open(QIODevice::ReadOnly | QIODevice::Text))// Si l'on n'arrive pas à ouvrir le fichier XML.
     {
@@ -115,6 +114,7 @@ bool XmlStreamReader::readFile(const QString &fileName){
         return false;
     }
     reader.setDevice(&xml_doc);
+    QMessageBox::information(0,"   ", "entrée readFile");
 
 
 
