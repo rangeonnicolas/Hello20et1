@@ -13,7 +13,7 @@
 #include<QString>
 #include<QMessageBox>
 
-fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWindow(parent),rootCursus(dataBaseB::getSavedAdministrationCursusTree()),app(app),uvdb(new DATABASE::UvDbConn(app)){
+fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWindow(parent),rootCursus(UnpersistentDataBaseB::getSavedAdministrationCursusTree()),app(app),uvdb(new DATABASE::UvDbConn(app)){
     setWindowTitle("Fenetre principale");
     QMenu*mFichier = menuBar()->addMenu("&Fichier");
     QAction*Quitter=mFichier->addAction("&Quitter");
