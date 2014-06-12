@@ -1,5 +1,3 @@
-
-
 #include "feneditdoss.h"
 #include "fenetre_principale.h"
 #include "UV.h"
@@ -16,11 +14,8 @@
 #include <QString>
 
 
-
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-
-    std::cout<<"aa";
 
 //    UVManager& uvm = UVManager::getInstance();
 //    for(UVManager::Iterator it = uvm.getIterator();!it.isDone(); it.next())

@@ -50,9 +50,9 @@ namespace UV_credits_types{
 
 
    class CreditTypeManager{
-       QList<CreditType*> list_CT;
+       QList<CreditType> list_CT;
    public :
-       inline void addType (const QString& t){ list_CT.append(new CreditType(t)) ;}
+       inline void addType (const QString& t){ list_CT.append(t) ;}
        const CreditType* getFromType(const QString& libelle) const;
        //inline void displayAll() { for(int i=0;i<list_CT.length();i++) std::cout<<list_CT.at(i).getLibelle()<<"\n" ;};
        // TODO NICO : displayAll: mettre le flux de sortie en paramètre
@@ -81,9 +81,9 @@ namespace UV_credits_types{
    };
 
    class PorteeManager{
-       QList<Portee*> list_P;
+       QList<Portee> list_P;
    public:
-       inline void addPortee (const QString l){ list_P.append(new Portee(l)) ;}
+       inline void addPortee (const QString l){ list_P.append(Portee(l)) ;}
        const Portee* getFromPortee(const QString &libelle) const;
        //inline void displayAll(){ for(int i=0;i<list_P.length();i++) std::cout<<list_P.at(i).getLibelle()<<"\n" ;}
    };
@@ -125,7 +125,7 @@ namespace UV_credits_types{
            unsigned int nbRemain;
            Iterator(UV** u, unsigned nb):currentUV(u),nbRemain(nb){}
        public:
-           Iterator():currentUV(0),nbRemain(0){}
+           Iterator():nbRemain(0),currentUV(0){}
            bool isDone() const { return nbRemain==0; }
            void next() {
                if (isDone())

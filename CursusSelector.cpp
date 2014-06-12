@@ -72,11 +72,7 @@ void CURSUSSelector::openAdderWindow(){
 void CURSUSSelector::editionFinished(){
     QStandardItem *itemCurs = new QStandardItem_Cursus(studentCursus->getName(),studentCursus);
     cursusSelectorModel->clear();
-    try{
-        studentCursus->copyIntoQtCursusView(itemCurs);
-    }catch(CursusNullPtrException e){
-        QMessageBox::warning(0," ",e.getInfo().toStdString().c_str());
-    }
+    studentCursus->copyIntoQtCursusView(itemCurs);
     cursusSelectorModel->appendRow(itemCurs);
     cursusSelector->expandAll();
 };

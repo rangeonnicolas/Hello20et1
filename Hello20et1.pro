@@ -1,5 +1,5 @@
 TEMPLATE        = app
-TARGET          = UTProfiler
+TARGET          = sqlbrowser
 
 QT +=widgets xml sql
 
