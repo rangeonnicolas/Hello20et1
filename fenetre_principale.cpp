@@ -2,15 +2,19 @@
 #include "feneditdoss.h"
 #include "CursusEditor.h"
 #include "dataBaseB.h"
+<<<<<<< HEAD
 #include "choixuv.h"
 
+=======
+#include "uvDataBaseConnect.h"
+>>>>>>> upstream/master
 
 #include<QMenuBar>
 #include<QFileDialog>
 #include<QString>
 #include<QMessageBox>
 
-fenetrePrincipale::fenetrePrincipale(QWidget*parent):QMainWindow(parent){
+fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWindow(parent),rootCursus(dataBaseB::getSavedAdministrationCursusTree()),app(app),uvdb(new DATABASE::UvDbConn(app)){
     setWindowTitle("Fenetre principale");
     QMenu*mFichier = menuBar()->addMenu("&Fichier");
     QAction*Quitter=mFichier->addAction("&Quitter");
@@ -51,7 +55,9 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent):QMainWindow(parent){
 
 
 
+//fonctions de la classe fonctionPrincipale
 
+<<<<<<< HEAD
 //fonctions de la classe fenetrePrincipale
 void fenetrePrincipale::chargerUV(){
     choixUV* fenetre= new choixUV(this);
@@ -62,14 +68,26 @@ void fenetrePrincipale::creerDossier(){};
 void fenetrePrincipale::ajouterUV(){};
 void fenetrePrincipale::supprimerUV(){};
 void fenetrePrincipale::visuCur(){};
+=======
+void fenetrePrincipale::chargerUV(){
+    uvdb->connect();
+    uvdb->show();
+}
+void fenetrePrincipale::chargerDossier(){}
+void fenetrePrincipale::creerDossier(){}
+void fenetrePrincipale::ajouterUV(){}
+void fenetrePrincipale::supprimerUV(){}
+void fenetrePrincipale::visuCur(){}
+>>>>>>> upstream/master
 void fenetrePrincipale::editCur(){
     using namespace GRAPHICALEDITORS;
-    dataBaseB db;
-    CURSUSEditor fenetre(db.getSavedAdministrationCursusTree(),0);
-    fenetre.show();
-};
-void fenetrePrincipale::ajoutCur(){};
-void fenetrePrincipale::supprCur(){};
+
+    CURSUSEditor* fenetre=new CURSUSEditor(rootCursus, this);
+    setCentralWidget(fenetre);
+
+}
+void fenetrePrincipale::ajoutCur(){}
+void fenetrePrincipale::supprCur(){}
 
 using namespace question3;
 //using namespace Ui;
@@ -97,9 +115,10 @@ void fenetrePrincipale::ouvrir(){
       }
 
 
-};
+}
 void fenetrePrincipale::nouveau(){
     Dossier& doss=Dossier::getInstance();
     fenEditDoss* fenetre= new fenEditDoss(&doss,this);
     setCentralWidget(fenetre);
-};
+
+}

@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dossier>
 	<login>cllefebv</login>
-	<cursus>TC</cursus>
-	<cursus>Branche</cursus>
-	<cursus>GI</cursus>
+	<cursus value="TC">
+		<cursus value="Branche">
+			<cursus value="GI"></cursus>
+		</cursus>
+	</cursus>
+	
 	<inscription>
-		<semestreI>P14</semestreI>
-		<resultatI>EC</resultatI>
+		<semestreI>
+			<saison>P</saison>
+			<annee>14</annee>
+		</semestreI>
+		<resultat>EC</resultat>
 		<uvI>NF16</uvI>
 	</inscription>
 	<equivalence>
 		<portee>CS</portee>
-		<nb>6</nb>
+		<credits>
+			<nb>6</nb>
+			<typeCredit>CS</typeCredit>
 	</equivalence>
 	<solution>
 		<prevision>
-			<semestreP>P15</semestreP>
+			<semestreP>
+				<saison>P</saison>
+				<annee>15</annee>
+			</semestreP>
 			<uvP>NF26</uvP>
 		</prevision>
 	</solution>

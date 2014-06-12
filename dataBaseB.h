@@ -7,7 +7,7 @@ using namespace question3;
 
 class dataBaseB{
 public:
-    Cursus* getSavedAdministrationCursusTree() const;
+    static Cursus* getSavedAdministrationCursusTree();
 };
 
 #endif // DATABASEB_H

@@ -1,12 +1,9 @@
 #ifndef DOSSIER_H
 #define DOSSIER_H
-#include <QString>
-
 
 #include "UV.h"
 
-
-
+#include <QString>
 #include <QDialog>
 #include <QtGui>
 #include <QtXml>
