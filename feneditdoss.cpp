@@ -20,6 +20,18 @@ fenEditDoss::fenEditDoss(Dossier *doss, QWidget *parent) : QDialog(parent), ui(n
         QList<Equivalence> listE;
         QList<Cursus> listC;
 
+        //remplir les widgets
+        //remplissage de la combobox
+        UVManager& m=UVManager::getInstance();
+        UVManager::Iterator ite=m.getIterator();
+        while(!(ite.isDone())){
+            ui->comboBox_code->addItem(ite.current().getCode());
+            ite.next();
+        }
+
+        //signal pour que qd utilisateur selectionne une uv le choix entre automne et printemps corresponde avec ce qui est possible
+        connect(ui->comboBox_code,SIGNAL(currentIndexChanged(QString)),this,SLOT(setOuverture()));
+
         // au clic de valider de l'etape1
         connect(ui->pushButton_Valider,SIGNAL(clicked()),this,SLOT(enregistrerLogin(login)));
         // auc clic de choisir de l'etape 2
@@ -31,24 +43,40 @@ fenEditDoss::fenEditDoss(Dossier *doss, QWidget *parent) : QDialog(parent), ui(n
         connect(ui->pushButton_ajouter4,SIGNAL(clicked()),this,SLOT(ajouterEtape4(listE)));
 
         //au clic qur le bouton ok, les listes locales et l'arbre de cursus sont enregistrées dans le dossier
-        // connect(ui->boutonOK, SIGNAL(clicked()),this,SLOT(validerDossier(doss,listInscription, listE, listC)));
+        connect(ui->boutonOK, SIGNAL(clicked()),this,SLOT(validerDossier(doss,listInscription, listE, listC)));
 
     }
 
-/*
+
+void fenEditDoss::setOuverture(){
+    ui->radioButton_automne->setCheckable(false);
+    ui->radioButton_printemps->setCheckable(false);
+    QString code = ui->comboBox_code->currentText();
+    UV& uv=UVManager::getInstance().getUV(code);
+    if(uv.ouvertureAutomne()){
+        ui->radioButton_automne->setCheckable(true);
+    }
+    if(uv.ouverturePrintemps()){
+        ui->radioButton_printemps->setCheckable(true);
+    }
+}
+
+
 void fenEditDoss::validerDossier(Dossier* doss, QList<Inscription>& listI, QList<Equivalence>& listE, QList<Cursus>& listC){
     //au clic qur le bouton ok, les listes locales et l'arbre de cursus sont enregistrées dans le dossier
     doss->setInscr(listI);
     doss->setEqui(listE);
-    doss->setCursus(listC);
+    //doss->setCursus(listC);
 }
-*/
+
 /*void fenEditDoss::openCurs(){
     GRAPHICALEDITORS::CURSUSEditor* fenetre= new GRAPHICALEDITORS::CURSUSEditor(this);
     setCentralWidget(fenetre);
 }*/
 
 void fenEditDoss::ajouterEtape3(QList<Inscription> &listI){
+    QMessageBox::information(this,"ui","coucou");
+
     //au clic de ajouter de l'étape 2 on enregistre l'inscription dans une liste d'inscription créée localement et on affiche le code dans la view à droite
     Inscription i;
     Semestre s;
@@ -62,17 +90,14 @@ void fenEditDoss::ajouterEtape3(QList<Inscription> &listI){
 
     i.setResultat(StringToNote(ui->comboBoxRes->currentText()));
 
-    //i.setUv(); uv est un pointeur
-    //retrouver cette uv dans uvs de UVManager
-    /*while(uvs[iterator]->code!=ui->comboBox_code->currentText())
-        iterator++;
-    i.setUv(uvs[iterator]);
-*/
+    i.setUv(&(UVManager::getInstance().getUV(ui->comboBox_code->currentText())));
+
     listI.push_back(i);
 
 
     //affiche
-   // ui->listUvsAjoutes->addItem(uvs[iterator]->code);
+    QMessageBox::information(this,"ui","code="+ui->comboBox_code->currentText());
+    ui->listUvsAjoutes->addItem(ui->comboBox_code->currentText());
 }
 
 void fenEditDoss::ajouterEtape4(QList<Equivalence>& listE){

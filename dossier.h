@@ -12,28 +12,16 @@
 
 
 
-class UTProfilerException{
-public:
-    UTProfilerException(const QString& message, const QString &f="na", unsigned int l=0):
-        info(message),file(f),line(l){}
-    QString getInfo() const { return info; }
-#ifndef NDEBUG
-    // retourne le fichier dans lequel cettte exception a été levée.
-    QString getFile() const { return file; }
-    // retourne la ligne du fichier à laquelle cette exception a été levée.
-    unsigned int getLine() const { return line; }
-#endif
-private:
-    QString info;
-    QString file;
-    unsigned int line;
 
-};
 using namespace UV_credits_types;
 namespace question3 {
 
     enum Note {A, B, C, D, E, FX, F, RES, ABS, EC};
     Note StringToNote (const QString s);
+
+    enum Saison { Automne, Printemps };
+    //inline ostream& operator<<(ostream& f, const Saison& s) { if (s==Automne) f<<"A"; else f<<"P"; return f;}
+    Saison StringToSaison(const QString s);
 
     //Categorie devient CreditType
         /*
@@ -44,9 +32,6 @@ namespace question3 {
     //istream& operator>>(istream& f, Categorie& cat);
     */
 
-    enum Saison { Automne, Printemps };
-    //inline ostream& operator<<(ostream& f, const Saison& s) { if (s==Automne) f<<"A"; else f<<"P"; return f;}
-    Saison StringToSaison(const QString s);
 
     class Semestre {
         Saison saison;
@@ -263,6 +248,8 @@ namespace question3 {
         void setFile(QString f){file=f;}
         void setLogin_etudiant(QString& l){login_etudiant=l;}
         void setCursus(Cursus_Etudiant* cur){cursus=cur;}
+        void setInscr(QList<Inscription>& i){inscr.append(i);}
+        void setEqui(QList<Equivalence>& e){equivalences.append(e);}
         void setInscr(Inscription& i){inscr.push_back(i);}
         void setEqui(Equivalence& e){equivalences.push_back(e);}
         void setMapSolutions(unsigned int& i, QList<Prevision>& lP){mapSolutions.insert(i,lP);}

@@ -29,31 +29,31 @@ Cursus* dataBaseB::getSavedAdministrationCursusTree(){
     ctm.addType("TSH");
     ctm.addType("SP");
 
-    UV* uv1  = new UV("TX"  ,"UV_sans_description");
-    UV* uv2  = new UV("LO21","UV_sans_description");
-    UV* uv3  = new UV("GE37","UV_sans_description");
-    UV* uv4  = new UV("NF17","UV_sans_description");
-    UV* uv5  = new UV("LO22","UV_sans_description");
-    UV* uv6  = new UV("SR03","UV_sans_description");
-    UV* uv7  = new UV("IA01","UV_sans_description");
-    UV* uv8  = new UV("NF16","UV_sans_description");
-    UV* uv9  = new UV("SY02","UV_sans_description");
-    UV* uv10 = new UV("IA02","UV_sans_description");
-    UV* uv11 = new UV("RO03","UV_sans_description");
-    UV* uv12 = new UV("RO04","UV_sans_description");
-    UV* uv13 = new UV("BI01","UV_sans_description");
-    UV* uv14 = new UV("TN09","UV_sans_description");
-    UV* uv15 = new UV("TN10","UV_sans_description");
-    UV* uv16 = new UV("LA13","UV_sans_description");
-    UV* uv17 = new UV("SC24","UV_sans_description");
-    UV* uv18 = new UV("LG51","UV_sans_description");
-    UV* uv19 = new UV("SC01","UV_sans_description");
-    UV* uv20 = new UV("SO04","UV_sans_description");
-    UV* uv21 = new UV("IC07","UV_sans_description");
-    UV* uv22 = new UV("EI03","UV_sans_description");
-    UV* uv23 = new UV("LA02","UV_sans_description");
-    UV* uv24 = new UV("NF26","UV_sans_description");
-    UV* uv25 = new UV("SY09","UV_sans_description");
+    UV* uv1  = new UV("TX"  ,"UV_sans_description",true,true);
+    UV* uv2  = new UV("LO21","UV_sans_description",false,true);
+    UV* uv3  = new UV("GE37","UV_sans_description",true,true);
+    UV* uv4  = new UV("NF17","UV_sans_description",false,true);
+    UV* uv5  = new UV("LO22","UV_sans_description",false,true);
+    UV* uv6  = new UV("SR03","UV_sans_description",false,true);
+    UV* uv7  = new UV("IA01","UV_sans_description",true,false);
+    UV* uv8  = new UV("NF16","UV_sans_description",true,true);
+    UV* uv9  = new UV("SY02","UV_sans_description",true,true);
+    UV* uv10 = new UV("IA02","UV_sans_description",false,true);
+    UV* uv11 = new UV("RO03","UV_sans_description",false,true);
+    UV* uv12 = new UV("RO04","UV_sans_description",false,true);
+    UV* uv13 = new UV("BI01","UV_sans_description",false,true);
+    UV* uv14 = new UV("TN09","UV_sans_description",true,true);
+    UV* uv15 = new UV("TN10","UV_sans_description",true,true);
+    UV* uv16 = new UV("LA13","UV_sans_description",true,true);
+    UV* uv17 = new UV("SC24","UV_sans_description",true,true);
+    UV* uv18 = new UV("LG51","UV_sans_description",true,true);
+    UV* uv19 = new UV("SC01","UV_sans_description",false,true);
+    UV* uv20 = new UV("SO04","UV_sans_description",true,true);
+    UV* uv21 = new UV("IC07","UV_sans_description",true,true);
+    UV* uv22 = new UV("EI03","UV_sans_description",true,true);
+    UV* uv23 = new UV("LA02","UV_sans_description",true,true);
+    UV* uv24 = new UV("NF26","UV_sans_description",false,true);
+    UV* uv25 = new UV("SY09","UV_sans_description",false,true);
 
 
     nico <<

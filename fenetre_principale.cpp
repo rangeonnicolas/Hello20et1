@@ -2,12 +2,11 @@
 #include "feneditdoss.h"
 #include "CursusEditor.h"
 #include "dataBaseB.h"
-<<<<<<< HEAD
 #include "choixuv.h"
 
-=======
+
 #include "uvDataBaseConnect.h"
->>>>>>> upstream/master
+
 
 #include<QMenuBar>
 #include<QFileDialog>
@@ -37,9 +36,12 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWind
     QAction*Nouveau=mDossier->addAction("&Nouveau");
 
 
+
+
+
     // connections
     connect(Quitter, SIGNAL(triggered()), qApp, SLOT(quit()));
-    connect(ConsulterUV, SIGNAL(triggered()),this,SLOT(chargerUV()));
+    connect(ConsulterUV, SIGNAL(triggered()),this,SLOT(chargerCatalogue()));
 
     connect(AjouterUV, SIGNAL(triggered()),this,SLOT(ajouterUV()));
     connect(SupprimerUV, SIGNAL(triggered()),this,SLOT(supprimerUV()));
@@ -49,6 +51,12 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWind
     connect(SupprimerCursus, SIGNAL(triggered()),this,SLOT(supprCur()));
     connect(Ouvrir, SIGNAL(triggered()),this,SLOT(ouvrir()));
     connect(Nouveau, SIGNAL(triggered()),this,SLOT(nouveau()));
+
+
+
+
+
+
 }//fin constructeur de fenetrePrincipale
 
 
@@ -57,9 +65,9 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWind
 
 //fonctions de la classe fonctionPrincipale
 
-<<<<<<< HEAD
+
 //fonctions de la classe fenetrePrincipale
-void fenetrePrincipale::chargerUV(){
+void fenetrePrincipale::chargerCatalogue(){
     choixUV* fenetre= new choixUV(this);
     setCentralWidget(fenetre);
 };
@@ -68,17 +76,12 @@ void fenetrePrincipale::creerDossier(){};
 void fenetrePrincipale::ajouterUV(){};
 void fenetrePrincipale::supprimerUV(){};
 void fenetrePrincipale::visuCur(){};
-=======
+
 void fenetrePrincipale::chargerUV(){
     uvdb->connect();
     uvdb->show();
 }
-void fenetrePrincipale::chargerDossier(){}
-void fenetrePrincipale::creerDossier(){}
-void fenetrePrincipale::ajouterUV(){}
-void fenetrePrincipale::supprimerUV(){}
-void fenetrePrincipale::visuCur(){}
->>>>>>> upstream/master
+
 void fenetrePrincipale::editCur(){
     using namespace GRAPHICALEDITORS;
 

@@ -24,6 +24,7 @@ signals:
 
 public slots:
     void chargerUV();
+    void chargerCatalogue();
     void chargerDossier();
     void creerDossier();
     void ajouterUV();
