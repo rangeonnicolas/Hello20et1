@@ -8,7 +8,12 @@ FORMS += \
     feneditdoss.ui \
     choixuv.ui \
     browserwidget.ui \
-    qsqlconnectiondialog.ui
+    qsqlconnectiondialog.ui \
+    form_ajout_uv.ui \
+    form_edit_uv.ui \
+    form_suppr_uv.ui \
+    form_choix_uv.ui \
+    form_catalogue.ui
 
 OTHER_FILES += \
     xmlDossier.xml \

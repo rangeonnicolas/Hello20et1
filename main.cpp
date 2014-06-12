@@ -17,6 +17,10 @@
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
+//    UVManager& uvm = UVManager::getInstance();
+//    for(UVManager::Iterator it = uvm.getIterator();!it.isDone(); it.next())
+//        std::cout<<it.current().getCode().toStdString();
+
     fenetrePrincipale fenetre(0,&app);
     fenetre.show();
     return app.exec();
