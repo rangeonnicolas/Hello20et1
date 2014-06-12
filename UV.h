@@ -143,7 +143,8 @@ namespace UV_credits_types{
            return Iterator(uvs,nbUV);
        }
 
-       class iterator {
+       //il  y a deux classes iterator...!!!
+/*       class iterator {
            UV** current;
            iterator(UV** u):current(u){}
            friend class UVManager;
@@ -154,7 +155,7 @@ namespace UV_credits_types{
            iterator& operator++(){ ++current; return *this; }
        };
        iterator begin() { return iterator(uvs); }
-       iterator end() { return iterator(uvs+nbUV); }
+       iterator end() { return iterator(uvs+nbUV); }*/
 
        /*class FilterIterator {
            friend class UVManager;
