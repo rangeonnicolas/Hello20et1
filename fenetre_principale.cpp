@@ -34,6 +34,9 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWind
     QAction*Nouveau=mDossier->addAction("&Nouveau");
 
 
+
+//QMessageBox::warning(0,"oo",rootCursus->getSOUSCursusList().first()->getSOUSCursusList().first()->getProfileList().first()->toString().c_str());
+
     // connections
     connect(Quitter, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(ConsulterUV, SIGNAL(triggered()),this,SLOT(chargerUV()));

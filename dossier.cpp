@@ -425,11 +425,18 @@ float XUVParmi::completion_percentage (QList<Inscription> *ti) const{
 }
 
 void XUVParmi::copyIntoQtRuleView(QStandardItem * item)const{
+    testNullPtr(false,false);
     item->setText(string(this->toString()+" ("+this->getName()+")").c_str());
 };
 
 void XCreditsParmi::copyIntoQtRuleView(QStandardItem * item)const{
+    //QMessageBox::warning(0," ","hehe");
+    testNullPtr(false,false);
+    //QMessageBox::warning(0," ","hehe2");
+    //QMessageBox::warning(0," ",this->getName());
+    //QMessageBox::warning(0," ",this->toString().c_str());
     item->setText(string(this->toString()+" ("+this->getName()+")").c_str());
+    //QMessageBox::warning(0," ","hehe3");
 };
 
 float XCreditsParmi::completion_percentage (QList<Inscription> *ti) const{
@@ -476,6 +483,7 @@ float FonctionOU::completion_percentage (QList<Inscription> *ti) const{
 }
 
 void FonctionOU::copyIntoQtRuleView(QStandardItem * item)const{
+    testNullPtr(false,false);
     ValidationRule* vr;
     QList<QStandardItem*> subItem;
     item->setText((string("Fonction OU (")+string(this->getName())+string(")")).c_str());
@@ -515,6 +523,7 @@ float FonctionET::completion_percentage (QList<Inscription> *ti) const{
 }
 
 void FonctionET::copyIntoQtRuleView(QStandardItem * item)const{
+    testNullPtr(false,false);
     ValidationRule* vr;
     QList<QStandardItem*> subItem;
     item->setText((string("Fonction ET (")+string(this->getName())+string(")")).c_str());
@@ -562,18 +571,24 @@ string XCreditsParmi::toString () const {
 //    nbSTR << nb;
 
     if(typeList.length()>0){
+ //QMessageBox::warning(0," ",this->getName());
         int i;
         str = string("Obtenir ") + string(" créd. (") ;
-        for(i=0; i<(typeList.length()-1) ; i++)
-            str = str + typeList.at(i)->getLibelle().toStdString() + " ou " ;
+ //QMessageBox::warning(0," ","p21");
+        for(i=0; i<(typeList.length()-1) ; i++){
+            //QMessageBox::warning(0," ","p22boucle");
+            //QMessageBox::warning(0," ",typeList.at(i)->getLibelle());
+            str = str + typeList.at(i)->getLibelle().toStdString() + " ou " ;    
+        }
+ //QMessageBox::warning(0," ","p23");
         i = typeList.length()-1;
+ //QMessageBox::warning(0," ","p24");
         str = str + typeList.at(i)->getLibelle().toStdString() + ") parmi UV ayant une portée dans: (" ;
-
+ //QMessageBox::warning(0," ","p3");
         for( i=0 ; i<(porteeList.length()-1) ; i++)
                 str = str + porteeList.at(i)->getLibelle().toStdString() + ", " ;
             i = porteeList.length()-1;
             str = str + porteeList.at(i)->getLibelle().toStdString() + ")." ;
-
     }else{
         str = "!!Règle incomplète";
     }
@@ -663,14 +678,23 @@ string Profil::toString() const{
 }
 
 void Profil::copyIntoQtRuleView(QStandardItemModel *modeleRegl)const{
+    testNullPtr(false,false);
     ValidationRule* vr;
     QList<QStandardItem*> subItem;
     if(VRlist.length() >0){
+        //QMessageBox::warning(0," ","\non passe ici");
         for(int j=0; j<VRlist.length() ; j++){
+           // QMessageBox::warning(0," ","\net ici aussi1");
             vr = VRlist.at(j);
-            //subItem << new QStandardItem_Regle(vr->getName(),VRlist.at(j));
+            //QMessageBox::warning(0," ",vr->getName());
+            //QMessageBox::warning(0," ","\net ici aussi2");
+            //subItem << new question3::QStandardItem_Regle(vr->getName(),VRlist.at(j));
+            //QMessageBox::warning(0," ","\net ici aussi3");
             subItem << new QStandardItem();
+            //QMessageBox::warning(0," ","\net ici aussi4");
+            //if(vr==0)QMessageBox::warning(0," ","\nTrouvé!!");
             vr->copyIntoQtRuleView(subItem.at(j));
+            //QMessageBox::warning(0," ","\net ici aussi5");
             modeleRegl->appendRow(subItem.at(j));
         }
     }
@@ -739,8 +763,9 @@ string Cursus::toString() const{
 
 void Cursus::copyIntoQtProfilView(QStandardItemModel *modeleProfil,int begin)const{
     //std::cout<<"\n\n--AA-- nb de sous cursus :"<<SOUS_cursus.length();
-
+    testNullPtr(false,false);
     for(int i=begin-1; i<PROlist.length() ; i++){
+        //QMessageBox::warning(0," ","prolist.length passage\n");
         modeleProfil->appendRow(new QStandardItem_Profil(PROlist.at(i)->getName(),PROlist.at(i)));
     }
 
@@ -748,6 +773,7 @@ void Cursus::copyIntoQtProfilView(QStandardItemModel *modeleProfil,int begin)con
 
 
 void Cursus::copyIntoQtCursusView(QStandardItem *itemCursus)const{
+    testNullPtr(false,false);
     if(SOUS_cursus.length() >0){
         for(int j=0; j<SOUS_cursus.length() ; j++){
             Cursus* currentCurs = SOUS_cursus.at(j);
@@ -780,8 +806,8 @@ const QList<Profil*> Cursus::getProfileList() const{
         return (const QList<Profil*>) PROlist;
     }else{
         QList<Profil*> ret;
-        QList<const CreditType*> vide1;
-        QList<const Portee*> vide2;
+        QList<const CreditType*> vide1;//= new QList<const CreditType*>;
+        QList<const Portee*> vide2;// = new QList<const Portee*>;
         ValidationRule* foo = new XCreditsParmi(1,vide1,vide2,"(pas de règle de validation dans ce profil)");
         Profil* foo2 = new Profil("(pas de profil dans ce cursus)");
         foo2->addValidationRule(foo);
@@ -806,6 +832,155 @@ Cursus* Cursus::cloneRootElement() const{
     ret->PROlist = this->PROlist;
     return ret;
 }
+
+
+
+
+
+
+void XUVParmi::testNullPtr(bool recursiv,bool debug=false)const{
+    QString type=QString("XUVParmi");
+    QString att1=QString("UVlist");
+    if(debug)QMessageBox::warning(0," ",(string("\n")+this->getName()+string("\n\ntype=")+type.toStdString()+string(" att=")+att1.toStdString()+string(" len=")).c_str());  
+
+    for(int i=0;i<UVlist.length();i++){     
+        if(UVlist.at(i)==0)
+            throw CursusNullPtrException(QString("!!Dans l'objet ")+QString(this->getName())+QString(" de type ")+type+QString(", il y a un pointeur nul dans l'attribut")+att1);
+    }
+    if(recursiv){};
+}
+
+void XCreditsParmi::testNullPtr(bool recursiv,bool debug=false)const{
+    QString type=QString("XCreditsParmi");
+    QString att1=QString("typelist");
+    QString att2=QString("porteelist");
+    if(debug)QMessageBox::warning(0," ",(string("\n")+this->getName()+string("\n\ntype=")+type.toStdString()+string(" att=")+att1.toStdString()+string(" len=")+string(" att2=")+att2.toStdString()+string(" len=")).c_str());    
+
+    for(int i=0;i<typeList.length();i++){
+        if(typeList.at(i)==0)
+            throw CursusNullPtrException(QString("!!Dans l'objet ")+QString(this->getName())+QString(" de type ")+type+QString(", il y a un pointeur nul dans l'attribut")+att1);
+    }
+    for(int j=0;j<porteeList.length();j++){
+        if(porteeList.at(j)==0)
+            throw CursusNullPtrException(QString("!!Dans l'objet ")+QString(this->getName())+QString(" de type ")+type+QString(", il y a un pointeur nul dans l'attribut")+att2);
+    }
+    if(recursiv){};
+}
+
+void FonctionOU::testNullPtr(bool recursiv,bool debug=false)const{
+    QString type=QString("FonctionOU");
+    QString att1=QString("VRlist");
+    
+    if(debug)QMessageBox::warning(0," ",(string("\n")+this->getName()+string("\n\ntype=")+type.toStdString()+string(" att=")+att1.toStdString()+string(" len=")).c_str());    
+    for(int i=0;i<VRlist.length();i++){
+        if(VRlist.at(i)==0)
+            throw CursusNullPtrException(QString("!!Dans l'objet ")+QString(this->getName())+QString(" de type ")+type+QString(", il y a un pointeur nul dans l'attribut")+att1);
+        if(recursiv)
+            VRlist.at(i)->testNullPtr(recursiv,debug);
+    }
+ }
+
+ void FonctionET::testNullPtr(bool recursiv,bool debug=false)const{
+    QString type=QString("FonctionET");
+    QString att1=QString("VRlist");
+    
+    if(debug)QMessageBox::warning(0," ",(string("\n")+this->getName()+string("\n\ntype=")+type.toStdString()+string(" att=")+att1.toStdString()+string(" len=")).c_str());    
+    for(int i=0;i<VRlist.length();i++){
+        if(VRlist.at(i)==0)
+            throw CursusNullPtrException(QString("!!Dans l'objet ")+QString(this->getName())+QString(" de type ")+type+QString(", il y a un pointeur nul dans l'attribut")+att1);
+        if(recursiv)
+            VRlist.at(i)->testNullPtr(recursiv,debug);
+    }
+ }
+
+  void Profil::testNullPtr(bool recursiv,bool debug=false)const{
+    QString type=QString("Profil");
+    QString att1=QString("VRlist");
+    
+    if(debug)QMessageBox::warning(0," ",(string("\n")+this->getName()+string("\n\ntype=")+type.toStdString()+string(" att=")+att1.toStdString()+string(" len=")).c_str());    
+    for(int i=0;i<VRlist.length();i++){
+        if(VRlist.at(i)==0)
+            throw CursusNullPtrException(QString("!!Dans l'objet ")+QString(this->getName())+QString(" de type ")+type+QString(", il y a un pointeur nul dans l'attribut")+att1);
+        if(recursiv)
+            VRlist.at(i)->testNullPtr(recursiv,debug);
+    }
+ }
+
+ void Cursus::testNullPtr(bool recursiv,bool debug=false)const{
+    QString type=QString("Cursus");
+    QString att1=QString("PROlist");
+    QString att2=QString("SOUS_cursus");
+    if(debug)QMessageBox::warning(0," ",(string("\n")+this->getName()+string("\n\ntype=")+type.toStdString()+string(" att=")+att1.toStdString()+string(" len=")+string(" att2=")+att2.toStdString()+string(" len=")).c_str());    
+
+    for(int i=0;i<PROlist.length();i++){
+        if(PROlist.at(i)==0)
+            throw CursusNullPtrException(QString("!!Dans l'objet ")+QString(this->getName())+QString(" de type ")+type+QString(", il y a un pointeur nul dans l'attribut")+att1);
+        if(recursiv)
+            PROlist.at(i)->testNullPtr(recursiv,debug);
+    }
+    for(int j=0;j<SOUS_cursus.length();j++){
+        if(SOUS_cursus.at(j)==0)
+            throw CursusNullPtrException(QString("!!Dans l'objet ")+QString(this->getName())+QString(" de type ")+type+QString(", il y a un pointeur nul dans l'attribut")+att2);
+        if(recursiv)
+            SOUS_cursus.at(j)->testNullPtr(recursiv,debug);
+    }
+}
+
+ void Cursus_Etudiant::testNullPtr(bool recursiv,bool debug=false)const{
+    QString type=QString("Cursus_Etudiant");
+    QString att1=QString("PROlist");
+    QString att2=QString("SOUS_cursus");
+    if(debug)QMessageBox::warning(0," ",(string("\n")+this->getName()+string("\n\ntype=")+type.toStdString()+string(" att=")+att1.toStdString()+string(" len=")+string(" att2=")+att2.toStdString()+string(" len=")).c_str());    
+
+    for(int i=0;i<PROlist.length();i++){
+        if(PROlist.at(i)==0)
+            throw CursusNullPtrException(QString("!!Dans l'objet ")+QString(this->getName())+QString(" de type ")+type+QString(", il y a un pointeur nul dans l'attribut")+att1);
+        if(recursiv)
+            PROlist.at(i)->testNullPtr(recursiv,debug);
+    }
+    for(int j=0;j<SOUS_cursus.length();j++){
+        if(SOUS_cursus.at(j)==0)
+            throw CursusNullPtrException(QString("!!Dans l'objet ")+QString(this->getName())+QString(" de type ")+type+QString(", il y a un pointeur nul dans l'attribut")+att2);
+        if(recursiv)
+            SOUS_cursus.at(j)->testNullPtr(recursiv,debug);
+    }
+}
+
+
+
+
+
+/*
+void XUVParmi::testNullPtr(bool recursiv)const{
+}
+
+void XCreditsParmi::testNullPtr(bool recursiv)const{
+}
+
+void FonctionOU::testNullPtr(bool recursiv)const{
+ }
+
+ void FonctionET::testNullPtr(bool recursiv)const{
+ }
+
+  void Profil::testNullPtr(bool recursiv)const{
+ }
+
+ void Cursus::testNullPtr(bool recursiv)const{
+}
+
+ void Cursus_Etudiant::testNullPtr(bool recursiv)const{
+}
+*/
+
+
+
+
+
+
+
+
+
 
 
 /*void Dossier::ajouter_inscription(Saison sais,unsigned int annee, Note res, QString code){

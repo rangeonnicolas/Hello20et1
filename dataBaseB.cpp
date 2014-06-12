@@ -119,16 +119,16 @@ Cursus* UnpersistentDataBaseB::getSavedAdministrationCursusTree(){
     //                  1.2.1.1.1 REGLES DE VALIDATION du "PROFIL INGENIEUR POUR ETUDIANT ENTRE DIRECTEMEENT EN BRANCHE"
     //                      1.2.1.1.1.1 REGLE DE VALIDATION "Avoir obtenu au moins 120 crédits"
 
-                            QList<const CreditType*>* l11= new QList<const CreditType*>; *l11 << ctm.getFromType("CS") << ctm.getFromType("TM") << ctm.getFromType("TSH") << ctm.getFromType("SP");
-                            QList<const Portee*>*     l12= new QList<const Portee*>    ; *l12 << pm.getFromPortee("Tous_Cursus_Confondus");
-                            ValidationRule* vr1 = new XCreditsParmi(120,*l11,*l12,"Au - 120 créd. (TSH,CS,SP,TM) parmi UV de portée \"Tous_Cursus_Confondus\"");
+                            QList<const CreditType*> l11; l11 << ctm.getFromType("CS") << ctm.getFromType("TM") << ctm.getFromType("TSH") << ctm.getFromType("SP");
+                            QList<const Portee*>     l12; l12 << pm.getFromPortee("Tous_Cursus_Confondus");
+                            ValidationRule* vr1 = new XCreditsParmi(120,l11,l12," ");
                             Profil_Inge_BR->addValidationRule(vr1);
 
     //                      1.2.1.1.1.2 REGLE DE VALIDATION "Avoir au moins 28 crédits TSH"
 
                             QList<const CreditType*> l21 ; l21 << ctm.getFromType("TSH") ;
                             QList<const Portee*>     l22 ; l22 << pm.getFromPortee("Tous_Cursus_Confondus");
-                            ValidationRule* vr2 = new XCreditsParmi(120,l21,l22,"Au - 28   créd. (TSH)                  parmi UV de portée \"Tous_Cursus_Confondus\"");
+                            ValidationRule* vr2 = new XCreditsParmi(120,l21,l22," ");
                             Profil_Inge_BR->addValidationRule(vr2);
 
     //                      1.2.1.1.1.3 REGLE DE VALIDATION "Avoir au moins 2 lignes et 2 colonnes du tableau TSH"
@@ -142,22 +142,22 @@ Cursus* UnpersistentDataBaseB::getSavedAdministrationCursusTree(){
                             QList<const Portee*>     porteeC2L3 ; porteeC2L3 << pm.getFromPortee("TableauTSH-col2-ligne3");
 
                             FonctionOU* ligne1 = new FonctionOU("ligne1");
-                            ligne1->addRule(new XCreditsParmi(1,ctTSH,porteeC1L1,"Remplir la case [1;1]"));
-                            ligne1->addRule(new XCreditsParmi(1,ctTSH,porteeC2L1,"Remplir la case [1;2]"));
+                            ligne1->addRule(new XCreditsParmi(1,ctTSH,porteeC1L1,"case [1;1]"));
+                            ligne1->addRule(new XCreditsParmi(1,ctTSH,porteeC2L1,"case [1;2]"));
                             FonctionOU* ligne2 = new FonctionOU("ligne2");
-                            ligne2->addRule(new XCreditsParmi(1,ctTSH,porteeC1L2,"Remplir la case [2;1]"));
-                            ligne2->addRule(new XCreditsParmi(1,ctTSH,porteeC2L2,"Remplir la case [2;2]"));
+                            ligne2->addRule(new XCreditsParmi(1,ctTSH,porteeC1L2,"case [2;1]"));
+                            ligne2->addRule(new XCreditsParmi(1,ctTSH,porteeC2L2,"case [2;2]"));
                             FonctionOU* ligne3 = new FonctionOU("ligne3");
-                            ligne3->addRule(new XCreditsParmi(1,ctTSH,porteeC1L3,"Remplir la case [3;1]"));
-                            ligne3->addRule(new XCreditsParmi(1,ctTSH,porteeC2L3,"Remplir la case [3;2]"));
+                            ligne3->addRule(new XCreditsParmi(1,ctTSH,porteeC1L3,"case [3;1]"));
+                            ligne3->addRule(new XCreditsParmi(1,ctTSH,porteeC2L3,"case [3;2]"));
                             FonctionOU* col1 = new FonctionOU("col1");
-                            col1->addRule(new XCreditsParmi(1,ctTSH,porteeC1L1,"Remplir la case [1;1]"));
-                            col1->addRule(new XCreditsParmi(1,ctTSH,porteeC1L2,"Remplir la case [2;1]"));
-                            col1->addRule(new XCreditsParmi(1,ctTSH,porteeC1L3,"Remplir la case [3;1]"));
+                            col1->addRule(new XCreditsParmi(1,ctTSH,porteeC1L1,"case [1;1]"));
+                            col1->addRule(new XCreditsParmi(1,ctTSH,porteeC1L2,"case [2;1]"));
+                            col1->addRule(new XCreditsParmi(1,ctTSH,porteeC1L3,"case [3;1]"));
                             FonctionOU* col2 = new FonctionOU("col2");
-                            col2->addRule(new XCreditsParmi(1,ctTSH,porteeC2L1,"Remplir la case [1;2]"));
-                            col2->addRule(new XCreditsParmi(1,ctTSH,porteeC2L2,"Remplir la case [2;2]"));
-                            col2->addRule(new XCreditsParmi(1,ctTSH,porteeC2L3,"Remplir la case [3;2]"));
+                            col2->addRule(new XCreditsParmi(1,ctTSH,porteeC2L1,"case [1;2]"));
+                            col2->addRule(new XCreditsParmi(1,ctTSH,porteeC2L2,"case [2;2]"));
+                            col2->addRule(new XCreditsParmi(1,ctTSH,porteeC2L3,"case [3;2]"));
 
                             FonctionET* lignes1et2 = new FonctionET("Remplir ligne1 ET ligne2");
                             lignes1et2->addRule(ligne1);
@@ -197,17 +197,17 @@ Cursus* UnpersistentDataBaseB::getSavedAdministrationCursusTree(){
 
                                 QList<const CreditType*> l61 ; l61 << ctm.getFromType("CS") << ctm.getFromType("TM");
                                 QList<const Portee*>     l62 ; l62 << pm.getFromPortee("Toutes_Branches_Confondues");
-                                ValidationRule* vr6 = new XCreditsParmi(84,l61,l62,"Au - 84 créd. (CS,TM) parmi UV de portée \"Toutes_Branches_Confondues\"");
+                                ValidationRule* vr6 = new XCreditsParmi(84,l61,l62,"");
                                 Profil_BRANCHEGEN->addValidationRule(vr6);
 
                                 QList<const CreditType*> l71 ; l71 << ctm.getFromType("CS");
                                 QList<const Portee*>     l72 ; l72 << pm.getFromPortee("Toutes_Branches_Confondues");
-                                ValidationRule* vr7 = new XCreditsParmi(30,l71,l72,"Au - 30 créd. (CS)       parmi UV de portée \"Toutes_Branches_Confondues\"");
+                                ValidationRule* vr7 = new XCreditsParmi(30,l71,l72,"");
                                 Profil_BRANCHEGEN->addValidationRule(vr7);
 
                                 QList<const CreditType*> l81 ; l81 << ctm.getFromType("TM");
                                 QList<const Portee*>     l82 ; l82 << pm.getFromPortee("Toutes_Branches_Confondues");
-                                ValidationRule* vr8 = new XCreditsParmi(30,l81,l82,"Au - 30 créd. (TM)     parmi UV de portée \"Toutes_Branches_Confondues\"");
+                                ValidationRule* vr8 = new XCreditsParmi(30,l81,l82,"");
                                 Profil_BRANCHEGEN->addValidationRule(vr8);
 
     //                      1.2.1.2.1.2 SOUS-CURSUS du "CURSUS BRANCHE_GENERAL
@@ -282,14 +282,14 @@ Cursus* UnpersistentDataBaseB::getSavedAdministrationCursusTree(){
 
                             QList<const CreditType*> l41 ; l41 << ctm.getFromType("CS") << ctm.getFromType("TM") << ctm.getFromType("TSH") << ctm.getFromType("SP");
                             QList<const Portee*>     l42 ; l42 << pm.getFromPortee("Tous_Cursus_Confondus");
-                            ValidationRule* vr4 = new XCreditsParmi(120,l41,l42,"Au - 240 créd. (TSH,CS,SP,TM) parmi UV de portée \"Tous_Cursus_Confondus\"");
+                            ValidationRule* vr4 = new XCreditsParmi(120,l41,l42,"");
                             Profil_Inge_BR_TC->addValidationRule(vr4);
 
     //                      1.2.2.1.1.2 REGLE DE VALIDATION "Avoir au moins 52 crédits TSH"
 
                             QList<const CreditType*> l51 ; l51 << ctm.getFromType("TSH") ;
                             QList<const Portee*>     l52 ; l52 << pm.getFromPortee("Tous_Cursus_Confondus");
-                            ValidationRule* vr5 = new XCreditsParmi(120,l51,l52,"Au - 52   créd. (TSH)                  parmi UV de portée \"Tous_Cursus_Confondus\"");
+                            ValidationRule* vr5 = new XCreditsParmi(120,l51,l52,"");
                             Profil_Inge_BR_TC->addValidationRule(vr5);
 
     //                      1.2.2.1.1.3 REGLE DE VALIDATION "Avoir au moins 2 lignes et 2 colonnes du tableau TSH"
