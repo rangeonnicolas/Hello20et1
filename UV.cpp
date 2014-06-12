@@ -2,11 +2,15 @@
 #define UV_CPP
 
 #include "UV.h"
+#include "interfacePersistenceDonnees.h"
+#include "dataBaseA.h"
+#include "dataBaseB.h"
 
 #include<string>
 
 using namespace std;
 using namespace UV_credits_types;
+using namespace INTERFACEPERS;
 
 
 
@@ -33,6 +37,12 @@ for(int i=0;i<list_P.length();i++){
 //ajout UVManager du TD !!!!A ADAPTER!!!
 
 UVManager::UVManager():uvs(0),nbUV(0),nbMaxUV(0),file(""),modification(false){
+    InterfacePersistence* db = new DATABASE::UnpersistentDataBaseA;//TODO NICO: mettre en singleton
+    QList<UV*>* allUV = new QList<UV*>;
+    allUV = db->getAllUVs();
+    for(int i =0;i<allUV->length();i++){
+        this->addItem(allUV->at(i));
+    }
 }
 
 
