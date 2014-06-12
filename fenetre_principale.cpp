@@ -2,7 +2,12 @@
 #include "feneditdoss.h"
 #include "CursusEditor.h"
 #include "dataBaseB.h"
+<<<<<<< HEAD
+#include "choixuv.h"
+
+=======
 #include "uvDataBaseConnect.h"
+>>>>>>> upstream/master
 
 #include<QMenuBar>
 #include<QFileDialog>
@@ -52,6 +57,18 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWind
 
 //fonctions de la classe fonctionPrincipale
 
+<<<<<<< HEAD
+//fonctions de la classe fenetrePrincipale
+void fenetrePrincipale::chargerUV(){
+    choixUV* fenetre= new choixUV(this);
+    setCentralWidget(fenetre);
+};
+void fenetrePrincipale::chargerDossier(){};
+void fenetrePrincipale::creerDossier(){};
+void fenetrePrincipale::ajouterUV(){};
+void fenetrePrincipale::supprimerUV(){};
+void fenetrePrincipale::visuCur(){};
+=======
 void fenetrePrincipale::chargerUV(){
     uvdb->connect();
     uvdb->show();
@@ -61,6 +78,7 @@ void fenetrePrincipale::creerDossier(){}
 void fenetrePrincipale::ajouterUV(){}
 void fenetrePrincipale::supprimerUV(){}
 void fenetrePrincipale::visuCur(){}
+>>>>>>> upstream/master
 void fenetrePrincipale::editCur(){
     using namespace GRAPHICALEDITORS;
 
@@ -81,12 +99,14 @@ void fenetrePrincipale::ouvrir(){
     {
         QString path="../Ressources/";
         Dossier& doss=Dossier::getInstance();
-        QMessageBox::warning(this,"chargement fichier xml", "getInstance fait");
+        //QMessageBox::warning(this,"chargement fichier xml", "getInstance fait");
         QString chemin = QFileDialog::getOpenFileName();
         doss.setFile(chemin);
-        QMessageBox::warning(this,"chargement fichier xml", "ouverture du fichier fait"+chemin);
-        doss.load(chemin,&doss);
-        QMessageBox::warning(this,"fonction load()", "fonction load() faite");
+        //QMessageBox::warning(this,"chargement fichier xml", "ouverture du fichier fait"+chemin);
+
+        //QMessageBox::warning(this,"fonction load()", "fonction load() faite");
+        XmlStreamReader reader(&doss);
+        reader.readFile(chemin);
         //ouverture de la fenetre d'edition de dossier
         fenEditDoss* fenetre= new fenEditDoss(&doss,this);
         setCentralWidget(fenetre);

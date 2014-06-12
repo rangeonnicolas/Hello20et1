@@ -15,6 +15,8 @@
 using namespace question3;
 using namespace UV_credits_types;
 
+//les Categorie sont maitenant des CreditType et sont implémentés dynamiquement
+/*
 Categorie question3::StringToCategorie(const QString& str){
     if (str=="CS") return CS;
     else
@@ -37,7 +39,7 @@ QString question3::CategorieToString(Categorie c){
     default: throw UTProfilerException("erreur, categorie non traitee",__FILE__,__LINE__);
     }
 }
-
+*/
 Saison question3::StringToSaison(const QString str){
     if (str=="A") return Automne;
     else
@@ -98,42 +100,40 @@ Dossier::~Dossier(){
 
     }
 }
-XmlStreamReader::XmlStreamReader(QFile* f){
-    file=f;
+
+
+XmlStreamReader::XmlStreamReader(Dossier* doss){
+
+    dossierAremplir = doss;
+
 }
 
 
-void Dossier::load(const QString f,Dossier* doss){
-    if(file!=f) this->~Dossier();
-    file=f;
-    QMessageBox::warning(this,"fonction load","test instance effectué");
-    QFile xml_doc(f);// On choisit le fichier contenant les informations XML.
+
+bool XmlStreamReader::readFile(const QString &fileName){
+
+    QFile xml_doc(fileName);// On choisit le fichier contenant les informations XML.
     if(!xml_doc.open(QIODevice::ReadOnly | QIODevice::Text))// Si l'on n'arrive pas à ouvrir le fichier XML.
     {
-        QMessageBox::warning(this,"Erreur à l'ouverture du document XML","Le document XML n'a pas pu être ouvert.");
-        return;
+        QMessageBox::warning(0,"Erreur à l'ouverture du document XML","Le document XML n'a pas pu être ouvert.");
+        return false;
     }
-    XmlStreamReader reader(&xml_doc);
-    QMessageBox::warning(this,"fonction load","reader créé");
-    reader.readFile(doss);
-    QMessageBox::warning(this, "fonction load","readfile effectué");
+    reader.setDevice(&xml_doc);
 
-    xml_doc.close(); // Dans tous les cas, on doit fermer le document XML : on n'en a plus besoin, tout est compris dans l'objet
 
-}
-bool XmlStreamReader::readFile(Dossier *doss){
 
     // We'll parse the XML until we reach end of it.
     while(!reader.atEnd() && !reader.hasError()) {
         // Read next element.
         QXmlStreamReader::TokenType token = reader.readNext();
+
         // If token is just StartDocument, we'll go to next.
         if(token == QXmlStreamReader::StartDocument) continue;
         // If token is StartElement, we'll see if we can read it.
         if(token == QXmlStreamReader::StartElement) {
             // If it's named dossier, we'll dig the information from there.
             if(reader.name() == "dossier") {
-                readDossier(doss);
+                readDossier();
             }
             else
                 reader.readNext();
@@ -143,64 +143,113 @@ bool XmlStreamReader::readFile(Dossier *doss){
     if(reader.hasError()) {
         throw UTProfilerException("Erreur lecteur fichier dossier, parser xml");
     }
-        return true;
+    xml_doc.close(); // Dans tous les cas, on doit fermer le document XML : on n'en a plus besoin, tout est compris dans l'objet
+    return true;
 }
 
-void XmlStreamReader::readDossier(Dossier* doss){
+void XmlStreamReader::readDossier(){
+    reader.readNextStartElement();
 
     unsigned int i=0;
     while(!(reader.tokenType() == QXmlStreamReader::EndElement && reader.name() == "dossier")) {
+
         if(reader.tokenType() == QXmlStreamReader::StartElement) {
             // We've found login.
             if(reader.name() == "login") {
                 reader.readNext();
                 QString l=reader.text().toString();
-                doss->setLogin_etudiant(l);
+                dossierAremplir->setLogin_etudiant(l);
             }
 
             if(reader.name() == "cursus") {
-                Cursus cur;
-                doss->setCursus(readCursus(cur));
+                /*
+                reader.readNext();
+                Cursus_Etudiant* ce= new Cursus_Etudiant(rootCursus);
+                readRecursiveCursus(ce);
+                dossierAremplir->setCursus(ce);
+
+
+                */
             }
             // We've found inscription.
             if(reader.name() == "inscription") {
+                reader.readNext();
                 Inscription in;
-                doss->setInscr(readInscription(in));
+                dossierAremplir->setInscr(readInscription(in));
             }
 
             // We've found equivalence.
             if(reader.name() == "equivalence") {
+                reader.readNext();
                 Equivalence equi;
-                doss->setEqui(readEquivalence(equi));
+                dossierAremplir->setEqui(readEquivalence(equi));
             }
 
 
             // We've found solution.
             if(reader.name() == "solution") {
+                reader.readNext();
                 QList<Prevision> lP=readSolution();
-                doss->setMapSolutions(i,lP);
+                dossierAremplir->setMapSolutions(i,lP);
                 i++;
 
 
             }
+
         }
+        reader.readNext();
     }
 
 }
-Cursus& XmlStreamReader::readCursus(Cursus &cur){
-    //afaire selon le tuto sur les arbres:http://www.informit.com/articles/article.aspx?p=1405553
-    return cur;
+
+void readRecursiveCursus(Cursus_Etudiant* parent){
+    /*
+    //QTreeWidgetItem *item = new QTreeWidgetItem(parent);
+      //  item->setText(0, reader.attributes().value("term").toString());
+
+    //fonction pour recopier le cursus (voir feuolle)
+    for (int j=0; j<parent->getCursusReference()->getSOUSCursusList().length(); j++){
+        if(!strcmp(parent->getCursusReference()->getSOUSCursusList().at(j)->getName()==cursus)){
+            Cursus* selected=parent->getCursusReference()->getSOUSCursusList().at(j);
+            Cursus_Etudiant* sous_cursus=new Cursus_Etudiant(selected);
+            parent->addSousCursus(sous_cursus);
+        }
+     }
+        reader.readNext();
+        while (!reader.atEnd()) {
+            if (reader.isEndElement()) {
+                reader.readNext();
+                break;
+            }
+
+            if (reader.isStartElement()) {
+                if (reader.name() == "cursus") {
+                    readRecursiveCursus(sous_cursus);
+
+                } else {
+                    skipUnknownElement();
+                }
+            } else {
+                reader.readNext();
+            }
+        }
+        */
+
+
 }
 
 Inscription& XmlStreamReader::readInscription(Inscription& inscri){
 
     while(!(reader.tokenType() == QXmlStreamReader::EndElement && reader.name() == "inscription")){
-        if(reader.tokenType() == QXmlStreamReader::StartElement) {
 
-            if(reader.name()=="semestre"){
+        if(reader.tokenType() == QXmlStreamReader::StartElement) {
+            if(reader.name()=="semestreI"){
                 reader.readNext();
                 Semestre sem;
                 inscri.setSemestre(readSemestre(sem));
+
+
+
             }
             if(reader.name()=="resultat"){
                 reader.readNext();
@@ -212,13 +261,18 @@ Inscription& XmlStreamReader::readInscription(Inscription& inscri){
             }
 
          }
+         reader.readNext();
     }
 
    return inscri;
 }
 
 Semestre& XmlStreamReader::readSemestre(Semestre& sem){
-    while(!(reader.tokenType() == QXmlStreamReader::EndElement && reader.name() == "semestre")) {
+
+
+
+    while(!(reader.tokenType() == QXmlStreamReader::EndElement && (reader.name() == "semestreI" ||reader.name() == "semestreP"))) {
+
         if(reader.tokenType() == QXmlStreamReader::StartElement) {
             if(reader.name()=="saison"){
                 reader.readNext();
@@ -228,20 +282,27 @@ Semestre& XmlStreamReader::readSemestre(Semestre& sem){
                 reader.readNext();
                 sem.setAnnee(reader.text().toString().toUInt());
             }
+
         }
+        reader.readNext();
     }
+
     return sem;
 }
 
 
 UV* XmlStreamReader::readUv(){
-    //next
-    //creer pointeur sur uv
-    //creer uv (UVManager)
-    //recuperer code
-    //aller chercher titre,.. dans base de données
-    //retourner uv
-
+    /*A decommenter quand UVManager sera implémentée
+    QString code;
+    //lire le code dans fichier xml
+    code=reader.text().toString();
+    //le chercher dans UVManager
+    while(uvs[iterator]->code!=code){
+        iterator++;
+    }
+    //retourner le pointeur
+    return uvs[iterator];
+*/
 }
 
 Equivalence& XmlStreamReader::readEquivalence(Equivalence& equi){
@@ -253,10 +314,13 @@ Equivalence& XmlStreamReader::readEquivalence(Equivalence& equi){
                 equi.setPortee(reader.text().toString());
             }
             if(reader.name()=="credits"){
+                reader.readNext();
                 Credits cred;
                 readCredits(cred);
             }
+
         }
+        reader.readNext();
     }
     return equi;
 }
@@ -264,6 +328,7 @@ Equivalence& XmlStreamReader::readEquivalence(Equivalence& equi){
 
 
 Credits& XmlStreamReader::readCredits(Credits &cred){
+
     while(!(reader.tokenType() == QXmlStreamReader::EndElement && reader.name() == "credits")) {
         if(reader.tokenType() == QXmlStreamReader::StartElement) {
 
@@ -281,7 +346,9 @@ Credits& XmlStreamReader::readCredits(Credits &cred){
                 cred.setType(CT);
                 */
             }
+
         }
+        reader.readNext();
     }
     return cred;
 }
@@ -289,14 +356,18 @@ Credits& XmlStreamReader::readCredits(Credits &cred){
 
 
 QList<Prevision> XmlStreamReader::readSolution(){
+
    QList<Prevision> solution;
     while(!(reader.tokenType() == QXmlStreamReader::EndElement && reader.name() == "solution")){
         if(reader.tokenType() == QXmlStreamReader::StartElement) {
             if(reader.name()=="prevision"){
+                reader.readNext();
                 Prevision prev;
                 solution.push_back(readPrevision(prev));
             }
+
         }
+        reader.readNext();
     }
     return solution;
 }
@@ -307,13 +378,17 @@ Prevision& XmlStreamReader::readPrevision(Prevision& prev){
     while(!(reader.tokenType() == QXmlStreamReader::EndElement && reader.name() == "prevision")){
         if(reader.tokenType() == QXmlStreamReader::StartElement) {
             if(reader.name()=="semestreP"){
+                reader.readNext();
                 Semestre sem;
                 prev.setSemestre(readSemestre(sem));
             }
             if(reader.name()=="uvP"){
+                reader.readNext();
                 prev.setUv(readUv());
             }
+
         }
+        reader.readNext();
     }
     return prev;
 }
@@ -321,6 +396,7 @@ Prevision& XmlStreamReader::readPrevision(Prevision& prev){
 void XmlStreamReader::skipUnknownElement(){
 
 }
+
 
 using namespace UV_credits_types;
 //using namespace FOOO; //TODO nico: supprimer cette ligne à la fin
