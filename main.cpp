@@ -18,6 +18,12 @@
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
+
+    //    UVManager& uvm = UVManager::getInstance();
+    //    for(UVManager::Iterator it = uvm.getIterator();!it.isDone(); it.next())
+    //        std::cout<<it.current().getCode().toStdString();
+
+   /*
     //partie pour remplir un UVManager fictif pour moi puisque je n'ai pas la base
     UVManager& m=UVManager::getInstance();
     QString code ="NF16";
@@ -32,6 +38,8 @@ int main(int argc, char *argv[]) {
     code="TX";
     titre="Tdfsd Xgfs";
     m.ajouterUV(code,titre,true,true);
+    */
+
     fenetrePrincipale fenetre(0,&app);
     fenetre.show();
     return app.exec();

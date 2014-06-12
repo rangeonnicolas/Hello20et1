@@ -30,7 +30,8 @@ HEADERS += \
     connectionwidget.h \
     qsqlconnectiondialog.h \
     uvDataBaseConnect.h \
-    catalogue.h
+    catalogue.h \
+    interfacePersistenceDonnees.h
 
 SOURCES += \
     CursusEditor.cpp \
@@ -47,7 +48,8 @@ SOURCES += \
     qsqlconnectiondialog.cpp \
     connectionwidget.cpp \
     uvDataBaseConnect.cpp \
-    catalogue.cpp
+    catalogue.cpp \
+    interfacePersistenceDonnees.cpp
 
 build_all:!build_pass {
     CONFIG -= build_all

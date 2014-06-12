@@ -1,10 +1,6 @@
-
-
-
 #include "dossier.h"
 #include "dataBaseA.h"
 
-//#include "UV.h"
 #include <QDialog>
 #include <QtGui>
 #include <QtXml>
@@ -439,22 +435,22 @@ void XCreditsParmi::copyIntoQtRuleView(QStandardItem * item)const{
 float XCreditsParmi::completion_percentage (QList<Inscription> *ti) const{
 
     unsigned int cpt=0;
-    QList<Credits> allCredits;
+    QList<Credits*>* allCredits=0;
 
-    dataBaseA db1 = dataBaseA();//TODO NICO : supprimer cette ligne a la fin!!!
+DATABASE::UnpersistentDataBaseA db1 = DATABASE::UnpersistentDataBaseA();//TODO NICO : supprimer cette ligne a la fin!!!
 
     // parcours toutes les UVs de l'étudiant, et va chercher (et stocke dans "allCredits") pour chacune d'elle le nombre de crédits qu'elle rapport dans chaque type (ex: l'UV LO21 rapporte 6 crédits de type TM)
     if(ti->length() > 0){
         for( int i=0 ; i <ti->length() ; i++){ // parcours de toutes les UVs de l'étudiant
             for (int j = 0 ; j<porteeList.length() ; j++){ //^parcours des portees definies pour la présente règle de validation
-              allCredits << db1.returnCreditsOfAnUV( ti->at(i).getUV().getCode().toStdString() , porteeList.at(j)->getLibelle().toStdString() ) ; // TODO NICO: utiliser le DP visitor
+              *allCredits << *db1.returnCreditsOfAnUV( ti->at(i).getUV().getCode().toStdString() , porteeList.at(j)->getLibelle().toStdString() ) ; // TODO NICO: utiliser le DP visitor
             }
         }
     }
 
-    if(allCredits.length()>0) // On dépouille tous les crédits accumulés lors de l'analyse pour en faire la somme.
-        for(int k=0; k<allCredits.length(); k++)
-            cpt = cpt + allCredits.at(k).getNbCredits();
+    if(allCredits->length()>0) // On dépouille tous les crédits accumulés lors de l'analyse pour en faire la somme.
+        for(int k=0; k<allCredits->length(); k++)
+            cpt = cpt + allCredits->at(k)->getNbCredits();
 
     if(cpt>nb) return 1; // si l'étudiant à plus de crédits que nécessaire, le pourcentage de completion est de 100.
     return (float)((float)cpt/(float)nb);

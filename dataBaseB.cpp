@@ -3,7 +3,7 @@
 
 #include "dataBaseB.h"
 
-Cursus* dataBaseB::getSavedAdministrationCursusTree(){
+Cursus* UnpersistentDataBaseB::getSavedAdministrationCursusTree(){
 
     QList<UV*> luv ;
     QList<Inscription> nico ;
