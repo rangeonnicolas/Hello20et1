@@ -3,11 +3,10 @@
 
 #include "dataBaseB.h"
 
-Cursus* dataBaseB::getSavedAdministrationCursusTree(){
+Cursus* UnpersistentDataBaseB::getSavedAdministrationCursusTree(){
 
     QList<UV*> luv ;
     QList<Inscription> nico ;
-
 
     PorteeManager pm = PorteeManager();
     pm.addPortee("PCB_pour_etudiant_en_GI");

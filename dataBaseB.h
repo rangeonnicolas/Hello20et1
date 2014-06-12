@@ -5,7 +5,7 @@
 
 using namespace question3;
 
-class dataBaseB{
+class UnpersistentDataBaseB{
 public:
     static Cursus* getSavedAdministrationCursusTree();
 };

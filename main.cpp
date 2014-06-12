@@ -8,12 +8,10 @@
 #include "dataBaseB.h"
 #include "browser.h"
 #include "uvDataBaseConnect.h"
+#include "interfacePersistenceDonnees.h"
 
 #include <QApplication>
 #include <QString>
-//#include <QtCore>
-//#include <QtWidgets>
-//#include <QtSql>
 
 
 int main(int argc, char *argv[]) {

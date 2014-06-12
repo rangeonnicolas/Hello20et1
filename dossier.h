@@ -67,9 +67,9 @@ namespace question3 {
             Note resultat;
             const UV* uv;
         public:
-            Inscription (const UV& u, const Semestre& s, Note res=EC):uv(&u), semestre(s), resultat(res){}
+            Inscription (const UV& u, const Semestre& s, Note res=EC):semestre(s), resultat(res),uv(&u){} // pour le pas avoir de warning, les initialisateurs doivent être dans le même ordre que les attributs (http://stackoverflow.com/questions/1564937/gcc-warning-will-be-initialized-after)
             Inscription (){}
-            Inscription (UV* uv, Note res):uv(uv),resultat(res){}
+            Inscription (UV* uv, Note res):resultat(res),uv(uv){}
             const UV& getUV()const {return *uv;}
             Semestre getSemestre() const{return semestre;}
             Note getResultat() const {return resultat;}

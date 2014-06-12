@@ -6,12 +6,9 @@ QT +=widgets xml sql
 
 FORMS += \
     feneditdoss.ui \
-<<<<<<< HEAD
-    choixuv.ui
-=======
+    choixuv.ui \
     browserwidget.ui \
     qsqlconnectiondialog.ui
->>>>>>> upstream/master
 
 OTHER_FILES += \
     xmlDossier.xml \
@@ -27,14 +24,12 @@ HEADERS += \
     feneditdoss.h \
     fenetre_principale.h \
     UV.h \
-<<<<<<< HEAD
-    choixuv.h
-=======
+    choixuv.h \
     browser.h \
     connectionwidget.h \
     qsqlconnectiondialog.h \
-    uvDataBaseConnect.h
->>>>>>> upstream/master
+    uvDataBaseConnect.h \
+    interfacePersistenceDonnees.h
 
 SOURCES += \
     CursusEditor.cpp \
@@ -46,13 +41,12 @@ SOURCES += \
     fenetre_principale.cpp \
     main.cpp \
     UV.cpp \
-<<<<<<< HEAD
-    choixuv.cpp
-=======
+    choixuv.cpp \
     browser.cpp \
     qsqlconnectiondialog.cpp \
     connectionwidget.cpp \
-    uvDataBaseConnect.cpp
+    uvDataBaseConnect.cpp \
+    interfacePersistenceDonnees.cpp
 
 build_all:!build_pass {
     CONFIG -= build_all
@@ -67,4 +61,4 @@ INSTALLS += target
 wince*: {
     DEPLOYMENT_PLUGIN += qsqlite
 }
->>>>>>> upstream/master
+

@@ -2,19 +2,16 @@
 #include "feneditdoss.h"
 #include "CursusEditor.h"
 #include "dataBaseB.h"
-<<<<<<< HEAD
 #include "choixuv.h"
-
-=======
 #include "uvDataBaseConnect.h"
->>>>>>> upstream/master
+
 
 #include<QMenuBar>
 #include<QFileDialog>
 #include<QString>
 #include<QMessageBox>
 
-fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWindow(parent),rootCursus(dataBaseB::getSavedAdministrationCursusTree()),app(app),uvdb(new DATABASE::UvDbConn(app)){
+fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWindow(parent),rootCursus(UnpersistentDataBaseB::getSavedAdministrationCursusTree()),app(app),uvdb(new DATABASE::UvDbConn(app)){
     setWindowTitle("Fenetre principale");
     QMenu*mFichier = menuBar()->addMenu("&Fichier");
     QAction*Quitter=mFichier->addAction("&Quitter");
@@ -53,11 +50,6 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWind
 
 
 
-
-
-//fonctions de la classe fonctionPrincipale
-
-<<<<<<< HEAD
 //fonctions de la classe fenetrePrincipale
 void fenetrePrincipale::chargerUV(){
     choixUV* fenetre= new choixUV(this);
@@ -65,20 +57,12 @@ void fenetrePrincipale::chargerUV(){
 };
 void fenetrePrincipale::chargerDossier(){};
 void fenetrePrincipale::creerDossier(){};
-void fenetrePrincipale::ajouterUV(){};
-void fenetrePrincipale::supprimerUV(){};
-void fenetrePrincipale::visuCur(){};
-=======
-void fenetrePrincipale::chargerUV(){
+void fenetrePrincipale::ajouterUV(){
     uvdb->connect();
     uvdb->show();
-}
-void fenetrePrincipale::chargerDossier(){}
-void fenetrePrincipale::creerDossier(){}
-void fenetrePrincipale::ajouterUV(){}
+};
 void fenetrePrincipale::supprimerUV(){}
 void fenetrePrincipale::visuCur(){}
->>>>>>> upstream/master
 void fenetrePrincipale::editCur(){
     using namespace GRAPHICALEDITORS;
 
