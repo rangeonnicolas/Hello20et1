@@ -2,6 +2,7 @@
 #define CHOIXUV_H
 
 #include <QDialog>
+#include "catalogue.h"
 
 namespace Ui {
 class choixUV;
@@ -14,10 +15,13 @@ class choixUV : public QDialog
 public:
     explicit choixUV(QWidget *parent = 0);
     ~choixUV();
-    void activerOK(QString str="");
+    void activerOK();
+    void recupererUv();
+    void valider();
 
 private:
     Ui::choixUV *ui;
+    QString uvSelectionnee;
 };
 
 #endif // CHOIXUV_H

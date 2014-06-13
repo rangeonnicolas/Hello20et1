@@ -9,11 +9,7 @@ FORMS += \
     choixuv.ui \
     browserwidget.ui \
     qsqlconnectiondialog.ui \
-    form_ajout_uv.ui \
-    form_edit_uv.ui \
-    form_suppr_uv.ui \
-    form_choix_uv.ui \
-    form_catalogue.ui
+    catalogue.ui
 
 OTHER_FILES += \
     xmlDossier.xml \
@@ -34,6 +30,7 @@ HEADERS += \
     connectionwidget.h \
     qsqlconnectiondialog.h \
     uvDataBaseConnect.h \
+    catalogue.h \
     interfacePersistenceDonnees.h
 
 SOURCES += \
@@ -51,6 +48,7 @@ SOURCES += \
     qsqlconnectiondialog.cpp \
     connectionwidget.cpp \
     uvDataBaseConnect.cpp \
+    catalogue.cpp \
     interfacePersistenceDonnees.cpp
 
 build_all:!build_pass {
@@ -66,4 +64,3 @@ INSTALLS += target
 wince*: {
     DEPLOYMENT_PLUGIN += qsqlite
 }
-

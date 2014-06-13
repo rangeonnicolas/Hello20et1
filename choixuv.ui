@@ -33,7 +33,11 @@
        </widget>
       </item>
       <item alignment="Qt::AlignHCenter">
-       <widget class="QComboBox" name="comboBox_UV"/>
+       <widget class="QComboBox" name="comboBox_UV">
+        <property name="currentText">
+         <string/>
+        </property>
+       </widget>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">

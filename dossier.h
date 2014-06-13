@@ -29,11 +29,14 @@
 //    unsigned int line;
 
 //};
+
+
 using namespace UV_credits_types;
 namespace question3 {
 
     enum Note {A, B, C, D, E, FX, F, RES, ABS, EC};
     Note StringToNote (const QString s);
+
 
     //Categorie devient CreditType
         /*
@@ -47,6 +50,7 @@ namespace question3 {
     enum Saison { Automne, Printemps };
     //inline ostream& operator<<(ostream& f, const Saison& s) { if (s==Automne) f<<"A"; else f<<"P"; return f;}
     Saison StringToSaison(const QString s);
+
 
     class Semestre {
         Saison saison;
@@ -67,9 +71,9 @@ namespace question3 {
             Note resultat;
             const UV* uv;
         public:
-            Inscription (const UV& u, const Semestre& s, Note res=EC):semestre(s), resultat(res),uv(&u){} // pour le pas avoir de warning, les initialisateurs doivent être dans le même ordre que les attributs (http://stackoverflow.com/questions/1564937/gcc-warning-will-be-initialized-after)
+            Inscription (const UV& u, const Semestre& s, Note res=EC):uv(&u), semestre(s), resultat(res){}
             Inscription (){}
-            Inscription (UV* uv, Note res):resultat(res),uv(uv){}
+            Inscription (UV* uv, Note res):uv(uv),resultat(res){}
             const UV& getUV()const {return *uv;}
             Semestre getSemestre() const{return semestre;}
             Note getResultat() const {return resultat;}
@@ -77,6 +81,27 @@ namespace question3 {
             void setSemestre (const Semestre& s){semestre=s;}
             void setUv(const UV* u){uv=u;}
         };
+
+
+    class CursusNullPtrException{
+    public:
+           CursusNullPtrException(const QString& message):
+               info(message){}
+           QString getInfo() const { return info; }
+    private:
+           QString info;
+    };
+
+
+
+
+
+
+
+
+
+
+
 
     class CompletionPercentage{
     protected:
@@ -86,6 +111,7 @@ namespace question3 {
         inline const char* getName() const{return name;};
         inline bool is_completed(QList<Inscription> *ti) const {return (this->completion_percentage(ti) >= 100) ;};
         virtual float completion_percentage(QList<Inscription> *ti) const=0;
+        virtual void testNullPtr(bool recursiv,bool debug)const=0;
     };
 
     class ValidationRule: public CompletionPercentage{
@@ -105,10 +131,11 @@ namespace question3 {
         QList<UV*> UVlist;
     public:
         //bool is_completed(QList<Inscription> *ti) const;
-        XUVParmi(unsigned int x, QList<UV*> list,const char* title):ValidationRule(title),nb(x){UVlist = QList<UV*>(list);};
+        XUVParmi(unsigned int x, const QList<UV*>& list,const char* title):ValidationRule(title),nb(x),UVlist(list){};
         float completion_percentage(QList<Inscription> *ti) const;
         string toString() const;
         void copyIntoQtRuleView(QStandardItem * item) const;
+        void testNullPtr(bool recursiv,bool debug)const;
     };
 
     class XCreditsParmi: public ValidationRule { //TODO NICO:verifier l'héritage publique
@@ -117,32 +144,35 @@ namespace question3 {
         QList<const Portee*> porteeList;
     public:
         //bool is_completed(QList<Inscription> *ti) const;
-        XCreditsParmi(unsigned int x, QList<const CreditType*> typeList ,QList<const Portee*> portees,const char* title):ValidationRule(title),nb(x){typeList = QList<const CreditType*>(typeList); porteeList =QList<const Portee*>(portees);};
+        XCreditsParmi(unsigned int x, const QList<const CreditType*>& typeList ,const QList<const Portee*>& portees,const char* title):ValidationRule(title),nb(x),typeList(typeList),porteeList(portees){};
         float completion_percentage(QList<Inscription> *ti) const;
         string toString() const;
         void copyIntoQtRuleView(QStandardItem * item) const;
+        void testNullPtr(bool recursiv,bool debug)const;
     };
 
     class FonctionOU: public ValidationRule { //TODO NICO:verifier l'héritage publique
         QList <ValidationRule*> VRlist; //TODO important : VRlist normalement ne doit pas etre un tableau de pointeurs pointeur
     public:
         //bool is_completed(QList<Inscription> *ti) const;
-        FonctionOU(const char* title):ValidationRule(title){};
+        FonctionOU(const char* title):ValidationRule(title),VRlist(){};
         float completion_percentage (QList<Inscription> *ti) const;
         string toString() const;
         inline void addRule(ValidationRule* r){ VRlist.append(r) ;}; //TODO important : r normalement ne doit pas etre un pointeur
         void copyIntoQtRuleView(QStandardItem * item) const;
+        void testNullPtr(bool recursiv,bool debug)const;
     };
 
     class FonctionET: public ValidationRule { //TODO NICO:verifier l'héritage publique
         QList <ValidationRule*> VRlist; //TODO important : VRlist normalement ne doit pas etre un tableau de pointeurs pointeur
     public:
         //bool is_completed(QList<Inscription> *ti) const;
-        FonctionET(const char* title):ValidationRule(title){};
+        FonctionET(const char* title):ValidationRule(title),VRlist(){};
         float completion_percentage (QList<Inscription> *ti) const;
         string toString() const;
         inline void addRule(ValidationRule* r){ VRlist.append(r) ;}; //TODO important : r normalement ne doit pas etre un pointeur
         void copyIntoQtRuleView(QStandardItem * item) const;
+        void testNullPtr(bool recursiv,bool debug)const;
     };
 
     class Profil: public CompletionPercentage{
@@ -157,6 +187,7 @@ namespace question3 {
         // TODO NICO: ici il y a surement de la factory derriere.
         //verifier toutes les associations........
         void copyIntoQtRuleView(QStandardItemModel *modeleRegl) const;
+        void testNullPtr(bool recursiv,bool debug)const;
     };
 
     class Cursus: public CompletionPercentage{
@@ -186,7 +217,7 @@ namespace question3 {
         void copyIntoQtCursusView(QStandardItem *itemCursus) const;
         void copyIntoQtProfilView(QStandardItemModel *modeleProfil,int begin) const;
         Cursus* cloneRootElement() const;
-
+        void testNullPtr(bool recursiv,bool debug)const;
    };
 
     class Cursus_Etudiant: public Cursus{
@@ -195,6 +226,7 @@ namespace question3 {
          Cursus_Etudiant(Cursus* ref):Cursus((const Cursus&)(*(ref->cloneRootElement()))),CursusDeReference(ref){};
          inline void setCursusReference(Cursus* ref){this->CursusDeReference=ref;};
          inline Cursus* getCursusReference(){return CursusDeReference;};
+        void testNullPtr(bool recursiv,bool debug)const;
     };
 
    class QStandardItem_Cursus: public QStandardItem{//TODO NICO si ca fonctionne, en parler ds le rapport
@@ -263,6 +295,8 @@ namespace question3 {
         void setFile(QString f){file=f;}
         void setLogin_etudiant(QString& l){login_etudiant=l;}
         void setCursus(Cursus_Etudiant* cur){cursus=cur;}
+        void setInscr(QList<Inscription>& i){inscr.append(i);}
+        void setEqui(QList<Equivalence>& e){equivalences.append(e);}
         void setInscr(Inscription& i){inscr.push_back(i);}
         void setEqui(Equivalence& e){equivalences.push_back(e);}
         void setMapSolutions(unsigned int& i, QList<Prevision>& lP){mapSolutions.insert(i,lP);}

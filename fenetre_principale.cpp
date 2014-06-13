@@ -3,6 +3,8 @@
 #include "CursusEditor.h"
 #include "dataBaseB.h"
 #include "choixuv.h"
+
+
 #include "uvDataBaseConnect.h"
 
 
@@ -34,9 +36,12 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWind
     QAction*Nouveau=mDossier->addAction("&Nouveau");
 
 
+
+
+
     // connections
     connect(Quitter, SIGNAL(triggered()), qApp, SLOT(quit()));
-    connect(ConsulterUV, SIGNAL(triggered()),this,SLOT(chargerUV()));
+    connect(ConsulterUV, SIGNAL(triggered()),this,SLOT(chargerCatalogue()));
 
     connect(AjouterUV, SIGNAL(triggered()),this,SLOT(ajouterUV()));
     connect(SupprimerUV, SIGNAL(triggered()),this,SLOT(supprimerUV()));
@@ -46,23 +51,37 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWind
     connect(SupprimerCursus, SIGNAL(triggered()),this,SLOT(supprCur()));
     connect(Ouvrir, SIGNAL(triggered()),this,SLOT(ouvrir()));
     connect(Nouveau, SIGNAL(triggered()),this,SLOT(nouveau()));
+
+
+
+
+
+
 }//fin constructeur de fenetrePrincipale
 
 
 
+
+
+//fonctions de la classe fonctionPrincipale
+
+
 //fonctions de la classe fenetrePrincipale
-void fenetrePrincipale::chargerUV(){
+void fenetrePrincipale::chargerCatalogue(){
     choixUV* fenetre= new choixUV(this);
     setCentralWidget(fenetre);
-};
-void fenetrePrincipale::chargerDossier(){};
-void fenetrePrincipale::creerDossier(){};
-void fenetrePrincipale::ajouterUV(){
-    uvdb->connect();
-    uvdb->show();
-};
+}
+void fenetrePrincipale::chargerDossier(){}
+void fenetrePrincipale::creerDossier(){}
+void fenetrePrincipale::ajouterUV(){}
 void fenetrePrincipale::supprimerUV(){}
 void fenetrePrincipale::visuCur(){}
+
+void fenetrePrincipale::chargerUV(){
+    uvdb->connect();
+    uvdb->show();
+}
+
 void fenetrePrincipale::editCur(){
     using namespace GRAPHICALEDITORS;
 
@@ -86,11 +105,12 @@ void fenetrePrincipale::ouvrir(){
         //QMessageBox::warning(this,"chargement fichier xml", "getInstance fait");
         QString chemin = QFileDialog::getOpenFileName();
         doss.setFile(chemin);
-        //QMessageBox::warning(this,"chargement fichier xml", "ouverture du fichier fait"+chemin);
+       // QMessageBox::warning(this,"chargement fichier xml", "ouverture du fichier fait"+chemin);
 
-        //QMessageBox::warning(this,"fonction load()", "fonction load() faite");
+
         XmlStreamReader reader(&doss);
         reader.readFile(chemin);
+        QMessageBox::warning(this,"fonction load()", "fin readFile");
         //ouverture de la fenetre d'edition de dossier
         fenEditDoss* fenetre= new fenEditDoss(&doss,this);
         setCentralWidget(fenetre);
