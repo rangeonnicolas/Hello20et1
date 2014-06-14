@@ -14,12 +14,13 @@ namespace DATABASE{
         //QMainWindow mainWin;
         QApplication* app;
         Browser browser;
-        QMenu *fileMenu;
-        QMenu *helpMenu;
+        //QMenu *fileMenu;
+        //QMenu *helpMenu;
         void addConnectionsFromCommandline(const QStringList &args, Browser *browser);
     public:
         UvDbConn(QApplication* app);
         void connect();
+        void showEditor(const QString& nomTable);
     };
 
 

@@ -5,7 +5,6 @@
 #include "interfacePersistenceDonnees.h"
 
 using namespace UV_credits_types;
-using namespace INTERFACEPERS;
 
 namespace DATABASE{
 

@@ -10,7 +10,7 @@
 
 using namespace std;
 using namespace UV_credits_types;
-using namespace INTERFACEPERS;
+using namespace DATABASE;
 
 
 
@@ -36,7 +36,7 @@ for(int i=0;i<list_P.length();i++){
 
 //ajout UVManager du TD !!!!A ADAPTER!!!
 
-UVManager::UVManager():uvs(0),nbUV(0),nbMaxUV(0),file(""),modification(false){
+/*UVManager::UVManager():uvs(0),nbUV(0),nbMaxUV(0),file(""),modification(false){
     InterfacePersistence* db = new DATABASE::UnpersistentDataBaseA;//TODO NICO: mettre en singleton
     QList<UV*>* allUV = new QList<UV*>;
     allUV = db->getAllUVs();
@@ -49,17 +49,10 @@ UVManager::UVManager():uvs(0),nbUV(0),nbMaxUV(0),file(""),modification(false){
 	}catch(UTProfilerException e){
 
 	}
+}*/
+
+UVManager::UVManager():uvs(0),nbUV(0),nbMaxUV(0),file(""),modification(false){
 }
-
-
-
-
-
-
-
-
-
-
 
 void UVManager::load(const QString& f){
     //pas sous forme de xml
@@ -208,6 +201,8 @@ UV* UVManager::trouverUV(const QString& c)const{
         if (c==uvs[i]->getCode()) return uvs[i];
     return 0;
 }
+
+
 
 UV& UVManager::getUV(const QString& code){
     UV* uv=trouverUV(code);

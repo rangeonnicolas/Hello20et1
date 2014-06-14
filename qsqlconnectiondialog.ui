@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>315</width>
-    <height>302</height>
+    <height>348</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -74,12 +74,16 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="editDatabase"/>
+       <widget class="QLineEdit" name="editDatabase">
+        <property name="text">
+         <string>LO21</string>
+        </property>
+       </widget>
       </item>
       <item row="5" column="1">
        <widget class="QSpinBox" name="portSpinBox">
         <property name="specialValueText">
-         <string>Default</string>
+         <string>5432</string>
         </property>
         <property name="minimum">
          <number>-1</number>
@@ -104,16 +108,27 @@
       </item>
       <item row="3" column="1">
        <widget class="QLineEdit" name="editPassword">
+        <property name="text">
+         <string>connect</string>
+        </property>
         <property name="echoMode">
          <enum>QLineEdit::Password</enum>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLineEdit" name="editUsername"/>
+       <widget class="QLineEdit" name="editUsername">
+        <property name="text">
+         <string>postgres</string>
+        </property>
+       </widget>
       </item>
       <item row="4" column="1">
-       <widget class="QLineEdit" name="editHostname"/>
+       <widget class="QLineEdit" name="editHostname">
+        <property name="text">
+         <string>localhost</string>
+        </property>
+       </widget>
       </item>
       <item row="4" column="0">
        <widget class="QLabel" name="textLabel5">
@@ -238,6 +253,15 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>(Cet éditeur graphique permettant la connection à une base
+de données a été récupéré des exemples Qt disponibles
+en ligne (cf &quot;SQL Browser&quot;) )</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

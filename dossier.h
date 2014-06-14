@@ -10,8 +10,6 @@
 #include <QWidget>
 #include <QMessageBox>
 
-
-
 //class UTProfilerException{
 //public:
 //    UTProfilerException(const QString& message, const QString &f="na", unsigned int l=0):
@@ -29,6 +27,7 @@
 //    unsigned int line;
 
 //};
+
 
 
 using namespace UV_credits_types;

@@ -4,21 +4,20 @@
 
 using namespace DATABASE;
 
-    UvDbConn::UvDbConn(QApplication* app):browser(this),app(app){
+    UvDbConn::UvDbConn(QApplication* app):app(app),browser("uv",this){
 
-        this->setWindowTitle(QObject::tr("Qt SQL Browser"));
+        this->setWindowTitle(QObject::tr("ADMINISTRATION : Edition de la Base de Données des UV / Portées / Types de Crédits"));
 
         this->setCentralWidget(&browser);
 
-        fileMenu = this->menuBar()->addMenu(QObject::tr("&File"));
+/*        fileMenu = this->menuBar()->addMenu(QObject::tr("&File"));
         fileMenu->addAction(QObject::tr("Add &Connection..."), &browser, SLOT(addConnection()));
-        fileMenu->addSeparator();
-        //fileMenu->addAction(QObject::tr("&Quit"), &app, SLOT(quit()));
+        fileMenu->addSeparator();*/
 
-        helpMenu = this->menuBar()->addMenu(QObject::tr("&Help"));
+/*        helpMenu = this->menuBar()->addMenu(QObject::tr("&Help"));
         helpMenu->addAction(QObject::tr("About"), &browser, SLOT(about()));
         helpMenu->addAction(QObject::tr("About Qt"), qApp, SLOT(aboutQt()));
-
+*/
         QObject::connect(&browser, SIGNAL(statusMessage(QString)),
                          this->statusBar(), SLOT(showMessage(QString)));
 
@@ -47,6 +46,11 @@ using namespace DATABASE;
         if (QSqlDatabase::connectionNames().isEmpty())
             QMetaObject::invokeMethod(&browser, "addConnection", Qt::QueuedConnection);
 
+    }
+
+    void UvDbConn::showEditor(const QString& nomTable){
+        browser.showTable(nomTable);
+        this->show();
     }
 
 

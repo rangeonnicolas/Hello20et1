@@ -9,6 +9,8 @@
 #include "browser.h"
 #include "uvDataBaseConnect.h"
 #include "interfacePersistenceDonnees.h"
+#include "dataBasePostgres.h"
+#include "recupdonnees.h"
 
 #include <QApplication>
 #include <QString>
@@ -18,6 +20,26 @@
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
+
+//    DATABASE::UvDbConn db(&app);
+//    db.connect();
+//    QMessageBox::information(0,"","1");
+//    db.showEditor("assoc");
+//    QMessageBox::information(0,"","2");
+//    db.showEditor("portee");
+//    QMessageBox::information(0,"","3");
+//    db.showEditor("uv");
+
+    unsigned int donnees=1;
+
+    //faire fenetre pour savoir quelle mode de récuperation des données on souhaite
+            recupDonnees* fenetre= new recupDonnees(&donnees,0);
+            fenetre->show();
+        //créer variable pour enregistrer ce choix
+           //si on choisit postgres:
+           /*
+            UvDbConn BD(&app);
+            BD.connect();*/
 
 
     //    UVManager& uvm = UVManager::getInstance();
@@ -40,8 +62,8 @@ int main(int argc, char *argv[]) {
     titre="Tdfsd Xgfs";
     m.ajouterUV(code,titre,true,true);
 
+    fenetrePrincipale fenetre2(0,&app);
+    fenetre2.show();
 
-    fenetrePrincipale fenetre(0,&app);
-    fenetre.show();
     return app.exec();
 }
