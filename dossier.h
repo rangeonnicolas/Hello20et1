@@ -306,7 +306,7 @@ namespace question3 {
         void delete_cursus();
         void add_equivalence();
         void delete_equivalence();
-        void ajouter_inscription(Saison sais,unsigned int annee, Note res, QString code);
+       // void ajouter_inscription(Saison sais,unsigned int annee, Note res, QString code);
         void add_inscription(Inscription inscrip);
         void delete_inscription();
         void add_semestre_etranger();

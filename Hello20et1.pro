@@ -34,7 +34,8 @@ HEADERS += \
     catalogue.h \
     interfacePersistenceDonnees.h \
     dataBasePostgres.h \
-    recupdonnees.h
+    recupdonnees.h \
+    completion.h
 
 SOURCES += \
     CursusEditor.cpp \
@@ -53,7 +54,8 @@ SOURCES += \
     uvDataBaseConnect.cpp \
     catalogue.cpp \
     interfacePersistenceDonnees.cpp \
-    recupdonnees.cpp
+    recupdonnees.cpp \
+    completion.cpp
 
 build_all:!build_pass {
     CONFIG -= build_all
