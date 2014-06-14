@@ -7,6 +7,7 @@
 #include <QWidget>
 
 #include "dossier.h"
+#include "CursusSelector.h"
 
 using namespace question3;
 
@@ -25,11 +26,13 @@ private:
     //variables locales permettant d'enregistrer les modifications (car si appuie sur annuler il ne faut pas que ce soit enregistré dans dossier)
     Dossier* d;
     QString login;
+    GRAPHICALEDITORS::CURSUSSelector* SOUSfenetre;
     QList<Inscription> listInscription;
     QList<Equivalence> listE;
     QList<Cursus> listC;
+    Cursus* rootCursus;
 public:
-    explicit fenEditDoss(Dossier* doss, QWidget *parent = 0);
+    explicit fenEditDoss(Dossier* doss, Cursus* rootCursus, QWidget *parent = 0);
     ~fenEditDoss();
     void setLogin(QString log){login=log;}
     void setInscription(Inscription i){listInscription.push_back(i);}
@@ -41,7 +44,8 @@ public slots:
         void enregistrerLogin();
         void ajouterEtape3();
         void ajouterEtape4();
-       // void openCurs();
+        void openCurs();
+        void lEtudiantAAjouteUnCursusetu();
 private slots:
 
 };

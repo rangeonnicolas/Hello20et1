@@ -45,7 +45,7 @@ class Demande
 
 
 public:
-    Demande():exigences(NULL), preferences(0), rejets(0), semestres_etranger(0){}
+    //Demande():exigences(NULL), preferences(0), rejets(0), semestres_etranger(0){}
     void getExigences();
     void getPreferences();
     void getRejets();

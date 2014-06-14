@@ -58,7 +58,7 @@ namespace GRAPHICALEDITORS{
         ValidationRule* selectedRule;
 
     public:
-        explicit CURSUSEditor(Cursus* root, QWidget *parent = 0); // TODO NICO c'est quoi explicit???
+        explicit CURSUSEditor(Cursus* root, QWidget *parent = 0);
         //explicit CURSUSEditor(QList<Cursus*> cl, Cursus* root, QWidget *parent = 0); // TODO NICO c'est quoi explicit???
     private:
         void initView();

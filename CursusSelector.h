@@ -3,6 +3,7 @@
 
 #include "dossier.h"
 #include "UV.h"
+//#include "feneditdoss.h"
 
 #include <QTreeView>
 #include <QPushButton>
@@ -11,7 +12,7 @@
 #include <QMessageBox>
 #include <QHBoxLayout>
 
-
+class fenEditDoss;// c'est juste pour spécifier au compilateur que plus tard, il y aura une classe qui sera définie qui portera le nom de fenEditDoss. Si on l'enlère il y a un probleme dans l'ordre des include :)
 
 namespace GRAPHICALEDITORS{
 
@@ -67,8 +68,14 @@ namespace GRAPHICALEDITORS{
 
         CURSUSAdder* adder;
 
+        fenEditDoss* parentFenetre;
+
     public:
-        explicit CURSUSSelector(Cursus* root, QWidget *parent = 0);
+        explicit CURSUSSelector(Cursus* root,fenEditDoss* parentFenetre, QWidget *parent = 0);
+        ~CURSUSSelector(){
+            //ne pas détruire le cursus renvoyé car il est renvoyé justement!
+        };
+        Cursus_Etudiant* getCursusSaisiParLEtudiant(){return studentCursus;};
     private:
         //void initView();
         //void refresh();
@@ -78,6 +85,7 @@ namespace GRAPHICALEDITORS{
     private slots:
         void openAdderWindow();
         void clicCursusSelection(const QModelIndex&);
+        void jeDoisMeFermer(){this->close();};
     };
 
 
