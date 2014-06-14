@@ -9,7 +9,8 @@ FORMS += \
     choixuv.ui \
     browserwidget.ui \
     qsqlconnectiondialog.ui \
-    catalogue.ui
+    catalogue.ui \
+    recupdonnees.ui
 
 OTHER_FILES += \
     xmlDossier.xml \
@@ -31,7 +32,8 @@ HEADERS += \
     qsqlconnectiondialog.h \
     uvDataBaseConnect.h \
     catalogue.h \
-    interfacePersistenceDonnees.h
+    interfacePersistenceDonnees.h \
+    recupdonnees.h
 
 SOURCES += \
     CursusEditor.cpp \
@@ -49,7 +51,8 @@ SOURCES += \
     connectionwidget.cpp \
     uvDataBaseConnect.cpp \
     catalogue.cpp \
-    interfacePersistenceDonnees.cpp
+    interfacePersistenceDonnees.cpp \
+    recupdonnees.cpp
 
 build_all:!build_pass {
     CONFIG -= build_all

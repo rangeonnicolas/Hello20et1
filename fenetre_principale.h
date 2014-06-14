@@ -19,6 +19,7 @@ class fenetrePrincipale :public QMainWindow{
     QApplication* app;
     DATABASE::UvDbConn* uvdb;
 public :
+    static unsigned int* donnees; //1=DB  2=dur
 explicit fenetrePrincipale(QWidget * parent = 0,QApplication* app = 0);
 signals:
 

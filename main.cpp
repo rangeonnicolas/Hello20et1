@@ -8,6 +8,7 @@
 #include "dataBaseB.h"
 #include "browser.h"
 #include "uvDataBaseConnect.h"
+#include "recupdonnees.h"
 
 #include <QApplication>
 #include <QString>
@@ -18,6 +19,18 @@
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
+
+    unsigned int donnees=1;
+
+    //faire fenetre pour savoir quelle mode de récuperation des données on souhaite
+            recupDonnees* fenetre= new recupDonnees(&donnees,0);
+            fenetre->show();
+        //créer variable pour enregistrer ce choix
+           //si on choisit postgres:
+           /*
+            UvDbConn BD(&app);
+            BD.connect();*/
+
 
     //    UVManager& uvm = UVManager::getInstance();
     //    for(UVManager::Iterator it = uvm.getIterator();!it.isDone(); it.next())
@@ -40,7 +53,7 @@ int main(int argc, char *argv[]) {
     m.ajouterUV(code,titre,true,true);
 
 
-    fenetrePrincipale fenetre(0,&app);
-    fenetre.show();
+    fenetrePrincipale fenetre2(0,&app);
+    fenetre2.show();
     return app.exec();
 }
