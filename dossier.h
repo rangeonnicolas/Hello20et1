@@ -279,7 +279,7 @@ namespace question3 {
     */
 
 
-    class Dossier: public QWidget{
+    class Dossier/*: public QWidget*/{
         QString login_etudiant;
         Cursus_Etudiant* cursus;
         QList<Inscription> inscr;

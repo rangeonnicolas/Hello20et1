@@ -73,7 +73,7 @@ Note question3::StringToNote (const QString str){
 Dossier* Dossier::instance=0;//initialisation de la variable static
 
 
-Dossier::Dossier():QWidget(),login_etudiant(""), modification(false){
+Dossier::Dossier():/*QWidget(),*/login_etudiant(""), modification(false){
     //création d'un nouveau dossier
 }
 
@@ -201,18 +201,22 @@ void XmlStreamReader::readDossier(){
 
 }
 
-void readRecursiveCursus(Cursus_Etudiant* parent){
-
-    QTreeWidgetItem *item = new QTreeWidgetItem(parent);
-      item->setText(0, reader.attributes().value("term").toString());
+void  XmlStreamReader::readRecursiveCursus(Cursus_Etudiant* parent){
+    Cursus_Etudiant* sous_cursus= 0;
+    //QTreeWidgetItem *item = new QTreeWidgetItem(parent);
+    //item->setText(0, reader.attributes().value("term").toString());
 
     //fonction pour recopier le cursus
     for (int j=0; j<parent->getCursusReference()->getSOUSCursusList().length(); j++){
-        if(!strcmp(parent->getCursusReference()->getSOUSCursusList().at(j)->getName()==cursus)){
+        QMessageBox::information(0,"titre","une possiblité de sous cursus ou cursus "+QString(parent->getName())+"est" +QString(parent->getCursusReference()->getSOUSCursusList().at(j)->getName()));
+        if(!strcmp(parent->getCursusReference()->getSOUSCursusList().at(j)->getName(),reader.attributes().value("value").toString().toStdString().c_str())){
             Cursus* selected=parent->getCursusReference()->getSOUSCursusList().at(j);
-            Cursus_Etudiant* sous_cursus=new Cursus_Etudiant(selected);
+            sous_cursus=new Cursus_Etudiant(selected);
             parent->addSousCursus(sous_cursus);
         }
+        else
+            QMessageBox::information(0,"erreur","dsl, le cursus"+reader.attributes().value("value").toString()+"n'existe pas parmi ceux de l'administration");
+            //messade cursus "" n'existe pas
      }
         reader.readNext();
         while (!reader.atEnd()) {
