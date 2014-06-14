@@ -7,6 +7,7 @@
 #include <QWidget>
 #include <QMessageBox>
 #include <QMainWindow>
+#include <QTreeWidget>
 
 using namespace question3;
 using namespace UV_credits_types;
@@ -61,6 +62,8 @@ Note question3::StringToNote (const QString str){
     if (str=="F") return F;
     else
     if (str=="EC") return EC;
+    else
+    if (str=="AF") return AF;
     else {
         throw UTProfilerException(QString("erreur, StringToNote, note ")+str+" inexistante");
     }
@@ -158,14 +161,14 @@ void XmlStreamReader::readDossier(){
             }
 
             if(reader.name() == "cursus") {
-                /*
+
                 reader.readNext();
                 Cursus_Etudiant* ce= new Cursus_Etudiant(rootCursus);
                 readRecursiveCursus(ce);
                 dossierAremplir->setCursus(ce);
 
 
-                */
+
             }
             // We've found inscription.
             if(reader.name() == "inscription") {
@@ -185,7 +188,7 @@ void XmlStreamReader::readDossier(){
             // We've found solution.
             if(reader.name() == "solution") {
                 reader.readNext();
-                QList<Prevision> lP=readSolution();
+                QList<Inscription> lP=readSolution();
                 dossierAremplir->setMapSolutions(i,lP);
                 i++;
 
@@ -199,11 +202,11 @@ void XmlStreamReader::readDossier(){
 }
 
 void readRecursiveCursus(Cursus_Etudiant* parent){
-    /*
-    //QTreeWidgetItem *item = new QTreeWidgetItem(parent);
-      //  item->setText(0, reader.attributes().value("term").toString());
 
-    //fonction pour recopier le cursus (voir feuolle)
+    QTreeWidgetItem *item = new QTreeWidgetItem(parent);
+      item->setText(0, reader.attributes().value("term").toString());
+
+    //fonction pour recopier le cursus
     for (int j=0; j<parent->getCursusReference()->getSOUSCursusList().length(); j++){
         if(!strcmp(parent->getCursusReference()->getSOUSCursusList().at(j)->getName()==cursus)){
             Cursus* selected=parent->getCursusReference()->getSOUSCursusList().at(j);
@@ -229,7 +232,7 @@ void readRecursiveCursus(Cursus_Etudiant* parent){
                 reader.readNext();
             }
         }
-        */
+
 
 
 }
@@ -288,17 +291,15 @@ Semestre& XmlStreamReader::readSemestre(Semestre& sem){
 
 
 UV* XmlStreamReader::readUv(){
-    /*A decommenter quand UVManager sera implémentée
+   // A decommenter quand UVManager sera implémentée
     QString code;
     //lire le code dans fichier xml
     code=reader.text().toString();
     //le chercher dans UVManager
-    while(uvs[iterator]->code!=code){
-        iterator++;
-    }
+
     //retourner le pointeur
-    return uvs[iterator];
-*/
+    return &(UVManager::getInstance().getUV(code));
+
 }
 
 Equivalence& XmlStreamReader::readEquivalence(Equivalence& equi){
@@ -351,14 +352,14 @@ Credits& XmlStreamReader::readCredits(Credits &cred){
 
 
 
-QList<Prevision> XmlStreamReader::readSolution(){
+QList<Inscription> XmlStreamReader::readSolution(){
 
-   QList<Prevision> solution;
+   QList<Inscription> solution;
     while(!(reader.tokenType() == QXmlStreamReader::EndElement && reader.name() == "solution")){
         if(reader.tokenType() == QXmlStreamReader::StartElement) {
             if(reader.name()=="prevision"){
                 reader.readNext();
-                Prevision prev;
+                Inscription prev;
                 solution.push_back(readPrevision(prev));
             }
 
@@ -369,7 +370,7 @@ QList<Prevision> XmlStreamReader::readSolution(){
 }
 
 
-Prevision& XmlStreamReader::readPrevision(Prevision& prev){
+Inscription& XmlStreamReader::readPrevision(Inscription& prev){
 
     while(!(reader.tokenType() == QXmlStreamReader::EndElement && reader.name() == "prevision")){
         if(reader.tokenType() == QXmlStreamReader::StartElement) {
