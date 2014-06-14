@@ -48,53 +48,72 @@ namespace UV_credits_types{
 
 
 
-    class CreditType{
-        QString libelle;
-    public:
-        inline CreditType(const QString& l):libelle(l){ }
-        inline QString getLibelle() const { return libelle ;}
-        inline void setLibelle(const QString &s) { libelle = s ;}
-    };
 
 
-    class CreditTypeManager{
-        QList<CreditType> list_CT;
-    public :
-        inline void addType (const QString& t){ list_CT.append(t) ;}
-        const CreditType* getFromType(const QString& libelle) const;
-        //inline void displayAll() { for(int i=0;i<list_CT.length();i++) std::cout<<list_CT.at(i).getLibelle()<<"\n" ;};
-        // TODO NICO : displayAll: mettre le flux de sortie en paramètre
-    };
 
 
-    class Credits{
-        const CreditType* type; //TODO NICO: remettre tous les const dans l'UML
-        unsigned int nb_credits;
-    public:
-        inline Credits(CreditType* t,unsigned int nb):type(t),nb_credits(nb){}
-        inline Credits():type(0), nb_credits(0){}
-        inline const CreditType* getType() const {return type; }
-        inline unsigned int getNbCredits() const {return nb_credits;}
-        inline void setType(CreditType* t) {type=t ;}
-        inline void setNbCredits(unsigned int nb){nb_credits=nb ;}
-    };
-    class Portee{
-        QString libelle;
-    public:
-        inline Portee(const QString l):libelle(l){}
-        inline Portee():libelle(""){}
-        inline QString getLibelle() const {return libelle;}
-        inline void setLibelle(const QString l) {libelle=l ;}
 
-    };
 
-    class PorteeManager{
-        QList<Portee> list_P;
-    public:
-        inline void addPortee (const QString l){ list_P.append(Portee(l)) ;}
-        const Portee* getFromPortee(const QString &libelle) const;
-        //inline void displayAll(){ for(int i=0;i<list_P.length();i++) std::cout<<list_P.at(i).getLibelle()<<"\n" ;}
-    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+   class CreditType{
+       QString libelle;
+   public:
+       inline CreditType(const QString& l):libelle(l){ }
+       inline QString getLibelle() const { return libelle ;}
+       inline void setLibelle(const QString &s) { libelle = s ;}
+   };
+
+
+   class CreditTypeManager{
+       QList<CreditType*> list_CT;
+   public :
+       inline void addType (const QString& t){ list_CT.append(new CreditType(t)) ;}
+       const CreditType* getFromType(const QString& libelle) const;
+       //inline void displayAll() { for(int i=0;i<list_CT.length();i++) std::cout<<list_CT.at(i).getLibelle()<<"\n" ;};
+       // TODO NICO : displayAll: mettre le flux de sortie en paramètre
+   };
+
+
+   class Credits{
+       const CreditType* type; //TODO NICO: remettre tous les const dans l'UML
+       unsigned int nb_credits;
+   public:
+       inline Credits(CreditType* t,unsigned int nb):type(t),nb_credits(nb){}
+       inline Credits():type(0), nb_credits(0){}
+       inline const CreditType* getType() const {return type; }
+       inline unsigned int getNbCredits() const {return nb_credits;}
+       inline void setType(CreditType* t) {type=t ;}
+       inline void setNbCredits(unsigned int nb){nb_credits=nb ;}
+   };
+   class Portee{
+       QString libelle;
+   public:
+       inline Portee(const QString l):libelle(l){}
+       inline Portee():libelle(""){}
+       inline QString getLibelle() const {return libelle;}
+       inline void setLibelle(const QString l) {libelle=l ;}
+
+   };
+
+   class PorteeManager{
+       QList<Portee*> list_P;
+   public:
+       inline void addPortee (const QString l){ list_P.append(new Portee(l)) ;}
+       const Portee* getFromPortee(const QString &libelle) const;
+       //inline void displayAll(){ for(int i=0;i<list_P.length();i++) std::cout<<list_P.at(i).getLibelle()<<"\n" ;}
+   };
 
 //ajout UVManager du TD !!!!A ADAPTER!!!
     class UVManager {
@@ -151,6 +170,7 @@ namespace UV_credits_types{
             return Iterator(uvs,nbUV);
         }
 
+
         class iterator {
             UV** current;
             iterator(UV** u):current(u){}
@@ -195,6 +215,8 @@ namespace UV_credits_types{
         }
         */
     };
+
+
 
 }
 

@@ -33,6 +33,7 @@ HEADERS += \
     uvDataBaseConnect.h \
     catalogue.h \
     interfacePersistenceDonnees.h \
+    dataBasePostgres.h \
     recupdonnees.h
 
 SOURCES += \

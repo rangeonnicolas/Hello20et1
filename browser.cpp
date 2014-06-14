@@ -44,9 +44,10 @@
 
 #include <QtWidgets>
 #include <QtSql>
+#include <iostream>
 
-Browser::Browser(QWidget *parent)
-    : QWidget(parent)
+Browser::Browser(const QString& nomTable,QWidget *parent)
+    : QWidget(parent),nomTable(nomTable)
 {
     setupUi(this);
 
@@ -75,7 +76,7 @@ Browser::~Browser()
 void Browser::exec()
 {
     QSqlQueryModel *model = new QSqlQueryModel(table);
-    model->setQuery(QSqlQuery(sqlEdit->toPlainText(), connectionWidget->currentDatabase()));
+    //model->setQuery(QSqlQuery(sqlEdit->toPlainText(), connectionWidget->currentDatabase()));//lbl1
     table->setModel(model);
 
     if (model->lastError().type() != QSqlError::NoError)

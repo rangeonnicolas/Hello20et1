@@ -12,6 +12,12 @@ using namespace GRAPHICALEDITORS;
 
 CURSUSEditor::CURSUSEditor(Cursus* root ,QWidget *parent):QDialog(parent),rootCursus(root){
 
+
+/*    try{
+        rootCursus->testNullPtr(true);
+    }catch(CursusNullPtrException e){
+        QMessageBox::warning(0," ",e.getInfo().toStdString().c_str());
+    }*/
     this->setWindowTitle( QString("ADMINISTRATION : Edition des Cursus") );
 
     // creation des labels
@@ -71,13 +77,12 @@ CURSUSEditor::CURSUSEditor(Cursus* root ,QWidget *parent):QDialog(parent),rootCu
     coucheH->addLayout(coucheV3);
 
     setLayout(coucheH);
-
     initView();
 
 }
 
 void CURSUSEditor::initView(){
-
+//QMessageBox::warning(0," ","\nOn initialise la vue 0");
     cursusSelectorModel = new QStandardItemModel; 
     profilSelectorModel = new QStandardItemModel;
     regleSelectorModel = new QStandardItemModel;
@@ -87,43 +92,63 @@ void CURSUSEditor::initView(){
 
     // mise en place de l'arbre des cursus (QTreeView de droite)
     QStandardItem *itemCurs = new QStandardItem_Cursus(rootCursus->getName(),rootCursus);
-    rootCursus->copyIntoQtCursusView(itemCurs);
+    try{
+        rootCursus->copyIntoQtCursusView(itemCurs);
+    }catch(CursusNullPtrException e){
+        QMessageBox::warning(0," ",e.getInfo().toStdString().c_str());
+    }
     cursusSelectorModel->appendRow(itemCurs);
-
     connect(cursusSelector, SIGNAL(clicked(const QModelIndex&)), this, SLOT(clicCursusSelection(const QModelIndex&)));
     connect(profilSelector, SIGNAL(clicked(const QModelIndex&)), this, SLOT(clicProfilSelection(const QModelIndex&)));
     //connect(regleSelector , SIGNAL(clicked(const QModelIndex&)), this, SLOT(clicRegleSelection(const QModelIndex&)));
-
     regleSelector ->header()->hide();
     cursusSelector->header()->hide();
     cursusSelector->setModel(cursusSelectorModel);
     profilSelector->setModel(profilSelectorModel);
     regleSelector ->setModel(regleSelectorModel);
-
-    selectedCursus->copyIntoQtProfilView(profilSelectorModel,1);//
-
+//QMessageBox::warning(0," ","\nOn initialise la vue 3");
+    try{
+        selectedCursus->copyIntoQtProfilView(profilSelectorModel,1);//
+    }catch(CursusNullPtrException e){
+        QMessageBox::warning(0," ",e.getInfo().toStdString().c_str());
+    }
+//QMessageBox::warning(0," ","\nOn initialise la vue 4");
     refresh();
 
 }
 
 void CURSUSEditor::refresh(){
-
-    selectedProfile->copyIntoQtRuleView(regleSelectorModel);
- 
+    try{
+//QMessageBox::warning(0," ","\n... donc on copie dans le modele! 1");
+        selectedProfile->copyIntoQtRuleView(regleSelectorModel);
+    }catch(CursusNullPtrException e){
+        QMessageBox::warning(0," ",e.getInfo().toStdString().c_str());
+    }
+/*    }catch(std::exception e){
+        QMessageBox::warning(0," ",e.what());
+    }*/
+//QMessageBox::warning(0," ","\n... donc on copie dans le modele! 2");
 }
 
 void CURSUSEditor::clicCursusSelection(const QModelIndex& index){
+//QMessageBox::warning(0," ","\ntu as cliqué sur un cursus 0");
     QStandardItem_Cursus* current = (QStandardItem_Cursus*)cursusSelectorModel->itemFromIndex(index);
 
     selectedCursus = current->getCursus();
     selectedProfile = selectedCursus->getProfileList().at(0);
-
+    //
+//QMessageBox::warning(0," ","\ntu as cliqué sur un cursus 1");
     profilSelectorModel->clear();
     regleSelectorModel->clear();
-
-    selectedCursus->copyIntoQtProfilView(profilSelectorModel,1);//
-
+    try{
+        selectedCursus->copyIntoQtProfilView(profilSelectorModel,1);//
+    }catch(CursusNullPtrException e){
+        QMessageBox::warning(0," ",e.getInfo().toStdString().c_str());
+    }
+//QMessageBox::warning(0," ","\ntu as cliqué sur un cursus 2");
+    //
     refresh();
+//QMessageBox::warning(0," ","\ntu as cliqué sur un cursus 3");
 };
 
 void CURSUSEditor::clicProfilSelection(const QModelIndex& index){

@@ -8,18 +8,34 @@
 #include "dataBaseB.h"
 #include "browser.h"
 #include "uvDataBaseConnect.h"
+<<<<<<< HEAD
+=======
+#include "interfacePersistenceDonnees.h"
+#include "dataBasePostgres.h"
+>>>>>>> bb58f659bd1dac491fbcf23685bc583aa6685b7d
 #include "recupdonnees.h"
 
 #include <QApplication>
 #include <QString>
-//#include <QtCore>
-//#include <QtWidgets>
-//#include <QtSql>
+
 
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
+<<<<<<< HEAD
+=======
+
+//    DATABASE::UvDbConn db(&app);
+//    db.connect();
+//    QMessageBox::information(0,"","1");
+//    db.showEditor("assoc");
+//    QMessageBox::information(0,"","2");
+//    db.showEditor("portee");
+//    QMessageBox::information(0,"","3");
+//    db.showEditor("uv");
+
+>>>>>>> bb58f659bd1dac491fbcf23685bc583aa6685b7d
     unsigned int donnees=1;
 
     //faire fenetre pour savoir quelle mode de récuperation des données on souhaite
@@ -52,8 +68,14 @@ int main(int argc, char *argv[]) {
     titre="Tdfsd Xgfs";
     m.ajouterUV(code,titre,true,true);
 
+<<<<<<< HEAD
 
     fenetrePrincipale fenetre2(0,&app);
     fenetre2.show();
+=======
+    fenetrePrincipale fenetre2(0,&app);
+    fenetre2.show();
+
+>>>>>>> bb58f659bd1dac491fbcf23685bc583aa6685b7d
     return app.exec();
 }

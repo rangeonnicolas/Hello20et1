@@ -1,49 +1,9 @@
-/****************************************************************************
-**
-** Copyright (C) 2013 Digia Plc and/or its subsidiary(-ies).
-** Contact: http://www.qt-project.org/legal
-**
-** This file is part of the demonstration applications of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:LGPL$
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and Digia.  For licensing terms and
-** conditions see http://qt.digia.com/licensing.  For further information
-** use the contact form at http://qt.digia.com/contact-us.
-**
-** GNU Lesser General Public License Usage
-** Alternatively, this file may be used under the terms of the GNU Lesser
-** General Public License version 2.1 as published by the Free Software
-** Foundation and appearing in the file LICENSE.LGPL included in the
-** packaging of this file.  Please review the following information to
-** ensure the GNU Lesser General Public License version 2.1 requirements
-** will be met: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
-**
-** In addition, as a special exception, Digia gives you certain additional
-** rights.  These rights are described in the Digia Qt LGPL Exception
-** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
-**
-** GNU General Public License Usage
-** Alternatively, this file may be used under the terms of the GNU
-** General Public License version 3.0 as published by the Free Software
-** Foundation and appearing in the file LICENSE.GPL included in the
-** packaging of this file.  Please review the following information to
-** ensure the GNU General Public License version 3.0 requirements will be
-** met: http://www.gnu.org/copyleft/gpl.html.
-**
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
-
 #ifndef BROWSER_H
 #define BROWSER_H
 
 #include <QWidget>
 #include <QSqlTableModel>
+#include <QMessageBox>
 #include "ui_browserwidget.h"
 
 class ConnectionWidget;
@@ -55,8 +15,9 @@ QT_FORWARD_DECLARE_CLASS(QSqlError)
 class Browser: public QWidget, private Ui::Browser
 {
     Q_OBJECT
+    QString nomTable;
 public:
-    Browser(QWidget *parent = 0);
+    Browser(const QString& nomTable, QWidget *parent = 0);
     virtual ~Browser();
 
     QSqlError addConnection(const QString &driver, const QString &dbName, const QString &host,
@@ -85,19 +46,19 @@ public slots:
     void on_revertAction_triggered();
     void on_selectAction_triggered();
     void on_connectionWidget_tableActivated(const QString &table)
-    { showTable(table); }
+    { showTable(nomTable); if(table==0){};}  //  { showTable(table); }
     void on_connectionWidget_metaDataRequested(const QString &table)
-    { showMetaData(table); }
-    void on_submitButton_clicked()
+    { showMetaData(nomTable);  if(table==0){}; }// { showMetaData(table); }
+   /* void on_submitButton_clicked()
     {
         exec();
-        sqlEdit->setFocus();
+        //sqlEdit->setFocus();
     }
     void on_clearButton_clicked()
     {
-        sqlEdit->clear();
-        sqlEdit->setFocus();
-    }
+        //sqlEdit->clear();
+        //sqlEdit->setFocus();
+    }*/
 
 signals:
     void statusMessage(const QString &message);

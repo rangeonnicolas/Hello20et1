@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>829</width>
+    <height>517</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>20</y>
+     <width>611</width>
+     <height>451</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout1">
+    <item alignment="Qt::AlignHCenter">
+     <widget class="QLabel" name="Catalogue">
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Edition UV&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QFormLayout" name="formLayout">
+      <property name="fieldGrowthPolicy">
+       <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+      </property>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout1">
+      <item>
+       <widget class="QLabel" name="code">
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Code : &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item alignment="Qt::AlignLeft">
+       <widget class="QLineEdit" name="codeEdit"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="titre">
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Titre :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="titreEdit"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="ouverture">
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Ouverture : &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="printempsBox">
+        <property name="text">
+         <string>Printemps</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="automneBox">
+        <property name="text">
+         <string>Automne</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QTableWidget" name="tableWidget">
+      <row>
+       <property name="text">
+        <string>Tous Cursus Confondus</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>TC</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>Toutes branches confondues</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>PCB GI+ADEL</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>PCB GI</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>PCB GI+FDD</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>PCB GI+ICSI</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>PCB GI+MPI</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>PCB GI+SRI</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>PCB GI+STRIE</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>PCB GP</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>TSH branches+TC</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>TSH branches</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>TSH [1][1]</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>TSH [2][1]</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>TSH [1][2]</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>TSH [2][2]</string>
+       </property>
+      </row>
+      <column>
+       <property name="text">
+        <string>CS</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>TM</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>SP</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>TSH</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item alignment="Qt::AlignRight">
+       <widget class="QPushButton" name="editer">
+        <property name="text">
+         <string>Editer</string>
+        </property>
+       </widget>
+      </item>
+      <item alignment="Qt::AlignLeft">
+       <widget class="QPushButton" name="annuler">
+        <property name="text">
+         <string>Annuler</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

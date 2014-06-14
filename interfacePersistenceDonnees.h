@@ -6,7 +6,7 @@
 
 using namespace UV_credits_types;
 
-namespace INTERFACEPERS{
+namespace DATABASE{
 
     class InterfacePersistence{
 
