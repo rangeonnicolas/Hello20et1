@@ -98,7 +98,7 @@ Dossier::~Dossier(){
 }
 
 
-XmlStreamReader::XmlStreamReader(Dossier* doss){
+XmlStreamReader::XmlStreamReader(Dossier* doss,Cursus* rootCursus):rootCursus(rootCursus){
 
     dossierAremplir = doss;
 

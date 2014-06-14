@@ -108,7 +108,7 @@ void fenetrePrincipale::ouvrir(){
        // QMessageBox::warning(this,"chargement fichier xml", "ouverture du fichier fait"+chemin);
 
 
-        XmlStreamReader reader(&doss);
+        XmlStreamReader reader(&doss,rootCursus);
         reader.readFile(chemin);
         QMessageBox::warning(this,"fonction load()", "fin readFile");
         //ouverture de la fenetre d'edition de dossier
