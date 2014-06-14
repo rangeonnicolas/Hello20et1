@@ -41,6 +41,7 @@ int main(int argc, char *argv[]) {
     //faire fenetre pour savoir quelle mode de récuperation des données on souhaite
             recupDonnees* fenetre= new recupDonnees(&donnees,0);
             fenetre->show();
+
         //créer variable pour enregistrer ce choix
            //si on choisit postgres:
            /*

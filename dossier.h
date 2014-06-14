@@ -321,8 +321,8 @@ namespace question3 {
     class XmlStreamReader
     {
     public:
-        XmlStreamReader(Dossier* doss);
-
+        XmlStreamReader(Dossier* doss, Cursus *rootCursus);
+        Cursus* rootCursus;
         bool readFile(const QString& fileName);
 
     private:
