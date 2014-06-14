@@ -4,12 +4,13 @@
 #include "feneditdoss.h"
 #include "ui_feneditdoss.h"
 #include "dossier.h"
+#include "CursusEditor.h"
 
 #include <QMainWindow>
 #include <QObject>
 using namespace question3;
 
-fenEditDoss::fenEditDoss(Dossier *doss, QWidget *parent) : QDialog(parent), ui(new Ui::fenEditDoss)
+fenEditDoss::fenEditDoss(Dossier *doss, Cursus* rootCursus, QWidget *parent) : QDialog(parent), ui(new Ui::fenEditDoss),SOUSfenetre(new GRAPHICALEDITORS::CURSUSSelector(rootCursus,this)),rootCursus(rootCursus)
     {
         ui->setupUi(this);
         setWindowTitle("Fenetre Edition Dossier");
@@ -31,7 +32,7 @@ fenEditDoss::fenEditDoss(Dossier *doss, QWidget *parent) : QDialog(parent), ui(n
         // au clic de valider de l'etape1
         connect(ui->pushButton_Valider,SIGNAL(clicked()),this,SLOT(enregistrerLogin()));
         // auc clic de choisir de l'etape 2
-        //connect(ui->pushButton_choisir,SIGNAL(clicked()),this,SLOT(openCurs()));
+        connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(openCurs()));
         //au clic de ajouter de l'étape 3 on enregistre l'inscription dans une liste d'inscription créée localement et on affiche le code dans la view à droite
         connect(ui->pushButton_ajouterEtape3,SIGNAL(clicked()),this,SLOT(ajouterEtape3()));
 
@@ -69,10 +70,14 @@ void fenEditDoss::validerDossier(){
     close();
 }
 
-/*void fenEditDoss::openCurs(){
-    GRAPHICALEDITORS::CURSUSEditor* fenetre= new GRAPHICALEDITORS::CURSUSEditor(this);
-    setCentralWidget(fenetre);
-}*/
+void fenEditDoss::openCurs(){
+    //delete SOUSfenetre;
+    //SOUSfenetre = new GRAPHICALEDITORS::CURSUSSelector(rootCursus);
+    //connect(SOUSfenetre,SIGNAL(destroyed()),this,SLOT(lEtudiantAAjouteUnCursusetu()));
+    SOUSfenetre->show();
+    //setCentralWidget(SOUSfenetre);
+    //d->add_cursus();
+}
 
 void fenEditDoss::ajouterEtape3(){
 
@@ -123,5 +128,11 @@ fenEditDoss::~fenEditDoss()
     {
         delete ui;
     }
+
+void fenEditDoss::lEtudiantAAjouteUnCursusetu(){
+    d->add_cursus(SOUSfenetre->getCursusSaisiParLEtudiant());
+    QMessageBox::information(0,"Notification",QString("L'UTC vous remercie de tout coeur de vous être inscrits à des cursus! \nVoici l'intégralité des conditions de validation de vos Cursus (accrochez-vous!):\n\n")+QString(d->getCursusEtu()->toString(0).c_str())+QString("\n\n\n...Etes-vous toujour sûr de vouloir vous inscrire à tous ces cursus...?!"));
+}
+
 
 

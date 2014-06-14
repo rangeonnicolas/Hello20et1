@@ -36,7 +36,6 @@ public slots:
     void supprCur();
     void ouvrir();
     void nouveau();
-    void jePeuxMouvrir();
 };
 
 #endif // FENETRE_PRINCIPALE_H

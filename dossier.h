@@ -181,7 +181,7 @@ namespace question3 {
         bool is_completed(QList<Inscription> *ti) const;
         inline void addValidationRule(ValidationRule *r){ VRlist.append(r) ;};
         float completion_percentage (QList<Inscription> *ti) const;
-        string toString() const;
+        string toString(int k) const;
         //TODO NICO: ne pas oublier la suppression
         // TODO NICO: ici il y a surement de la factory derriere.
         //verifier toutes les associations........
@@ -204,7 +204,7 @@ namespace question3 {
         inline void addProfil(Profil *p){ PROlist.append(p) ;}
         inline void addSousCursus(Cursus *c){SOUS_cursus.append(c);}
         float completion_percentage (QList<Inscription> *ti) const;
-        string toString() const;
+        string toString(int k) const;
         //TODO NICO: ne pas oublier la suppression
         //TODO NICO: ici il y a surement de la factory derriere.
         //TODO NICO: verifier toutes les associations........
@@ -278,22 +278,24 @@ namespace question3 {
     };
 
 
-    class Dossier: public QWidget{
+    class Dossier{
         QString login_etudiant;
-        Cursus_Etudiant* cursus;
+        Cursus_Etudiant* cursusEtu;
         QList<Inscription> inscr;
         QList<Equivalence> equivalences;
         QMap<unsigned int,QList<Prevision> > mapSolutions;
         bool modification;
         QString file;
         Dossier();
-        ~Dossier();
+        ~Dossier(){
+            delete cursusEtu;
+        };
         static Dossier* instance;
 
     public:
         void setFile(QString f){file=f;}
         void setLogin_etudiant(QString& l){login_etudiant=l;}
-        void setCursus(Cursus_Etudiant* cur){cursus=cur;}
+        void setCursus(Cursus_Etudiant* cursusEtu){cursusEtu=cursusEtu;}
         void setInscr(QList<Inscription>& i){inscr.append(i);}
         void setEqui(QList<Equivalence>& e){equivalences.append(e);}
         void setInscr(Inscription& i){inscr.push_back(i);}
@@ -301,7 +303,7 @@ namespace question3 {
         void setMapSolutions(unsigned int& i, QList<Prevision>& lP){mapSolutions.insert(i,lP);}
         void load(const QString path, Dossier *doss);
         void save();
-        void add_cursus();
+        void add_cursus(Cursus_Etudiant* cursusEtu){this->cursusEtu=cursusEtu;};
         void delete_cursus();
         void add_equivalence();
         void delete_equivalence();
@@ -311,6 +313,7 @@ namespace question3 {
         void add_semestre_etranger();
         void delete_semestre_etranger();
         void save_solution();
+        Cursus_Etudiant* getCursusEtu(){return cursusEtu;};
         static Dossier& getInstance();
         static void libererInstance();
 

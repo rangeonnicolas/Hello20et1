@@ -70,7 +70,7 @@ Note question3::StringToNote (const QString str){
 Dossier* Dossier::instance=0;//initialisation de la variable static
 
 
-Dossier::Dossier():QWidget(),login_etudiant(""), modification(false){
+Dossier::Dossier():login_etudiant(""), modification(false){
     //création d'un nouveau dossier
 }
 
@@ -88,14 +88,15 @@ void Dossier::libererInstance(){
 }
 
 //!!!!!!!! A FAIRE!!!!!!!!
-Dossier::~Dossier(){
-    if(modification){
-        //enregistrement du dossier
+//c'est bon, je l'ai implémenté dans le .h! (nico)
+//Dossier::~Dossier(){
+//    if(modification){
+//        //enregistrement du dossier
 
 
 
-    }
-}
+//    }
+//}
 
 
 XmlStreamReader::XmlStreamReader(Dossier* doss,Cursus* rootCursus):rootCursus(rootCursus){
@@ -198,38 +199,45 @@ void XmlStreamReader::readDossier(){
 
 }
 
+
+
+
 void readRecursiveCursus(Cursus_Etudiant* parent){
-    /*
+
     //QTreeWidgetItem *item = new QTreeWidgetItem(parent);
       //  item->setText(0, reader.attributes().value("term").toString());
 
     //fonction pour recopier le cursus (voir feuolle)
-    for (int j=0; j<parent->getCursusReference()->getSOUSCursusList().length(); j++){
-        if(!strcmp(parent->getCursusReference()->getSOUSCursusList().at(j)->getName()==cursus)){
-            Cursus* selected=parent->getCursusReference()->getSOUSCursusList().at(j);
-            Cursus_Etudiant* sous_cursus=new Cursus_Etudiant(selected);
-            parent->addSousCursus(sous_cursus);
-        }
-     }
-        reader.readNext();
-        while (!reader.atEnd()) {
-            if (reader.isEndElement()) {
-                reader.readNext();
-                break;
-            }
+//    for (int j=0; j<parent->getCursusReference()->getSOUSCursusList().length(); j++){
+//        if(!strcmp(parent->getCursusReference()->getSOUSCursusList().at(j)->getName(),cursus)){
+//            QMessageBox::information(0," ","");
+//            Cursus* selected=parent->getCursusReference()->getSOUSCursusList().at(j);
+//            Cursus_Etudiant* sous_cursus=new Cursus_Etudiant(selected);
+//            parent->addSousCursus(sous_cursus);
+//        }
+//     }
+//        reader.readNext();
+//        while (!reader.atEnd()) {
+//            if (reader.isEndElement()) {
+//                reader.readNext();
+//                break;
+//            }
 
-            if (reader.isStartElement()) {
-                if (reader.name() == "cursus") {
-                    readRecursiveCursus(sous_cursus);
 
-                } else {
-                    skipUnknownElement();
-                }
-            } else {
-                reader.readNext();
-            }
-        }
-        */
+
+
+//            if (reader.isStartElement()) {
+//                if (reader.name() == "cursus") {
+//                    readRecursiveCursus(sous_cursus);
+
+//                } else {
+//                    skipUnknownElement();
+//                }
+//            } else {
+//                reader.readNext();
+//            }
+//        }
+
 
 
 }
@@ -610,12 +618,12 @@ string FonctionOU::toString () const {
         int i;
         str = str + " [ ";
         for(i=0; i<VRlist.length()-1 ; i++)
-            str = str + VRlist.at(i)->toString() + " ] OU [ ";
+            str = str + VRlist.at(i)->toString() + " ]\nOU [ ";
         i = VRlist.length()-1 ;
         str = str + VRlist.at(i)->toString() + " ]";
 
     }else{
-        str = "!!Règle incomplète";
+        str = "";
     }
 
     return str;
@@ -629,12 +637,12 @@ string FonctionET::toString () const {
         int i;
         str = str + " [ ";
         for(i=0; i<VRlist.length()-1 ; i++)
-            str = str + VRlist.at(i)->toString() + " ] ET [ ";
+            str = str + VRlist.at(i)->toString() + " ] \nET [ ";
         i = VRlist.length()-1 ;
         str = str + VRlist.at(i)->toString() + " ]";
 
     }else{
-        str = "!!Règle incomplète";
+        str = "";
     }
 
     return str;
@@ -663,20 +671,19 @@ float Profil::completion_percentage (QList<Inscription> *ti) const{
 
 }
 
-string Profil::toString() const{
+string Profil::toString(int k) const{
 
-    string str = string("");
+    string indentation=string("");
+    for(int l=0;l<k;l++)
+        indentation = indentation + "      ";
+    string str = indentation;
 
     if(VRlist.length()>0){
         int i;
-        str = str + " [ ";
-        for(i=0; i<VRlist.length()-1 ; i++)
-            str = str + VRlist.at(i)->toString() + " ] ET [ ";
-        i = VRlist.length()-1 ;
-        str = str + VRlist.at(i)->toString() + " ]";
-
+        for(i=0; i<VRlist.length() ; i++)
+            str = str +"\n"+indentation+"règle de validation:" + VRlist.at(i)->toString();
     }else{
-        str = "!!Règle incomplète";
+        str = "";
     }
 
     return str;
@@ -737,20 +744,20 @@ float Cursus::completion_percentage (QList<Inscription> *ti) const{
     }
 }
 
-string Cursus::toString() const{
+string Cursus::toString(int k) const{
 
-    string str = string("");
+    string indentation=string("");
+    for(int l=0;l<k;l++)
+        indentation = indentation + "      ";
+    string str = indentation;
 
     if(PROlist.length()>0){
         int i;
-        str = str + " [ ";
-        for(i=0; i<PROlist.length()-1 ; i++)
-            str = str + PROlist.at(i)->toString() + " ] ET [ ";
-        i = PROlist.length()-1 ;
-        str = str + PROlist.at(i)->toString() + " ].";
+        for(i=0; i<PROlist.length() ; i++)
+            str = str + "\n"+indentation+"Profil \""+PROlist.at(i)->getName()+"\": " + PROlist.at(i)->toString(k+1);
 
         if(SOUS_cursus.length() >0){
-            str = str + " Mais il faut également ";
+            str = str + "\n\n"+indentation+"Mais il faut également ";
         }
     }
     if(SOUS_cursus.length() >0){
@@ -760,6 +767,11 @@ string Cursus::toString() const{
             str = str + SOUS_cursus.at(j)->getName() + ", ";
         j = SOUS_cursus.length()-1 ;
         str = str + SOUS_cursus.at(j)->getName() + ".";
+
+        str = str + "\n"+indentation+"Voici donc les conditions de validation de ces sous-cursus:";
+        for(j=0; j<SOUS_cursus.length() ; j++)
+            str = str +"\n"+indentation+"sous-cursus \""+SOUS_cursus.at(j)->getName()+"\": "+ SOUS_cursus.at(j)->toString(k+1) + ",\n";
+
     }
 
     return str;
@@ -1022,5 +1034,3 @@ void add_semestre_etranger();
 void delete_semestre_etranger();
 void save_solution();
 */
-
-

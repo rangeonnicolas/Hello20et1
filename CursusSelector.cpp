@@ -2,6 +2,7 @@
 #define CURSSE_CPP
 
 #include "CursusSelector.h"
+#include "feneditdoss.h"
 
 #include <QDirModel>
 #include <QStringListModel>
@@ -10,7 +11,7 @@
 
 using namespace GRAPHICALEDITORS;
 
-CURSUSSelector::CURSUSSelector(Cursus* root ,QWidget *parent):QWidget(parent),rootCursus(root){
+CURSUSSelector:: CURSUSSelector(Cursus* root,fenEditDoss* parentFenetre, QWidget *parent):QWidget(parent),rootCursus(root),parentFenetre(parentFenetre){
 
     this->setWindowTitle( QString("ETUDIANT : Sélection des Cursus") );
 
@@ -22,6 +23,7 @@ CURSUSSelector::CURSUSSelector(Cursus* root ,QWidget *parent):QWidget(parent),ro
 
     cursusAjouter   = new QPushButton("Ajouter un Sous Cursus", this);
     cursusSupprimer = new QPushButton("Supprimer", this);
+    ok              = new QPushButton("Confirmer", this);
     
     // diposition des couches
     couche = new QVBoxLayout;
@@ -29,6 +31,7 @@ CURSUSSelector::CURSUSSelector(Cursus* root ,QWidget *parent):QWidget(parent),ro
     couche->addWidget(cursusSelector);
     couche->addWidget(cursusAjouter);
     couche->addWidget(cursusSupprimer);
+    couche->addWidget(ok);
 
     setLayout(couche);
 
@@ -48,8 +51,10 @@ CURSUSSelector::CURSUSSelector(Cursus* root ,QWidget *parent):QWidget(parent),ro
     cursusSelector->header()->hide();
     cursusSelector->setModel(cursusSelectorModel);
 
-    connect(cursusAjouter , SIGNAL(clicked()),                   this, SLOT(openAdderWindow()));
-    connect(cursusSelector, SIGNAL(clicked(const QModelIndex&)), this, SLOT(clicCursusSelection(const QModelIndex&)));
+    connect(ok            , SIGNAL(clicked()),                   parentFenetre, SLOT(lEtudiantAAjouteUnCursusetu()));
+    connect(ok            , SIGNAL(clicked()),                   this         , SLOT(jeDoisMeFermer()));
+    connect(cursusAjouter , SIGNAL(clicked()),                   this         , SLOT(openAdderWindow()));
+    connect(cursusSelector, SIGNAL(clicked(const QModelIndex&)), this         , SLOT(clicCursusSelection(const QModelIndex&)));
  
  //    selectedCursus->copyIntoQtProfilView(profilSelectorModel,1);//
 

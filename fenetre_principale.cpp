@@ -112,7 +112,7 @@ void fenetrePrincipale::ouvrir(){
         reader.readFile(chemin);
         QMessageBox::warning(this,"fonction load()", "fin readFile");
         //ouverture de la fenetre d'edition de dossier
-        fenEditDoss* fenetre= new fenEditDoss(&doss,this);
+        fenEditDoss* fenetre= new fenEditDoss(&doss,rootCursus,this);
         setCentralWidget(fenetre);
     } catch(UTProfilerException e){
         QMessageBox::warning(this, "Chargement Dossier", "Erreur lors du chargement du dossier (non valide ?)");
@@ -122,7 +122,7 @@ void fenetrePrincipale::ouvrir(){
 }
 void fenetrePrincipale::nouveau(){
     Dossier& doss=Dossier::getInstance();
-    fenEditDoss* fenetre= new fenEditDoss(&doss,this);
+    fenEditDoss* fenetre= new fenEditDoss(&doss,rootCursus,this);
     setCentralWidget(fenetre);
 
 }
