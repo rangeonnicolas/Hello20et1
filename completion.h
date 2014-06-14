@@ -18,21 +18,32 @@ public:
     SemestreEtranger(Semestre s, unsigned int credMin, unsigned int credMax):semestre(s), creditsMin(credMin), creditsMax(credMax){}
 
 };
+class Demande;
 
 class Completion{
 
 public:
-    Completion();
-    virtual void algo()=0;
+    virtual void algo(Demande* dem)=0;
 };
 
 class AlgoCompletionSimple: public Completion{
-    QMap<UV*, int> mapTriee;
+    QMap<UV, int> mapTriee;
     QList<Inscription> sol;//var pour stocker copie puis sol
+
 public:
-    void copieDossier(Dossier& d);
-    QMap<UV*, int> triUVs(QList<UV*> ex, QList<UV*> pref, QList<UV*> rej);
-    void algo(){/*implementation*/}
+
+    QList<Inscription> copieDossier(const Dossier *d);
+    QMap<UV, int>& triUVs(const Dossier *d, const Demande *dem);
+    void createSolution();
+    void algo(Demande* dem){
+        Demande* demande=dem;
+        /*implementation*/
+        Dossier& dossier=Dossier::getInstance();
+        sol=copieDossier(&dossier);
+
+        mapTriee=triUVs(&dossier, demande);
+        createSolution();
+    }
 };
 
 class Demande
@@ -45,16 +56,17 @@ class Demande
 
 
 public:
-    //Demande():exigences(NULL), preferences(0), rejets(0), semestres_etranger(0){}
-    void getExigences();
-    void getPreferences();
-    void getRejets();
+    Demande(){}
+    QList<UV*> getExigences()const{return exigences;}
+    QList<UV*> getPreferences()const{return preferences;}
+    QList<UV*> getRejets()const{return rejets;}
     void getSemestresEtranger();
     void setExigences();
     void setPreferences();
     void setRejets();
     void setSemestresEtranger();
-    void setCompletion(){m_completion->algo();}//methode qui appelle la completion
+    void setCompletion(Completion* c){m_completion=c;}
+    void chercherSolution(){m_completion->algo(this);}//methode qui appelle la completion
 };
 
 

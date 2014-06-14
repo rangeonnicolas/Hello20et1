@@ -10,7 +10,8 @@ FORMS += \
     browserwidget.ui \
     qsqlconnectiondialog.ui \
     catalogue.ui \
-    recupdonnees.ui
+    recupdonnees.ui \
+    fencompletion.ui
 
 OTHER_FILES += \
     xmlDossier.xml \
@@ -35,7 +36,8 @@ HEADERS += \
     interfacePersistenceDonnees.h \
     dataBasePostgres.h \
     recupdonnees.h \
-    completion.h
+    completion.h \
+    fencompletion.h
 
 SOURCES += \
     CursusEditor.cpp \
@@ -55,7 +57,8 @@ SOURCES += \
     catalogue.cpp \
     interfacePersistenceDonnees.cpp \
     recupdonnees.cpp \
-    completion.cpp
+    completion.cpp \
+    fencompletion.cpp
 
 build_all:!build_pass {
     CONFIG -= build_all

@@ -300,6 +300,7 @@ namespace question3 {
         void setInscr(QList<Inscription>& i){inscr.append(i);}
         void setEqui(QList<Equivalence>& e){equivalences.append(e);}
         void setInscr(Inscription& i){inscr.push_back(i);}
+        QList<Inscription> getInscr()const {return inscr;}
         void setEqui(Equivalence& e){equivalences.push_back(e);}
         void setMapSolutions(unsigned int& i, QList<Inscription>& lP){mapSolutions.insert(i,lP);}
         void load(const QString path, Dossier *doss);

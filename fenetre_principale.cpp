@@ -3,7 +3,7 @@
 #include "CursusEditor.h"
 #include "dataBaseB.h"
 #include "choixuv.h"
-
+#include "fencompletion.h"
 
 #include "uvDataBaseConnect.h"
 
@@ -34,7 +34,7 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWind
     QMenu*mDossier = menuBar()->addMenu("&Dossier");
     QAction*Ouvrir=mDossier->addAction("&Ouvrir");
     QAction*Nouveau=mDossier->addAction("&Nouveau");
-
+    QAction*Comple=mDossier->addAction("&Completion");
 
 
 
@@ -51,6 +51,7 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWind
     connect(SupprimerCursus, SIGNAL(triggered()),this,SLOT(supprCur()));
     connect(Ouvrir, SIGNAL(triggered()),this,SLOT(ouvrir()));
     connect(Nouveau, SIGNAL(triggered()),this,SLOT(nouveau()));
+    connect(Comple, SIGNAL(triggered()),this,SLOT(complet()));
 
 
 
@@ -123,6 +124,12 @@ void fenetrePrincipale::ouvrir(){
 void fenetrePrincipale::nouveau(){
     Dossier& doss=Dossier::getInstance();
     fenEditDoss* fenetre= new fenEditDoss(&doss,rootCursus,this);
+    setCentralWidget(fenetre);
+
+}
+
+void fenetrePrincipale::complet(){
+    fenCompletion* fenetre= new fenCompletion(this);
     setCentralWidget(fenetre);
 
 }
