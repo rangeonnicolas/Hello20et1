@@ -15,13 +15,18 @@ class choixUV : public QDialog
 public:
     explicit choixUV(QWidget *parent = 0);
     ~choixUV();
-    void activerOK();
-    void recupererUv();
-    void valider();
+
+
 
 private:
     Ui::choixUV *ui;
     QString uvSelectionnee;
+
+public slots:
+
+    void activerOK(QString s);
+    //void recupererUv();
+    void valider();
 };
 
 #endif // CHOIXUV_H

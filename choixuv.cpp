@@ -17,8 +17,8 @@ choixUV::choixUV(QWidget *parent) : QDialog(parent), ui(new Ui::choixUV){
         ite.next();
     }
 
-    connect(ui->comboBox_UV,SIGNAL(currentIndexChanged(QString)),this,SLOT(activerOK()));
-    connect(ui->pushButton_OK,SIGNAL(clicked()),this,SLOT(recupererUV()));
+    connect(ui->comboBox_UV,SIGNAL(currentIndexChanged(QString)),this,SLOT(activerOK(QString)));
+   // connect(ui->pushButton_OK,SIGNAL(clicked()),this,SLOT(recupererUV()));
     connect(ui->pushButton_OK,SIGNAL(clicked()),this,SLOT(valider()));
 }
 
@@ -28,16 +28,16 @@ choixUV::~choixUV()
 }
 
 //fonction pour que le bouton ok soit reactivé
-void choixUV::activerOK(){
+void choixUV::activerOK(QString s){
     ui->pushButton_OK->setEnabled(true);
 }
 
-
+/*
 //fonction pour récupérer l'uv selectionnée
 void choixUV::recupererUv(){
     uvSelectionnee=ui->comboBox_UV->currentText();
 }
-
+*/
 void choixUV::valider(){
     //recuperer uv choisi dans combobox
     QString code=ui->comboBox_UV->currentText();

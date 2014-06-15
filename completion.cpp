@@ -173,6 +173,7 @@ void AlgoCompletionSimple::createSolution(const Dossier *d){
     while((d->getCursusEtu()->completion_percentage(&solTemp))<100){
           while(itMap.value()!=mapTriee.end().value()){
               if((itMap.key())==1){
+                     QMessageBox::warning(0,"hui","ih");
                       solTemp=enregNouvInsc(solTemp,itMap.value());
               }
           }
