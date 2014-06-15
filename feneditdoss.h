@@ -9,7 +9,7 @@
 #include "dossier.h"
 #include "CursusSelector.h"
 
-using namespace question3;
+using namespace INSCRIPTIONS;
 
 namespace Ui {
 class fenEditDoss;

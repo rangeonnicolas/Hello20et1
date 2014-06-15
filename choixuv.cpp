@@ -27,7 +27,7 @@ choixUV::~choixUV()
     delete ui;
 }
 
-//fonction pour que lo bouton ok soit reactivé
+//fonction pour que le bouton ok soit reactivé
 void choixUV::activerOK(){
     ui->pushButton_OK->setEnabled(true);
 }

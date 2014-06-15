@@ -7,7 +7,7 @@
 #include "dossier.h"
 
 using namespace UV_credits_types;
-using namespace question3;
+using namespace INSCRIPTIONS;
 
 class SemestreEtranger{
     Semestre semestre;

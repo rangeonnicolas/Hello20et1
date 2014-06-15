@@ -1,5 +1,5 @@
 TEMPLATE        = app
-TARGET          = sqlbrowser
+TARGET          = UTProfiler
 
 QT +=widgets xml sql
 
@@ -37,7 +37,9 @@ HEADERS += \
     dataBasePostgres.h \
     recupdonnees.h \
     completion.h \
-    fencompletion.h
+    fencompletion.h \
+    inscription.h \
+    dossierXMLreader.h
 
 SOURCES += \
     CursusEditor.cpp \
@@ -58,7 +60,9 @@ SOURCES += \
     interfacePersistenceDonnees.cpp \
     recupdonnees.cpp \
     completion.cpp \
-    fencompletion.cpp
+    fencompletion.cpp \
+    inscription.cpp \
+    dossierXMLreader.cpp
 
 build_all:!build_pass {
     CONFIG -= build_all

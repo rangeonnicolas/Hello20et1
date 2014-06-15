@@ -1,6 +1,3 @@
-
-
-
 #include "dataBaseB.h"
 
 Cursus* UnpersistentDataBaseB::getSavedAdministrationCursusTree(){

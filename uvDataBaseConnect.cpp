@@ -10,14 +10,6 @@ using namespace DATABASE;
 
         this->setCentralWidget(&browser);
 
-/*        fileMenu = this->menuBar()->addMenu(QObject::tr("&File"));
-        fileMenu->addAction(QObject::tr("Add &Connection..."), &browser, SLOT(addConnection()));
-        fileMenu->addSeparator();*/
-
-/*        helpMenu = this->menuBar()->addMenu(QObject::tr("&Help"));
-        helpMenu->addAction(QObject::tr("About"), &browser, SLOT(about()));
-        helpMenu->addAction(QObject::tr("About Qt"), qApp, SLOT(aboutQt()));
-*/
         QObject::connect(&browser, SIGNAL(statusMessage(QString)),
                          this->statusBar(), SLOT(showMessage(QString)));
 
@@ -42,7 +34,6 @@ using namespace DATABASE;
 
     void UvDbConn::connect(){
         addConnectionsFromCommandline(app->arguments(), &browser);
-        //mainWin.show();
         if (QSqlDatabase::connectionNames().isEmpty())
             QMetaObject::invokeMethod(&browser, "addConnection", Qt::QueuedConnection);
 

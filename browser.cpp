@@ -1,3 +1,10 @@
+/* 
+//  CODE ADAPTE DE DEMOS QT EN LIGNE
+//
+*/
+
+
+
 /****************************************************************************
 **
 ** Copyright (C) 2013 Digia Plc and/or its subsidiary(-ies).

@@ -1,17 +1,19 @@
 #include "fenetre_principale.h"
 #include "feneditdoss.h"
+#include "dossierXMLreader.h"
 #include "CursusEditor.h"
 #include "dataBaseB.h"
 #include "choixuv.h"
 #include "fencompletion.h"
-
 #include "uvDataBaseConnect.h"
-
 
 #include<QMenuBar>
 #include<QFileDialog>
 #include<QString>
 #include<QMessageBox>
+#include<QXmlStreamReader>
+
+using namespace INSCRIPTIONS;
 
 fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWindow(parent),rootCursus(UnpersistentDataBaseB::getSavedAdministrationCursusTree()),app(app),uvdb(new DATABASE::UvDbConn(app)){
     setWindowTitle("Fenetre principale");
@@ -36,9 +38,6 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWind
     QAction*Nouveau=mDossier->addAction("&Nouveau");
     QAction*Comple=mDossier->addAction("&Completion");
 
-
-
-
     // connections
     connect(Quitter, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(ConsulterUV, SIGNAL(triggered()),this,SLOT(chargerCatalogue()));
@@ -53,21 +52,9 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWind
     connect(Nouveau, SIGNAL(triggered()),this,SLOT(nouveau()));
     connect(Comple, SIGNAL(triggered()),this,SLOT(complet()));
 
+}
 
 
-
-
-
-}//fin constructeur de fenetrePrincipale
-
-
-
-
-
-//fonctions de la classe fonctionPrincipale
-
-
-//fonctions de la classe fenetrePrincipale
 void fenetrePrincipale::chargerCatalogue(){
     choixUV* fenetre= new choixUV(this);
     setCentralWidget(fenetre);
@@ -93,10 +80,6 @@ void fenetrePrincipale::editCur(){
 void fenetrePrincipale::ajoutCur(){}
 void fenetrePrincipale::supprCur(){}
 
-using namespace question3;
-//using namespace Ui;
-
-
 void fenetrePrincipale::ouvrir(){
     //chargement du dossier
     try
@@ -107,7 +90,6 @@ void fenetrePrincipale::ouvrir(){
         QString chemin = QFileDialog::getOpenFileName();
         doss.setFile(chemin);
        // QMessageBox::warning(this,"chargement fichier xml", "ouverture du fichier fait"+chemin);
-
 
         XmlStreamReader reader(&doss,rootCursus);
         reader.readFile(chemin);

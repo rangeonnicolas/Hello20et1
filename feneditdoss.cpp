@@ -1,6 +1,3 @@
-
-
-
 #include "feneditdoss.h"
 #include "ui_feneditdoss.h"
 #include "dossier.h"
@@ -8,7 +5,7 @@
 
 #include <QMainWindow>
 #include <QObject>
-using namespace question3;
+using namespace INSCRIPTIONS;
 
 fenEditDoss::fenEditDoss(Dossier *doss, Cursus* rootCursus, QWidget *parent) : QDialog(parent), ui(new Ui::fenEditDoss),SOUSfenetre(new GRAPHICALEDITORS::CURSUSSelector(rootCursus,this)),rootCursus(rootCursus)
     {
@@ -31,8 +28,8 @@ fenEditDoss::fenEditDoss(Dossier *doss, Cursus* rootCursus, QWidget *parent) : Q
 
         // au clic de valider de l'etape1
         connect(ui->pushButton_Valider,SIGNAL(clicked()),this,SLOT(enregistrerLogin()));
-        // auc clic de choisir de l'etape 2
 
+        // auc clic de choisir de l'etape 2
         connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(openCurs()));
 
         //au clic de ajouter de l'étape 3 on enregistre l'inscription dans une liste d'inscription créée localement et on affiche le code dans la view à droite
@@ -67,18 +64,13 @@ void fenEditDoss::validerDossier(){
     //au clic qur le bouton ok, les listes locales et l'arbre de cursus sont enregistrées dans le dossier
     d->setInscr(listInscription);
     d->setEqui(listE);
-    //d->setCursus(listC);
+
     //fermer la fenetre
     close();
 }
 
 void fenEditDoss::openCurs(){
-    //delete SOUSfenetre;
-    //SOUSfenetre = new GRAPHICALEDITORS::CURSUSSelector(rootCursus);
-    //connect(SOUSfenetre,SIGNAL(destroyed()),this,SLOT(lEtudiantAAjouteUnCursusetu()));
     SOUSfenetre->show();
-    //setCentralWidget(SOUSfenetre);
-    //d->add_cursus();
 }
 
 void fenEditDoss::ajouterEtape3(){
@@ -99,7 +91,6 @@ void fenEditDoss::ajouterEtape3(){
     i.setUv(&(UVManager::getInstance().getUV(ui->comboBox_code->currentText())));
 
     setInscription(i);
-
 
     //affiche
     ui->listUvsAjoutes->addItem(ui->comboBox_code->currentText());

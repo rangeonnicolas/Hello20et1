@@ -1,3 +1,9 @@
+/* 
+/*  CODE ADAPTE DE DEMOS QT EN LIGNE
+/*
+*/
+
+
 #include "connectionwidget.h"
 
 #include <QtWidgets>
@@ -70,25 +76,12 @@ void ConnectionWidget::refresh()
 
     emit tableActivated(nomTable);
 
-    tree->doItemsLayout(); // HACK
+    tree->doItemsLayout();
 }
 
 QSqlDatabase ConnectionWidget::currentDatabase() const
 {
     QSqlDatabase db = QSqlDatabase::database(activeDb) ;
-/*    std::cout<<"\ndrivername="<<db.driverName().toStdString();
-    std::cout<<"\nconnectionname="<<db.connectionName().toStdString();
-    std::cout<<"\nconnectoptions="<<db.connectOptions().toStdString();
-    std::cout<<"\ndbname="<<db.databaseName().toStdString();
-    std::cout<<"\ndrivername="<<db.driverName().toStdString();
-    std::cout<<"\nconnectoptions="<<db.hostName().toStdString();*/
-    /*db.connectionName()
-    <<db.connectionNames()
-            <<db.connectOptions()
-           <<db.databaseName()
-          <<db.driverName()
-         <<db.driver()
-        <<db.hostName();*/
     return db;
 }
 

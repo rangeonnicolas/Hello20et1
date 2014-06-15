@@ -1,7 +1,9 @@
-#include "feneditdoss.h"
-#include "fenetre_principale.h"
 #include "UV.h"
+#include "inscription.h"
 #include "dossier.h"
+#include "dossierXMLreader.h"
+#include "fenetre_principale.h"
+#include "feneditdoss.h"
 #include "dataBaseA.h"
 #include "CursusEditor.h"
 #include "CursusSelector.h"
@@ -29,7 +31,7 @@ int main(int argc, char *argv[]) {
 //    QMessageBox::information(0,"","3");
 //    db.showEditor("uv");
 
-    unsigned int donnees=1;
+    unsigned int donnees=2;
 
     //faire fenetre pour savoir quelle mode de récuperation des données on souhaite
             recupDonnees* fenetre= new recupDonnees(&donnees,0);

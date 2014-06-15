@@ -16,7 +16,7 @@
 
 namespace GRAPHICALEDITORS{
 
-    using namespace question3;
+    using namespace INSCRIPTIONS;
 
     class CURSUSEditor : public QDialog{
         Q_OBJECT
@@ -59,7 +59,7 @@ namespace GRAPHICALEDITORS{
 
     public:
         explicit CURSUSEditor(Cursus* root, QWidget *parent = 0);
-        //explicit CURSUSEditor(QList<Cursus*> cl, Cursus* root, QWidget *parent = 0); // TODO NICO c'est quoi explicit???
+        //explicit CURSUSEditor(QList<Cursus*> cl, Cursus* root, QWidget *parent = 0);
     private:
         void initView();
         void refresh();
@@ -69,7 +69,6 @@ namespace GRAPHICALEDITORS{
     private slots:
         void clicCursusSelection(const QModelIndex&);
         void clicProfilSelection(const QModelIndex&);
-        //void clicRegleSelection(const QModelIndex&);
     };
 
 

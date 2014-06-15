@@ -7,15 +7,14 @@
 #include<QInputDialog>
 #include<QString>
 
+#include "inscription.h"
 #include "dossier.h"
+#include "dossierXMLreader.h"
 #include "uvDataBaseConnect.h"
-
-
 
 class fenetrePrincipale :public QMainWindow{
     Q_OBJECT
-    question3::Cursus* rootCursus;//Arborescence de tous les cursus possibles éditable par l'administration (!il ne s'agit pas du cursus d'un étudiant en particulier!)
-    //TODO NICO: renomer le nom du namespace question3
+    INSCRIPTIONS::Cursus* rootCursus;//Arborescence de tous les cursus possibles éditable par l'administration (!il ne s'agit pas du cursus d'un étudiant en particulier!)
     QApplication* app;
     DATABASE::UvDbConn* uvdb;
 public :

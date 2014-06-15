@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>332</width>
-    <height>245</height>
+    <width>415</width>
+    <height>204</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>19</x>
      <y>19</y>
-     <width>291</width>
-     <height>201</height>
+     <width>385</width>
+     <height>163</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -35,18 +35,20 @@
       <item>
        <widget class="QRadioButton" name="radioButton_DB">
         <property name="text">
-         <string>Base de données</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="radioButton_dur">
-        <property name="text">
-         <string>Fichiers codés</string>
+         <string>Base de données réelle</string>
         </property>
        </widget>
       </item>
      </layout>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="radioButton_dur">
+      <property name="text">
+       <string>Base de données non persistante codée &quot;en dur&quot; dans le code .cpp 
+(conseillé pour avoir un aperçu partiel de l'application sans installer la BDD)
+Toutes les fonctionalités de l'application ne seront alors pas disponibles.</string>
+      </property>
+     </widget>
     </item>
     <item alignment="Qt::AlignRight">
      <widget class="QPushButton" name="pushButton_OK">

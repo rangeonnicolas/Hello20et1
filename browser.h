@@ -1,3 +1,8 @@
+/* 
+//  CODE ADAPTE DE DEMOS QT EN LIGNE
+//
+*/
+
 #ifndef BROWSER_H
 #define BROWSER_H
 
