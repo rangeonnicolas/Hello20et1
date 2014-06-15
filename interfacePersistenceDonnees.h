@@ -4,6 +4,7 @@
 #include <QList>
 #include "UV.h"
 
+
 using namespace UV_credits_types;
 
 namespace DATABASE{
@@ -19,6 +20,7 @@ namespace DATABASE{
         virtual void saveAllPortee() const=0;
         virtual QList<Credits*>* returnCreditsOfAnUV(string codeUV, string portee) const=0;
     };
+
 
 }
 

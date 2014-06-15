@@ -39,7 +39,8 @@ HEADERS += \
     completion.h \
     fencompletion.h \
     inscription.h \
-    dossierXMLreader.h
+    dossierXMLreader.h \
+    persistenceDonnees.h
 
 SOURCES += \
     CursusEditor.cpp \
@@ -62,7 +63,8 @@ SOURCES += \
     completion.cpp \
     fencompletion.cpp \
     inscription.cpp \
-    dossierXMLreader.cpp
+    dossierXMLreader.cpp \
+    persistenceDonnees.cpp
 
 build_all:!build_pass {
     CONFIG -= build_all
