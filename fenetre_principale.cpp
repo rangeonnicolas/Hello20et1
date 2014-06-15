@@ -23,8 +23,9 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWind
     QMenu*mUVs = menuBar()->addMenu("&UVs");
     QAction*ConsulterUV=mUVs->addAction("&Consulter/Editer");
     mUVs->addSeparator();
-    QAction*AjouterUV=mUVs->addAction("&Ajout UV");
-    QAction*SupprimerUV=mUVs->addAction("&Supprimer UV");
+    QAction*AjouterUV=mUVs->addAction("&Ajout/Suppression UV");
+    QAction*EditerPort=mUVs->addAction("&Editer Portée");
+    QAction*EditerTypeCred=mUVs->addAction("&Editer Types Crédits");
 
     QMenu*mCursus = menuBar()->addMenu("&Cursus");
 
@@ -34,20 +35,21 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWind
     QMenu*mDossier = menuBar()->addMenu("&Dossier");
     QAction*Ouvrir=mDossier->addAction("&Ouvrir");
     QAction*Nouveau=mDossier->addAction("&Nouveau");
-    QAction*Comple=mDossier->addAction("&Completion");
+
 
     // connections
     connect(Quitter, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(ConsulterUV, SIGNAL(triggered()),this,SLOT(chargerCatalogue()));
 
     connect(AjouterUV, SIGNAL(triggered()),this,SLOT(ajouterUV()));
-    connect(SupprimerUV, SIGNAL(triggered()),this,SLOT(supprimerUV()));
+    connect(EditerPort, SIGNAL(triggered()),this,SLOT(EditerPortee()));
+    connect(EditerTypeCred, SIGNAL(triggered()),this,SLOT(EditerTypeCredits()));
 
     connect(EditerCursus, SIGNAL(triggered()),this,SLOT(editCur()));
 
     connect(Ouvrir, SIGNAL(triggered()),this,SLOT(ouvrir()));
     connect(Nouveau, SIGNAL(triggered()),this,SLOT(nouveau()));
-    connect(Comple, SIGNAL(triggered()),this,SLOT(complet()));
+
 
 }
 
@@ -59,7 +61,8 @@ void fenetrePrincipale::chargerCatalogue(){
 void fenetrePrincipale::chargerDossier(){}
 void fenetrePrincipale::creerDossier(){}
 void fenetrePrincipale::ajouterUV(){}
-void fenetrePrincipale::supprimerUV(){}
+void fenetrePrincipale::EditerPortee(){}
+void fenetrePrincipale::EditerTypeCredits(){}
 
 
 void fenetrePrincipale::chargerUV(){
@@ -106,9 +109,4 @@ void fenetrePrincipale::nouveau(){
 
 }
 
-void fenetrePrincipale::complet(){
 
-    fenCompletion* fenetre= new fenCompletion(this);
-    setCentralWidget(fenetre);
-
-}

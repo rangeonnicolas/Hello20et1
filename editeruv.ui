@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>catalogue</class>
- <widget class="QDialog" name="catalogue">
+ <class>EditerUv</class>
+ <widget class="QDialog" name="EditerUv">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>673</width>
-    <height>512</height>
+    <width>691</width>
+    <height>567</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>30</y>
+     <x>40</x>
+     <y>20</y>
      <width>611</width>
      <height>451</height>
     </rect>
@@ -26,9 +26,16 @@
     <item alignment="Qt::AlignHCenter">
      <widget class="QLabel" name="Catalogue">
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Catalogue UVs&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Edition UV&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
+    </item>
+    <item>
+     <layout class="QFormLayout" name="formLayout">
+      <property name="fieldGrowthPolicy">
+       <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+      </property>
+     </layout>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout1">
@@ -39,12 +46,8 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QLabel" name="codeVal">
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-       </widget>
+      <item alignment="Qt::AlignLeft">
+       <widget class="QLineEdit" name="codeEdit"/>
       </item>
       <item>
        <widget class="QLabel" name="titre">
@@ -54,11 +57,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="titreVal">
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-       </widget>
+       <widget class="QLineEdit" name="titreEdit"/>
       </item>
      </layout>
     </item>
@@ -181,17 +180,12 @@
       </column>
       <column>
        <property name="text">
-        <string>TM</string>
+        <string>SP</string>
        </property>
       </column>
       <column>
        <property name="text">
         <string>TSH</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>SP</string>
        </property>
       </column>
      </widget>
@@ -211,10 +205,17 @@
         </property>
        </spacer>
       </item>
-      <item alignment="Qt::AlignLeft">
-       <widget class="QPushButton" name="sortir">
+      <item alignment="Qt::AlignRight">
+       <widget class="QPushButton" name="editer">
         <property name="text">
-         <string>Sortir</string>
+         <string>Valider</string>
+        </property>
+       </widget>
+      </item>
+      <item alignment="Qt::AlignLeft">
+       <widget class="QPushButton" name="annuler">
+        <property name="text">
+         <string>Annuler</string>
         </property>
        </widget>
       </item>
@@ -224,22 +225,5 @@
   </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>sortir</sender>
-   <signal>clicked()</signal>
-   <receiver>catalogue</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>619</x>
-     <y>470</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>679</x>
-     <y>463</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

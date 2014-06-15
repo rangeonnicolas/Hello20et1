@@ -28,11 +28,11 @@ public slots:
     void chargerDossier();
     void creerDossier();
     void ajouterUV();
-    void supprimerUV();
+    void EditerPortee();
+    void EditerTypeCredits();
     void editCur();
     void ouvrir();
     void nouveau();
-    void complet();
 };
 
 #endif // FENETRE_PRINCIPALE_H

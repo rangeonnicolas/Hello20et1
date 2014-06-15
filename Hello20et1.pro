@@ -11,7 +11,8 @@ FORMS += \
     qsqlconnectiondialog.ui \
     catalogue.ui \
     recupdonnees.ui \
-    fencompletion.ui
+    fencompletion.ui \
+    editeruv.ui
 
 OTHER_FILES += \
     xmlDossier.xml \
@@ -40,7 +41,8 @@ HEADERS += \
     fencompletion.h \
     inscription.h \
     dossierXMLreader.h \
-    persistenceDonnees.h
+    persistenceDonnees.h \
+    editeruv.h
 
 SOURCES += \
     CursusEditor.cpp \
@@ -64,7 +66,8 @@ SOURCES += \
     fencompletion.cpp \
     inscription.cpp \
     dossierXMLreader.cpp \
-    persistenceDonnees.cpp
+    persistenceDonnees.cpp \
+    editeruv.cpp
 
 build_all:!build_pass {
     CONFIG -= build_all

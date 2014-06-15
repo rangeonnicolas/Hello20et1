@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "UV.h"
+#include "editeruv.h"
 
 using namespace UV_credits_types;
 
