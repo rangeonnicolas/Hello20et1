@@ -121,6 +121,7 @@ namespace UV_credits_types{
         static void libererInstance();
         void ajouterUV(const QString& c, const QString& t/*, unsigned int nbc, Categorie cat*/, bool a, bool p);
         const UV& getUV(const QString& code) const;
+        const UV* getPtrUV(const QString& code) const;
         UV& getUV(const QString& code);
         class Iterator {
             friend class UVManager;

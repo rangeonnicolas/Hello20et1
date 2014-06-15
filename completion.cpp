@@ -1,4 +1,5 @@
 #include "completion.h"
+using namespace INSCRIPTIONS;
 
 
 
@@ -93,34 +94,120 @@ QMap<int, QString>& AlgoCompletionSimple::triUVs(const Dossier* d, const Demande
 }
 
 
+QList<Inscription>& AlgoCompletionSimple::enregNouvInsc(QList<Inscription> solTemp, QString code){
+    Inscription insc;
+    Semestre semTemp;
+
+
+    //prendre dans vrai dossier, le semestre le plus elevé
+    Saison saisonMax=Printemps;
+    unsigned int anneeMax=0;
+    for(int j=0;j<solTemp.length();j++){
+        if(solTemp.at(j).getSemestre().getAnnee()>anneeMax){
+            anneeMax=solTemp.at(j).getSemestre().getAnnee();
+            if(solTemp.at(j).getSemestre().getSaison()==Automne)
+                saisonMax=Automne;
+        }
+    }
+
+
+    //tester tous les semestres à partir de celui-là
+    unsigned int bonSemestre=0;
+    while(bonSemestre==0){
+        //faire semestre +1
+        if (saisonMax==Printemps)
+            saisonMax=Automne;
+        else{
+            anneeMax++;
+            saisonMax=Printemps;
+        }
+        semTemp.setSaison(saisonMax);
+        semTemp.setAnnee(anneeMax);
+
+        //comptabiliser tous les UVs du semestre
+        unsigned int nbUvs=0;
+        for(int k=0;k<solTemp.length();k++){
+            //comptabiliser les uvs
+            if((solTemp.at(k).getSemestre().getAnnee()==semTemp.getAnnee())&&(solTemp.at(k).getSemestre().getSaison()==semTemp.getSaison())){
+                nbUvs++;
+            }
+        }
+
+        //si place ->bonSemestre=1
+        if(nbUvs<7)
+            bonSemestre=1;
+
+    }
+
+
+    //remplir l'objet inscription
+    insc.setResultat(AF);
+    const UV* ptr;
+    UVManager& manag=UVManager::getInstance();
+    ptr=manag.getPtrUV(code);
+    insc.setUv(ptr);
+    insc.setSemestre(semTemp);
+    //ajouter à solTemp
+    solTemp.append(insc);
+
+
+return solTemp;
+}
 
 void AlgoCompletionSimple::createSolution(const Dossier *d){
-    int i=0;//1 dans l'algo
-    //recupere l'année en cours
-    time_t now = time(NULL);
-    struct tm * tm = localtime(&now);
-    anneeCurrent= tm_year;
     QList<Inscription> solTemp=sol;
     QMessageBox::information(0, "compl","code courrant:"+ mapTriee.begin().value());
     //iterateur pour parcourir la map
     QMap<int, QString>::Iterator itMap=mapTriee.begin();
-    //pairCurrent=mapTriee.Iterator
+
+
 
     //QString codeCurrent=itMap.value();
-    while((!(d->getCursusEtu()->is_completed(&solTemp)/*toutes les règles sont validées*/))&&((itMap.value()!=mapTriee.end().value()))){
-        if((itMap.key()==1/*UV obligatoire*/)||(/*UV ameliore dossier*/)){
-            //créer une inscription à l'uv
-            Inscription insc;
 
-            //trouver ou l'inserer en vérifiant un semestre=max35 cred et 7 uvs
 
-            //remplir l'objet inscription
-            //ajouter à solTemp
-        }
-        i++;
+    Inscription insc;
+    int fin=0;
+    float pourcentageMax=0;
+    QString UvAFaire;
+    QMap<int, QString>::Iterator itUV;
+    while((d->getCursusEtu()->completion_percentage(&solTemp))<100){
+          while(itMap.value()!=mapTriee.end().value()){
+              if((itMap.key())==1){
+                      solTemp=enregNouvInsc(solTemp,itMap.value());
+              }
+          }
     }
-    if(/*toutes les règles ne sont validées*/){
-        QMessageBox::warning(this, "Completion Dossier", "Votre dossier n'admet pas de solution, veuillez changer vos exigences et/ou preferences et/ou rejets")
+
+    while(((d->getCursusEtu()->completion_percentage(&solTemp))<100/*toutes les règles sont validées*/)&&(fin=0)){
+
+        pourcentageMax=0;
+        itUV=mapTriee.begin();
+        fin=1;
+        //Trouver l'uv qui fait le plus augmenter le pourcentage
+        while(itUV.value()!=mapTriee.end().value()){
+            QList<Inscription> solTempTemp=solTemp;
+            UVManager& manag=UVManager::getInstance();
+            const UV* ptr;
+            ptr=manag.getPtrUV(itUV.value());
+            insc.setUv(ptr);
+            solTempTemp.append(insc);
+            if((d->getCursusEtu()->completion_percentage(&solTempTemp))>pourcentageMax){
+                UvAFaire=itUV.value();
+                fin=0;
+            }
+        }
+        std::cout<<"le dossier est complété à "<<d->getCursusEtu()->completion_percentage(&solTemp)<< "Luv qui augmente le plus de pourcentage de completion est : "<<UvAFaire.toStdString();
+        solTemp=enregNouvInsc(solTemp,UvAFaire);
+        std::cout<<"Le dossier est maintenant complété à "<<d->getCursusEtu()->completion_percentage(&solTemp);
+
+    }
+
+    if((d->getCursusEtu()->completion_percentage(&solTemp))<100/*toutes les règles ne sont validées*/){
+        QMessageBox::warning(0, "Completion Dossier", "Votre dossier n'admet pas de solution, veuillez changer vos exigences et/ou preferences et/ou rejets");
+    }
+    else{
+        unsigned int i=d->getMapSol().lastKey();
+        //d->setMapSolutions(++i,solTemp);
     }
 }
 

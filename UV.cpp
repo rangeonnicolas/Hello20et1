@@ -85,6 +85,11 @@ UV& UVManager::getUV(const QString& code){
     return *uv;
 }
 
+const UV* UVManager::getPtrUV(const QString& code)const{
+    UV* uv=trouverUV(code);
+    if (!uv) throw UTProfilerException("erreur, UVManager, UV inexistante",__FILE__,__LINE__);
+    return uv;
+}
 
 const UV& UVManager::getUV(const QString& code)const{
     return const_cast<UVManager*>(this)->getUV(code);

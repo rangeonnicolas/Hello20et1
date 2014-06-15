@@ -27,11 +27,9 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWind
     QAction*SupprimerUV=mUVs->addAction("&Supprimer UV");
 
     QMenu*mCursus = menuBar()->addMenu("&Cursus");
-    QAction*VisualiserCursus=mCursus->addAction("&Visualiser");
-    mUVs->addSeparator();
+
     QAction*EditerCursus=mCursus->addAction("&Editer");
-    QAction*AjouterCursus=mCursus->addAction("&Ajouter");
-    QAction*SupprimerCursus=mCursus->addAction("&Supprimer");
+
 
     QMenu*mDossier = menuBar()->addMenu("&Dossier");
     QAction*Ouvrir=mDossier->addAction("&Ouvrir");
@@ -44,10 +42,9 @@ fenetrePrincipale::fenetrePrincipale(QWidget*parent,QApplication* app):QMainWind
 
     connect(AjouterUV, SIGNAL(triggered()),this,SLOT(ajouterUV()));
     connect(SupprimerUV, SIGNAL(triggered()),this,SLOT(supprimerUV()));
-    connect(VisualiserCursus, SIGNAL(triggered()),this,SLOT(visuCur()));
+
     connect(EditerCursus, SIGNAL(triggered()),this,SLOT(editCur()));
-    connect(AjouterCursus, SIGNAL(triggered()),this,SLOT(ajoutCur()));
-    connect(SupprimerCursus, SIGNAL(triggered()),this,SLOT(supprCur()));
+
     connect(Ouvrir, SIGNAL(triggered()),this,SLOT(ouvrir()));
     connect(Nouveau, SIGNAL(triggered()),this,SLOT(nouveau()));
     connect(Comple, SIGNAL(triggered()),this,SLOT(complet()));
@@ -63,7 +60,7 @@ void fenetrePrincipale::chargerDossier(){}
 void fenetrePrincipale::creerDossier(){}
 void fenetrePrincipale::ajouterUV(){}
 void fenetrePrincipale::supprimerUV(){}
-void fenetrePrincipale::visuCur(){}
+
 
 void fenetrePrincipale::chargerUV(){
     uvdb->connect();
@@ -77,8 +74,7 @@ void fenetrePrincipale::editCur(){
     setCentralWidget(fenetre);
 
 }
-void fenetrePrincipale::ajoutCur(){}
-void fenetrePrincipale::supprCur(){}
+
 
 void fenetrePrincipale::ouvrir(){
     //chargement du dossier
@@ -111,6 +107,7 @@ void fenetrePrincipale::nouveau(){
 }
 
 void fenetrePrincipale::complet(){
+
     fenCompletion* fenetre= new fenCompletion(this);
     setCentralWidget(fenetre);
 

@@ -3,7 +3,6 @@
 
 #include <QList>
 #include <QMap>
-#include <ctime>
 #include "UV.h"
 #include "dossier.h"
 
@@ -36,6 +35,7 @@ public:
     QList<Inscription> copieDossier(const Dossier *d);
     QMap<int, QString> &triUVs(const Dossier *d, const Demande *dem);
     void createSolution(const Dossier* d);
+    QList<Inscription> &enregNouvInsc(QList<Inscription>solTemp,QString code);
     void algo(Demande* dem){
         Demande* demande=dem;
         /*implementation*/
@@ -68,6 +68,7 @@ public:
     void setSemestresEtranger();
     void setCompletion(Completion* c){m_completion=c;}
     void chercherSolution(){m_completion->algo(this);}//methode qui appelle la completion
+
 };
 
 

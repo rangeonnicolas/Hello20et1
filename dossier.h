@@ -185,7 +185,7 @@ namespace INSCRIPTIONS {
         void setMapSolutions(unsigned int& i, QList<Inscription>& lP){mapSolutions.insert(i,lP);}
         void load(const QString path, Dossier *doss);
         void save();
-        void add_cursus(Cursus_Etudiant* cursusEtu){this->cursusEtu=cursusEtu;};
+        void add_cursus(Cursus_Etudiant* cursusEtu){this->cursusEtu=cursusEtu;}
         void delete_cursus();
         void add_equivalence();
         void delete_equivalence();
@@ -196,6 +196,7 @@ namespace INSCRIPTIONS {
         void delete_semestre_etranger();
         void save_solution();
         Cursus_Etudiant* getCursusEtu()const{return cursusEtu;}
+        QMap<unsigned int,QList<Inscription> > getMapSol()const{return mapSolutions;}
         static Dossier& getInstance();
         static void libererInstance();
 
