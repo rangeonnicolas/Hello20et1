@@ -155,14 +155,14 @@ string XUVParmi::toString () const {
 
    if(UVlist.length()>0){
         int i;
-          str = string("Obtenir ") + string(" UV parmi : ") ;
+          str = string("Obtenir ") + nb_str + string(" UV parmi : ") ;
        for(i=0; i<(UVlist.length()-1) ; i++)
             str =str + string(UVlist.at(i)->getCode().toStdString()) + "," ;
         i = UVlist.length()-1;
         str =str + UVlist.at(i)->getCode().toStdString() + "." ;
 
     }else{
-        str = "!!Règle incomplète";
+        //str = "!!Règle incomplète";
     }
 
     return str;
@@ -174,7 +174,7 @@ string XCreditsParmi::toString () const {
 
     if(typeList.length()>0){
         int i;
-        str = string("Obtenir ") + string(" créd. (") ;
+        str = string("Obtenir ") + nb_str + string(" créd. (") ;
         for(i=0; i<(typeList.length()-1) ; i++){
             str = str + typeList.at(i)->getLibelle().toStdString() + " ou " ;    
         }
@@ -185,7 +185,7 @@ string XCreditsParmi::toString () const {
             i = porteeList.length()-1;
             str = str + porteeList.at(i)->getLibelle().toStdString() + ")." ;
     }else{
-        str = "!!Règle incomplète";
+        //str = "!!Règle incomplète";
     }
 
     return str;
@@ -381,7 +381,7 @@ const QList<Profil*> Cursus::getProfileList() const{
         QList<Profil*> ret;
         QList<const CreditType*> vide1;//= new QList<const CreditType*>;
         QList<const Portee*> vide2;// = new QList<const Portee*>;
-        ValidationRule* foo = new XCreditsParmi(1,vide1,vide2,"(pas de règle de validation dans ce profil)");
+        ValidationRule* foo = new XCreditsParmi(1,vide1,vide2,"(pas de règle de validation dans ce profil)",string("1"));
         Profil* foo2 = new Profil("(pas de profil dans ce cursus)");
         foo2->addValidationRule(foo);
         ret<<foo2;

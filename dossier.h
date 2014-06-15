@@ -29,56 +29,58 @@ namespace INSCRIPTIONS {
     class ValidationRule: public CompletionPercentage{
     public:
         ValidationRule(const char* title): CompletionPercentage(title){  };
-        inline bool is_completed(QList<Inscription> *ti) const { return CompletionPercentage::is_completed(ti); };//TODO NICO: voir si on est obligé de redefinir la fonction
+        inline bool is_completed(QList<Inscription> *ti) const { return CompletionPercentage::is_completed(ti); };
         virtual float completion_percentage(QList<Inscription> *ti) const=0;
         virtual string toString() const=0;
         virtual void copyIntoQtRuleView(QStandardItem * item) const=0;
     };
 
-    class XUVParmi: public ValidationRule { //TODO NICO:verifier l'héritage publique
+    class XUVParmi: public ValidationRule { 
         unsigned int nb;
         QList<UV*> UVlist;
+        string nb_str;
     public:
         //bool is_completed(QList<Inscription> *ti) const;
-        XUVParmi(unsigned int x, const QList<UV*>& list,const char* title):ValidationRule(title),nb(x),UVlist(list){};
+        XUVParmi(unsigned int x, const QList<UV*>& list,const char* title,string nb_str):ValidationRule(title),nb(x),UVlist(list),nb_str(nb_str){};
         float completion_percentage(QList<Inscription> *ti) const;
         string toString() const;
         void copyIntoQtRuleView(QStandardItem * item) const;
         void testNullPtr(bool recursiv,bool debug)const;
     };
 
-    class XCreditsParmi: public ValidationRule { //TODO NICO:verifier l'héritage publique
+    class XCreditsParmi: public ValidationRule { 
         unsigned int nb;
         QList<const CreditType*> typeList;
         QList<const Portee*> porteeList;
+        string nb_str;
     public:
         //bool is_completed(QList<Inscription> *ti) const;
-        XCreditsParmi(unsigned int x, const QList<const CreditType*>& typeList ,const QList<const Portee*>& portees,const char* title):ValidationRule(title),nb(x),typeList(typeList),porteeList(portees){};
+        XCreditsParmi(unsigned int x, const QList<const CreditType*>& typeList ,const QList<const Portee*>& portees,const char* title,string nb_str):ValidationRule(title),nb(x),typeList(typeList),porteeList(portees),nb_str(nb_str){};
         float completion_percentage(QList<Inscription> *ti) const;
         string toString() const;
         void copyIntoQtRuleView(QStandardItem * item) const;
         void testNullPtr(bool recursiv,bool debug)const;
     };
 
-    class FonctionOU: public ValidationRule { //TODO NICO:verifier l'héritage publique
-        QList <ValidationRule*> VRlist; //TODO important : VRlist normalement ne doit pas etre un tableau de pointeurs pointeur
+    class FonctionOU: public ValidationRule { 
+        QList <ValidationRule*> VRlist; 
     public:
         //bool is_completed(QList<Inscription> *ti) const;
         FonctionOU(const char* title):ValidationRule(title),VRlist(){};
         float completion_percentage (QList<Inscription> *ti) const;
         string toString() const;
-        inline void addRule(ValidationRule* r){ VRlist.append(r) ;}; //TODO important : r normalement ne doit pas etre un pointeur
+        inline void addRule(ValidationRule* r){ VRlist.append(r) ;};
         void copyIntoQtRuleView(QStandardItem * item) const;
         void testNullPtr(bool recursiv,bool debug)const;
     };
 
-    class FonctionET: public ValidationRule { //TODO NICO:verifier l'héritage publique
-        QList <ValidationRule*> VRlist; //TODO important : VRlist normalement ne doit pas etre un tableau de pointeurs pointeur
+    class FonctionET: public ValidationRule {
+        QList <ValidationRule*> VRlist;
     public:
         FonctionET(const char* title):ValidationRule(title),VRlist(){};
         float completion_percentage (QList<Inscription> *ti) const;
         string toString() const;
-        inline void addRule(ValidationRule* r){ VRlist.append(r) ;}; //TODO important : r normalement ne doit pas etre un pointeur
+        inline void addRule(ValidationRule* r){ VRlist.append(r) ;}; 
         void copyIntoQtRuleView(QStandardItem * item) const;
         void testNullPtr(bool recursiv,bool debug)const;
     };
