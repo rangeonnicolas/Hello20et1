@@ -6,9 +6,9 @@
 
 using namespace UV_credits_types;
 
-namespace DATABASE{
 
-    class UnpersistentDataBaseA: public InterfacePersistence{
+namespace DATABASE{
+    class UnpersistentDataBaseA: public DATABASE::InterfacePersistence{
     public:
         QList<UV*>* getAllUVs() const;
         void saveAllUV() const{};

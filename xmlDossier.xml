@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dossier>
 	<login>cllefebv</login>
-	<cursus value="TC">
-		<cursus value="Branche">
-			<cursus value="GI"></cursus>
+	<cursus value="Tous les Cursus">
+		<cursus value="Cursus Ingénieur">
+			<cursus value="Curs.Ing. pour étudiant rentré en TC">
+				<cursus value="TRONC COMMUN">
+				</cursus>
+				<cursus value="BRANCHE (concept général)">
+					<cursus value="GI">
+						<cursus value="FDD">
+						</cursus>
+					</cursus>
+				</cursus>
+			</cursus>
 		</cursus>
 	</cursus>
 	

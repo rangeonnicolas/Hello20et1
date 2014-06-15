@@ -3,7 +3,6 @@
 
 #include "dossier.h"
 #include "UV.h"
-//#include "feneditdoss.h"
 
 #include <QTreeView>
 #include <QPushButton>
@@ -16,16 +15,13 @@ class fenEditDoss;// c'est juste pour spécifier au compilateur que plus tard, i
 
 namespace GRAPHICALEDITORS{
 
-    using namespace question3;
+    using namespace INSCRIPTIONS;
 
     class CURSUSAdder : public QWidget{
         Q_OBJECT
 
         QListView*   SOUScursusSelector ;
         QLabel*      SOUScursusLabel;
-
-        //QPushButton* ok ;
-        //QPushButton* annuler ;
 
         QVBoxLayout* couche;
 
@@ -77,8 +73,6 @@ namespace GRAPHICALEDITORS{
         };
         Cursus_Etudiant* getCursusSaisiParLEtudiant(){return studentCursus;};
     private:
-        //void initView();
-        //void refresh();
     signals:
     public slots:
         void editionFinished();
@@ -87,10 +81,6 @@ namespace GRAPHICALEDITORS{
         void clicCursusSelection(const QModelIndex&);
         void jeDoisMeFermer(){this->close();};
     };
-
-
-
-
 
 
 }

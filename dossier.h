@@ -2,6 +2,7 @@
 #define DOSSIER_H
 
 #include "UV.h"
+#include "inscription.h"
 
 #include <QString>
 #include <QDialog>
@@ -10,101 +11,13 @@
 #include <QWidget>
 #include <QMessageBox>
 
-//class UTProfilerException{
-//public:
-//    UTProfilerException(const QString& message, const QString &f="na", unsigned int l=0):
-//        info(message),file(f),line(l){}
-//    QString getInfo() const { return info; }
-//#ifndef NDEBUG
-//    // retourne le fichier dans lequel cettte exception a été levée.
-//    QString getFile() const { return file; }
-//    // retourne la ligne du fichier à laquelle cette exception a été levée.
-//    unsigned int getLine() const { return line; }
-//#endif
-//private:
-//    QString info;
-//    QString file;
-//    unsigned int line;
-
-//};
-
-
-
 using namespace UV_credits_types;
-namespace question3 {
 
-    enum Note {A, B, C, D, E, FX, F, RES, ABS, EC, AF};
-    Note StringToNote (const QString s);
-
-
-    //Categorie devient CreditType
-        /*
-    enum Categorie {CS, TM, TSH, SP};
-    Categorie StringToCategorie(const QString& s);
-    QString CategorieToString(Categorie c);
-    //ostream& operator<<(ostream& f, const Categorie& s);
-    //istream& operator>>(istream& f, Categorie& cat);
-    */
-
-    enum Saison { Automne, Printemps };
-    //inline ostream& operator<<(ostream& f, const Saison& s) { if (s==Automne) f<<"A"; else f<<"P"; return f;}
-    Saison StringToSaison(const QString s);
-
-
-    class Semestre {
-        Saison saison;
-        unsigned int annee;
-    public:
-        Semestre(Saison s, unsigned int a):saison(s),annee(a){ /*if (annee<1972||annee>2099) throw exception("annee non valide");*/ }
-        Semestre(){}
-        Saison getSaison() const { return saison; }
-        unsigned int getAnnee() const { return annee; }
-        void setSaison(const Saison& s){saison=s;}
-        void setAnnee(const unsigned int& a){annee=a;}
-    };
-
-    //inline ostream& operator<<(ostream& f, const Semestre& s) { return f<<s.getSaison()<<s.getAnnee()%100; }
-
-    class Inscription{
-            Semestre semestre;
-            Note resultat;
-            const UV* uv;
-        public:
-            Inscription (const UV& u, const Semestre& s, Note res=AF):uv(&u), semestre(s), resultat(res){}
-            Inscription (){}
-            Inscription (UV* uv, Note res):uv(uv),resultat(res){}
-            const UV& getUV()const {return *uv;}
-            Semestre getSemestre() const{return semestre;}
-            Note getResultat() const {return resultat;}
-            void setResultat(const Note& newres){resultat=newres;}
-            void setSemestre (const Semestre& s){semestre=s;}
-            void setUv(const UV* u){uv=u;}
-        };
-
-
-    class CursusNullPtrException{
-    public:
-           CursusNullPtrException(const QString& message):
-               info(message){}
-           QString getInfo() const { return info; }
-    private:
-           QString info;
-    };
-
-
-
-
-
-
-
-
-
-
-
+namespace INSCRIPTIONS {
 
     class CompletionPercentage{
     protected:
-        const char* name;//TODO NICO: pertinence de mettre ca la?
+        const char* name;
     public:
         CompletionPercentage(const char* title):name(title){};
         inline const char* getName() const{return name;};
@@ -117,9 +30,6 @@ namespace question3 {
     public:
         ValidationRule(const char* title): CompletionPercentage(title){  };
         inline bool is_completed(QList<Inscription> *ti) const { return CompletionPercentage::is_completed(ti); };//TODO NICO: voir si on est obligé de redefinir la fonction
-        //bool is_completed(QList<Inscription> *ti) const;
-        //inline bool is_completed(QList<Inscription> *ti) const {return (this->completion_percentage(ti) >= 100) ;};
-        //virtual bool is_completed(QList<Inscription> *ti) const=0;
         virtual float completion_percentage(QList<Inscription> *ti) const=0;
         virtual string toString() const=0;
         virtual void copyIntoQtRuleView(QStandardItem * item) const=0;
@@ -165,7 +75,6 @@ namespace question3 {
     class FonctionET: public ValidationRule { //TODO NICO:verifier l'héritage publique
         QList <ValidationRule*> VRlist; //TODO important : VRlist normalement ne doit pas etre un tableau de pointeurs pointeur
     public:
-        //bool is_completed(QList<Inscription> *ti) const;
         FonctionET(const char* title):ValidationRule(title),VRlist(){};
         float completion_percentage (QList<Inscription> *ti) const;
         string toString() const;
@@ -182,9 +91,6 @@ namespace question3 {
         inline void addValidationRule(ValidationRule *r){ VRlist.append(r) ;};
         float completion_percentage (QList<Inscription> *ti) const;
         string toString(int k) const;
-        //TODO NICO: ne pas oublier la suppression
-        // TODO NICO: ici il y a surement de la factory derriere.
-        //verifier toutes les associations........
         void copyIntoQtRuleView(QStandardItemModel *modeleRegl) const;
         void testNullPtr(bool recursiv,bool debug)const;
     };
@@ -193,24 +99,14 @@ namespace question3 {
     protected:
         QList<Profil*> PROlist;
         QList<Cursus*> SOUS_cursus;
-        //TODO nico: iterator pour les friend class?
-    //friend class CUSSUSSelector;
-   // friend class CURSUSEditor;
     public:
         Cursus(const char* title):CompletionPercentage(title){}
-        //Cursus(const Cursus& c):CompletionPercentage(C.title),PROlist(C.PROlist),SOUS_cursus(c.SOUS_cursus);//TODO NICO: ici constructeur de recopie
         Cursus():CompletionPercentage(""){}
         bool is_completed(QList<Inscription> *ti) const;
         inline void addProfil(Profil *p){ PROlist.append(p) ;}
         inline void addSousCursus(Cursus *c){SOUS_cursus.append(c);}
         float completion_percentage (QList<Inscription> *ti) const;
         string toString(int k) const;
-        //TODO NICO: ne pas oublier la suppression
-        //TODO NICO: ici il y a surement de la factory derriere.
-        //TODO NICO: verifier toutes les associations........
-        //TODO NICO : DP composite
-        //TODO NICO : DP decorator?:
-    //private:
         const QList<Profil*> getProfileList() const;
         const QList<Cursus*> getSOUSCursusList() const;
         void copyIntoQtCursusView(QStandardItem *itemCursus) const;
@@ -228,29 +124,26 @@ namespace question3 {
         void testNullPtr(bool recursiv,bool debug)const;
     };
 
-   class QStandardItem_Cursus: public QStandardItem{//TODO NICO si ca fonctionne, en parler ds le rapport
+   class QStandardItem_Cursus: public QStandardItem{
         Cursus* cursus;
     public:
         QStandardItem_Cursus(const char* name,Cursus *c):QStandardItem::QStandardItem(name),cursus(c){};
         inline Cursus* getCursus()const {return cursus;};
    };
 
-   class QStandardItem_Cursus_Etudiant: public QStandardItem{//TODO NICO si ca fonctionne, en parler ds le rapport
+   class QStandardItem_Cursus_Etudiant: public QStandardItem{
         Cursus_Etudiant* cursus;
     public:
         QStandardItem_Cursus_Etudiant(const char* name,Cursus_Etudiant *c):QStandardItem::QStandardItem(name),cursus(c){};
         inline Cursus_Etudiant* getCursus()const {return cursus;};
    };
 
-   class QStandardItem_Profil: public QStandardItem{//TODO NICO si ca fonctionne, en parler ds le rapport
+   class QStandardItem_Profil: public QStandardItem{
         Profil* profil;
     public:
         QStandardItem_Profil(const char* name,Profil *c):QStandardItem::QStandardItem(name),profil(c){};
         inline Profil* getProfil()const {return profil;};
    };
-
-
-
 
 
 
@@ -264,19 +157,6 @@ namespace question3 {
         void setCredits(const Credits& c){credits=c;}
         void setPortee(const Portee& p){cursus_applicable=p;}
     };
-
-    /*class Prevision{//refaire en utilisant le design pattern adapter
-        Semestre semestre;
-        const UV* uv;
-    public:
-        Prevision(Semestre s, const UV* u):semestre(s), uv(u){}
-        Prevision(){}
-        Semestre getSemestre()const{return semestre;}
-        const UV getUV()const; //pas inline car il faut appeller getTitre(), getCode ... de UV
-        void setSemestre(const Semestre& s){semestre=s;}
-        void setUv(const UV* u){uv=u;}
-    };
-    */
 
 
     class Dossier{
@@ -321,34 +201,6 @@ namespace question3 {
 
     };
 
-    //class pour lire et récupérer un fichier XML avec le dossier
-    class XmlStreamReader
-    {
-    public:
-        XmlStreamReader(Dossier* doss, Cursus *rootCursus);
-        Cursus* rootCursus;
-        bool readFile(const QString& fileName);
-
-    private:
-        void readDossier();
-        void readRecursiveCursus(Cursus_Etudiant*ce);
-        Inscription& readInscription(Inscription &in);
-        Semestre& readSemestre(Semestre& sem);
-        UV* readUv();
-        Equivalence& readEquivalence(Equivalence& equi);
-        Credits& readCredits(Credits& cred);
-        QList<Inscription> readSolution();
-        Inscription& readPrevision(Inscription& prev);
-        void skipUnknownElement();
-
-        Dossier* dossierAremplir;
-        QXmlStreamReader reader;
-    };
-
-
-
-}//fin namespace question3
-
-
+}
 
 #endif // DOSSIER_H

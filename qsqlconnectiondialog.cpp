@@ -1,3 +1,9 @@
+/* 
+/*  CODE ADAPTE DE DEMOS QT EN LIGNE
+/*
+*/
+
+
 #include "qsqlconnectiondialog.h"
 #include "ui_qsqlconnectiondialog.h"
 

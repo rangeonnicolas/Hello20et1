@@ -26,10 +26,11 @@ void recupDonnees::activerOK(){
 
 void recupDonnees::recupererDonnees(){
 
-    if (ui->radioButton_DB->isChecked())
+    if (ui->radioButton_DB->isChecked()){
         *donn=1;
-    else
+    }else{
         *donn=2;
+    }
     close();
 }
 

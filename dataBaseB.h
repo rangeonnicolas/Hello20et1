@@ -3,7 +3,7 @@
 
 #include "dossier.h"
 
-using namespace question3;
+using namespace INSCRIPTIONS;
 
 class UnpersistentDataBaseB{
 public:
