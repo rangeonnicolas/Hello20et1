@@ -3,6 +3,7 @@
 
 #include <QList>
 #include <QMap>
+#include <ctime>
 #include "UV.h"
 #include "dossier.h"
 
@@ -27,14 +28,14 @@ public:
 };
 
 class AlgoCompletionSimple: public Completion{
-    QMap<UV, int> mapTriee;
+    QMap<int, QString> mapTriee;
     QList<Inscription> sol;//var pour stocker copie puis sol
 
 public:
 
     QList<Inscription> copieDossier(const Dossier *d);
-    QMap<UV, int>& triUVs(const Dossier *d, const Demande *dem);
-    void createSolution();
+    QMap<int, QString> &triUVs(const Dossier *d, const Demande *dem);
+    void createSolution(const Dossier* d);
     void algo(Demande* dem){
         Demande* demande=dem;
         /*implementation*/
@@ -42,7 +43,7 @@ public:
         sol=copieDossier(&dossier);
 
         mapTriee=triUVs(&dossier, demande);
-        createSolution();
+        createSolution(&dossier);
     }
 };
 

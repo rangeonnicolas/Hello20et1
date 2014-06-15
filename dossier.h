@@ -315,7 +315,7 @@ namespace question3 {
         void add_semestre_etranger();
         void delete_semestre_etranger();
         void save_solution();
-        Cursus_Etudiant* getCursusEtu(){return cursusEtu;};
+        Cursus_Etudiant* getCursusEtu()const{return cursusEtu;}
         static Dossier& getInstance();
         static void libererInstance();
 
