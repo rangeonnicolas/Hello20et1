@@ -67,6 +67,7 @@ void fenEditDoss::validerDossier(){
 
     //fermer la fenetre
     close();
+    complet();
 }
 
 void fenEditDoss::openCurs(){
@@ -129,3 +130,9 @@ void fenEditDoss::lEtudiantAAjouteUnCursusetu(){
 
 
 
+void fenEditDoss::complet(){
+
+    fenCompletion* fenetre= new fenCompletion(this);
+    fenetre->show();
+
+}

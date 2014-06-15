@@ -29,10 +29,7 @@ public slots:
     void creerDossier();
     void ajouterUV();
     void supprimerUV();
-    void visuCur();
     void editCur();
-    void ajoutCur();
-    void supprCur();
     void ouvrir();
     void nouveau();
     void complet();

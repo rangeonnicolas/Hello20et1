@@ -8,6 +8,7 @@
 
 #include "dossier.h"
 #include "CursusSelector.h"
+#include "fencompletion.h"
 
 using namespace INSCRIPTIONS;
 
@@ -46,6 +47,7 @@ public slots:
         void ajouterEtape4();
         void openCurs();
         void lEtudiantAAjouteUnCursusetu();
+        void complet();
 private slots:
 
 };
