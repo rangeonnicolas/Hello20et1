@@ -33,7 +33,7 @@
 using namespace UV_credits_types;
 namespace question3 {
 
-    enum Note {A, B, C, D, E, FX, F, RES, ABS, EC};
+    enum Note {A, B, C, D, E, FX, F, RES, ABS, EC, AF};
     Note StringToNote (const QString s);
 
 
@@ -70,7 +70,7 @@ namespace question3 {
             Note resultat;
             const UV* uv;
         public:
-            Inscription (const UV& u, const Semestre& s, Note res=EC):uv(&u), semestre(s), resultat(res){}
+            Inscription (const UV& u, const Semestre& s, Note res=AF):uv(&u), semestre(s), resultat(res){}
             Inscription (){}
             Inscription (UV* uv, Note res):uv(uv),resultat(res){}
             const UV& getUV()const {return *uv;}
@@ -265,7 +265,7 @@ namespace question3 {
         void setPortee(const Portee& p){cursus_applicable=p;}
     };
 
-    class Prevision{//refaire en utilisant le design pattern adapter
+    /*class Prevision{//refaire en utilisant le design pattern adapter
         Semestre semestre;
         const UV* uv;
     public:
@@ -276,6 +276,7 @@ namespace question3 {
         void setSemestre(const Semestre& s){semestre=s;}
         void setUv(const UV* u){uv=u;}
     };
+    */
 
 
     class Dossier{
@@ -283,7 +284,7 @@ namespace question3 {
         Cursus_Etudiant* cursusEtu;
         QList<Inscription> inscr;
         QList<Equivalence> equivalences;
-        QMap<unsigned int,QList<Prevision> > mapSolutions;
+        QMap<unsigned int,QList<Inscription> > mapSolutions;
         bool modification;
         QString file;
         Dossier();
@@ -299,15 +300,16 @@ namespace question3 {
         void setInscr(QList<Inscription>& i){inscr.append(i);}
         void setEqui(QList<Equivalence>& e){equivalences.append(e);}
         void setInscr(Inscription& i){inscr.push_back(i);}
+        QList<Inscription> getInscr()const {return inscr;}
         void setEqui(Equivalence& e){equivalences.push_back(e);}
-        void setMapSolutions(unsigned int& i, QList<Prevision>& lP){mapSolutions.insert(i,lP);}
+        void setMapSolutions(unsigned int& i, QList<Inscription>& lP){mapSolutions.insert(i,lP);}
         void load(const QString path, Dossier *doss);
         void save();
         void add_cursus(Cursus_Etudiant* cursusEtu){this->cursusEtu=cursusEtu;};
         void delete_cursus();
         void add_equivalence();
         void delete_equivalence();
-        void ajouter_inscription(Saison sais,unsigned int annee, Note res, QString code);
+       // void ajouter_inscription(Saison sais,unsigned int annee, Note res, QString code);
         void add_inscription(Inscription inscrip);
         void delete_inscription();
         void add_semestre_etranger();
@@ -335,8 +337,8 @@ namespace question3 {
         UV* readUv();
         Equivalence& readEquivalence(Equivalence& equi);
         Credits& readCredits(Credits& cred);
-        QList<Prevision> readSolution();
-        Prevision& readPrevision(Prevision& prev);
+        QList<Inscription> readSolution();
+        Inscription& readPrevision(Inscription& prev);
         void skipUnknownElement();
 
         Dossier* dossierAremplir;
